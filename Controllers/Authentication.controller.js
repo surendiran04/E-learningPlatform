@@ -1,46 +1,130 @@
-const AuthModel = require("../Models/userModel");
+// const AuthModel = require("../Models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
-const secret = process.env.secretKey;
-const transporter = require("../Utils/sendEmail");
+// const secret = process.env.secretKey;
+// const transporter = require("../Utils/sendEmail");
+const { db } = require('../../E-learningPlatform/Database/DBconfig')
+
+// async function createUser(req, res) {
+//   try {
+//     const existingEmail = await db.query("SELECT * FROM student where email=$1 ", [req.body.email]);
+
+//     const email = existingEmail.rows[0]?.email;
+//     console.log(email);
+
+//     if (email) {
+//       return res
+//         .status(400)
+//         .send({ success: false, message: "EmailId already exists" });
+//     } else {
+//       console.log("else ent");
+//       const data = req.body;
+//       if (data.pass) {
+//         bcrypt.hash(data.pass, saltRounds, function (err, hash) {
+//           if (hash) {
+//             // let User = new AuthModel({ ...req.body, password: hash });
+//             data.pass = hash;
+//             console.log(data);
+//             db.query("INSERT INTO STUDENT(student_id,student_name, batch,course,fee,phone,email,pass ) VALUES($1,$2,$3,$4,$5,$6,$7)", [data]).then((result) => {
+//               return res
+//                 .status(201)
+//                 .send({ success: true, message: "User created sucessfully!" });
+//             }).catch((error) => {
+//                 return res.status(500).json({
+//                   success: false,
+//                   message: error,
+//                 });
+//               })
+//             // console.log(result);
+//             // User.save();
+
+//           } else {
+//             return res.status(500).json({
+//               success: false,
+//               message: "something went wrong",
+//             });
+//           }
+//         });
+//       }
+//     }
+
+
+//   } catch (error) {
+//     return res.status(500).send({
+//       success: false,
+//       error: error.message,
+//     });
+//   }
+// }
 
 async function createUser(req, res) {
   try {
-    const existingEmail = await AuthModel.findOne({
-      email: req.body.email,
-    });
+    const existingEmail = await db.query("SELECT * FROM student WHERE email = $1", [req.body.email]);
+    const email = existingEmail.rows[0]?.email;
 
-    if (existingEmail) {
-      return res
-        .status(400)
-        .send({ success: false, message: "EmailId already exists" });
+    if (email) {
+      return res.status(400).json({ success: false, message: "EmailId already exists" });
     } else {
-      if (req.body.password) {
-        bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
-          if (hash) {
-            let User = new AuthModel({ ...req.body, password: hash });
-            User.save();
-            return res
-              .status(201)
-              .send({ success: true, message: "User created sucessfully!" });
-          } else {
-            return res.status(500).json({
-              success: false,
-              message: "Something went wrong",
-            });
+      const data = req.body;
+      if (data.pass) {
+        bcrypt.hash(data.pass, saltRounds, function (err, hash) {
+          if (err) {
+            console.error("Error hashing password:", err); // Log the error
+            return res.status(500).json({ success: false, message: "Something went wrong" });
           }
+          data.pass = hash;
+          console.log("Hashed password:", hash); // Log the hashed password for debugging
+          db.query("INSERT INTO STUDENT(student_name, batch, course, fees, phone, email, pass) VALUES ($1, $2, $3, $4, $5, $6, $7)", [data.student_name, data.batch, data.course, data.fees, data.phone, data.email, data.pass])
+            .then(() => {
+              return res.status(201).json({ success: true, message: "User created successfully!" });
+            })
+            .catch((error) => {
+              console.error("Error executing query:", error); // Log the query execution error
+              return res.status(500).json({ success: false, message: "Internal server error. Please try again later." });
+            });
         });
       }
     }
   } catch (error) {
-    return res.status(500).send({
-      success: false,
-      error: error.message,
-    });
+    console.error("Error in createUser:", error); // Log any other errors
+    return res.status(500).json({ success: false, message: "Internal server error. Please try again later." });
   }
 }
 
+
+/*
+if (existingEmail) {
+  return res
+    .status(400)
+    .send({ success: false, message: "EmailId already exists" });
+} else {
+  if (req.body.password) {
+    bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+      if (hash) {
+        // let User = new AuthModel({ ...req.body, password: hash });
+
+        db.query("INSERT INTO STUDENT VALUES()", (err, res));
+        // User.save();
+        return res
+          .status(201)
+          .send({ success: true, message: "User created sucessfully!" });
+      } else {
+        return res.status(500).json({
+          success: false,
+          message: "Something went wrong",
+        });
+      }
+    });
+  }
+}
+} catch (error) {
+return res.status(500).send({
+  success: false,
+  error: error.message,
+});
+}*/
+/*
 function signInUser(req, res) {
   const { email, password } = req.body;
   if (!email) {
@@ -195,5 +279,6 @@ const updatePass = async (req, res) => {
     });
   }
 };
-
-module.exports = { createUser, signInUser, forgotPassword, updatePass };
+*/
+// module.exports = { createUser, signInUser, forgotPassword, updatePass };
+module.exports = { createUser }
