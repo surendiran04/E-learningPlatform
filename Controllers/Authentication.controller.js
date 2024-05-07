@@ -1,4 +1,3 @@
-// const AuthModel = require("../Models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
@@ -94,68 +93,6 @@ async function signInUser(req, res) {
   }
 }
 
-/*
-const forgotPassword = async (req, res) => {
-  const { email } = req.body;
-  if (!email) {
-    return res.status(400).json({
-      success: false,
-      message: "Email is missing",
-    });
-  }
-  try {
-    const user = await AuthModel.findOne({ email: email });
-    if (user && user._id) {
-      const token = jwt.sign({ id: user._id }, secret, {
-        expiresIn: 3 * 60, //session time
-      });
-      const setusertoken = await AuthModel.findByIdAndUpdate(
-        { _id: user._id },
-        { verifytoken: token },
-        { new: true }
-      );
-      if (setusertoken) {
-        const options = {
-          from: {
-            name: "Web Admin",
-            address: process.env.EMAIL_USER,
-          },
-          to: email,
-          subject: "Reset Password - Reg",
-          html: `<h3>Hello! Here is your New password Link</h3>
-                <h5>The Link is valid only for the next 3 minutes</h5>
-              <a href="https://surendiran-loginpage.vercel.app/resetPassword/${user._id}/${token}">Click here</a>`,
-        };
- 
-        // Send Email
-        transporter.sendMail(options, function (err, info) {
-          if (err) {
-            return res.status(400).json({
-              success: false,
-              message: "Error occured!Try after sometime",
-            });
-          } else {
-            return res
-              .status(200)
-              .json({ success: true, message: "Email Sent successfully" });
-          }
-        });
-      }
-    } else {
-      return res.status(400).json({
-        success: false,
-        message: "Account does not exists!",
-      });
-    }
-  } catch (error) {
-    return res.status(500).send({
-      success: false,
-      error: error.message,
-    });
-  }
-};
-
-*/
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
   if (!email) {
@@ -215,8 +152,8 @@ const forgotPassword = async (req, res) => {
     error: error.message,
   });
 }
-};/*
- */
+};
+
 const updatePass = async (req, res) => {
   const password = req.body.pass;
   const { id, token } = req.params;
