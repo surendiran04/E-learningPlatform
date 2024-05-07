@@ -3,7 +3,7 @@ const {
   signInUser,
   forgotPassword,
   updatePass
-} = require("../Controllers/Authentication.controller");
+} = require("../Controllers/student_Authentication.controller");
 
 const AuthRouter = require("express").Router();
 
