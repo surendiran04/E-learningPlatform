@@ -2,7 +2,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
-// const secret = process.env.secretKey;
+const secret = process.env.secretKey;
 // const transporter = require("../Utils/sendEmail");
 const { db } = require('../../E-learningPlatform/Database/DBconfig')
 
@@ -177,7 +177,64 @@ function signInUser(req, res) {
       });
     });
 }
+*/
 
+
+async function signInUser(req, res) {
+  try {
+    const { email, pass } = req.body;
+
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: "Email is missing",
+      });
+    }
+    if (!pass) {
+      return res.status(400).json({
+        success: false,
+        message: "Password is missing",
+      });
+    }
+
+    await db.query("SELECT student_id,student_name,email,pass FROM student WHERE email = $1", [email])
+      .then((response) => {
+        if (response.rows[0] && response.rows[0].student_id) {
+          bcrypt.compare(pass, response.rows[0].pass).then(function (result) {
+            //if result is true then both the pass are crt
+            if (result) {
+              const token = jwt.sign({ role: ["student"] }, secret, {
+                expiresIn: 60 * 5, //session time
+              });
+              return res.status(200).json({
+                success: true,
+                message: "Sign In successful",
+                token: token,
+                user: response.rows[0].student_name,
+              });
+            } else {
+              return res.status(400).json({
+                //having a emailId checking whether entered pass is crt user using the db.pass
+                success: false,
+                message: "Email Id or Password is invalid!",
+              });
+            }
+          });
+        } else {
+          return res.status(400).json({
+            success: false,
+            message: "Account does not exists!",
+          });
+        }
+      })
+  }
+  catch (error) {
+    return res.status(500).json({ success: false, message: "Internal server error. Please try again later." });
+
+  }
+}
+
+/*
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
   if (!email) {
@@ -209,7 +266,7 @@ const forgotPassword = async (req, res) => {
                 <h5>The Link is valid only for the next 3 minutes</h5>
               <a href="https://surendiran-loginpage.vercel.app/resetPassword/${user._id}/${token}">Click here</a>`,
         };
-
+ 
         // Send Email
         transporter.sendMail(options, function (err, info) {
           if (err) {
@@ -237,32 +294,32 @@ const forgotPassword = async (req, res) => {
     });
   }
 };
-
+ 
 const updatePass = async (req, res) => {
   const {password} = req.body;
-
-
+ 
+ 
   const { id, token } = req.params;
-
+ 
   if( !id && !token ){
     res
     .status(401)
     .json({ success: false, message: "Unauthorized Access!" });
   }
-
+ 
  
   try {
     const validuser = await AuthModel.findOne({ _id: id});
-
+ 
     const verifyToken = jwt.verify(token, secret);
     if (validuser._id == verifyToken.id) {
-
+ 
       const newpassword = await bcrypt.hash(password, saltRounds);
       const newuser = await AuthModel.findByIdAndUpdate(
         { _id: id },
         { password: newpassword }
       );
-
+ 
       newuser.save();
       res
         .status(201)
@@ -281,4 +338,4 @@ const updatePass = async (req, res) => {
 };
 */
 // module.exports = { createUser, signInUser, forgotPassword, updatePass };
-module.exports = { createUser }
+module.exports = { createUser, signInUser }
