@@ -2,7 +2,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 const secret = process.env.secretKey;
-// const transporter = require("../Utils/sendEmail");
+const FE_URL= process.env.FRONTEND_URL;
+const transporter = require("../Utils/sendEmail");
 const { db } = require('../../E-learningPlatform/Database/DBconfig')
 
 async function createUser(req, res) {
@@ -27,15 +28,13 @@ async function createUser(req, res) {
               return res.status(201).json({ success: true, message: "User created successfully!" });
             })
             .catch((error) => {
-              console.error("Error executing query:", error); // Log the query execution error
-              return res.status(500).json({ success: false, message: "Internal server error. Please try again later." });
-            });
+              return res.status(500).json({ success: false, message:error.message, });
+            })
         });
       }
     }
   } catch (error) {
-    console.error("Error in createUser:", error); // Log any other errors
-    return res.status(500).json({ success: false, message: "Internal server error. Please try again later." });
+    return res.status(500).json({ success: false, message:error.message, });
   }
 }
 
@@ -88,7 +87,7 @@ async function signInUser(req, res) {
       })
   }
   catch (error) {
-    return res.status(500).json({ success: false, message: "Internal server error. Please try again later." });
+    return res.status(500).json({ success: false, message: error.message,});
 
   }
 }
@@ -120,7 +119,7 @@ const forgotPassword = async (req, res) => {
               subject: "Reset Password - Reg",
               html: `<h3>Hello! Here is your New password Link</h3>
                 <h5>The Link is valid only for the next 3 minutes</h5>
-              <a href="https://surendiran-loginpage.vercel.app/resetPassword/${user._id}/${token}">Click here</a>`,
+              <a href="${FE_URL}/resetPassword/${user._id}/${token}">Click here</a>`,
             };
 
             // Send Email
@@ -145,11 +144,10 @@ const forgotPassword = async (req, res) => {
         }
       })
   }
-
   catch (error) {
   return res.status(500).send({
     success: false,
-    error: error.message,
+    message: error.message,
   });
 }
 };
@@ -189,7 +187,7 @@ const updatePass = async (req, res) => {
   catch (error) {
     return res.status(500).send({
       success: false,
-      error: error.message,
+      message: error.message,
     });
   }
 };
