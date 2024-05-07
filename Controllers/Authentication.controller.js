@@ -154,48 +154,107 @@ const forgotPassword = async (req, res) => {
     });
   }
 };
- 
-const updatePass = async (req, res) => {
-  const {password} = req.body;
- 
- 
-  const { id, token } = req.params;
- 
-  if( !id && !token ){
-    res
-    .status(401)
-    .json({ success: false, message: "Unauthorized Access!" });
+
+*/
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({
+      success: false,
+      message: "Email is missing",
+    });
   }
- 
- 
   try {
-    const validuser = await AuthModel.findOne({ _id: id});
- 
+    await db.query("SELECT student_id FROM student WHERE email = $1", [email])
+      .then((response) => {
+        const user_id = response.rows[0].student_id;
+        if (response.rows[0] && user_id) {
+          const token = jwt.sign({ id: user_id }, secret, {
+            expiresIn: 5 * 60, //session time
+          });
+          if (token) {
+            console.log(token, user_id);
+            const options = {
+              from: {
+                name: "Web Admin",
+                address: process.env.EMAIL_USER,
+              },
+              to: email,
+              subject: "Reset Password - Reg",
+              html: `<h3>Hello! Here is your New password Link</h3>
+                <h5>The Link is valid only for the next 3 minutes</h5>
+              <a href="https://surendiran-loginpage.vercel.app/resetPassword/${user._id}/${token}">Click here</a>`,
+            };
+
+            // Send Email
+            transporter.sendMail(options, function (err, info) {
+              if (err) {
+                return res.status(400).json({
+                  success: false,
+                  message: "Error occured!Try after sometime",
+                });
+              } else {
+                return res
+                  .status(200)
+                  .json({ success: true, message: "Email Sent successfully" });
+              }
+            });
+          }
+        } else {
+          return res.status(400).json({
+            success: false,
+            message: "Account does not exists!",
+          });
+        }
+      })
+  }
+
+  catch (error) {
+  return res.status(500).send({
+    success: false,
+    error: error.message,
+  });
+}
+};/*
+ */
+const updatePass = async (req, res) => {
+  const password = req.body.pass;
+  const { id, token } = req.params;
+  if (!id && !token) {
+    res
+      .status(401)
+      .json({ success: false, message: "Unauthorized Access!" });
+  }
+  try {
+    const validuser = await db.query("SELECT student_id FROM student WHERE student_id = $1", [id]);
     const verifyToken = jwt.verify(token, secret);
-    if (validuser._id == verifyToken.id) {
- 
+    if (validuser.rows[0].student_id == verifyToken.id) {
       const newpassword = await bcrypt.hash(password, saltRounds);
-      const newuser = await AuthModel.findByIdAndUpdate(
-        { _id: id },
-        { password: newpassword }
-      );
- 
-      newuser.save();
-      res
-        .status(201)
-        .json({ success: true, message: "Password updated successfully" });
-    } else {
+
+      const response = await db.query("UPDATE student SET pass=$1 WHERE student_id = $2", [newpassword, id])
+      if (response) {
+        res
+          .status(201)
+          .json({ success: true, message: "Password updated successfully" });
+      }
+      else {
+        res
+          .status(401)
+          .json({ success: false, message: "something went wrong!" });
+      }
+    }
+    else {
       res
         .status(401)
         .json({ success: false, message: "User does not exists!" });
     }
-  } catch (error) {
+  }
+  catch (error) {
     return res.status(500).send({
       success: false,
       error: error.message,
     });
   }
 };
-*/
-// module.exports = { createUser, signInUser, forgotPassword, updatePass };
-module.exports = { createUser, signInUser }
+
+module.exports = { createUser, signInUser, forgotPassword, updatePass };

@@ -1,16 +1,18 @@
-// const mongoose = require("mongoose");
 require('dotenv').config();
 
 const pg = require("pg");
 
+let { PGHOST, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "E-learning",
-  password: "hari13569",
+  user: PGUSER,
+  host: PGHOST,
+  database: PGDATABASE,
+  password: PGPASSWORD,
   port: 5432,
+  ssl: {
+    require: true
+  }
 });
-
 
 
 module.exports = {
