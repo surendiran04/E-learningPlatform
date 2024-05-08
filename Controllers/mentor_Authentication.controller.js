@@ -2,41 +2,63 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 const secret = process.env.secretKey;
-const FE_URL= process.env.FRONTEND_URL;
+const FE_URL = process.env.FRONTEND_URL;
 const transporter = require("../Utils/sendEmail");
-const { db } = require('../Database/DBconfig')
+const { db } = require("../Database/DBconfig");
 
-async function createStudent(req, res) {
+async function createMentor(req, res) {
   try {
-    const existingEmail = await db.query("SELECT * FROM student WHERE email = $1", [req.body.email]);
+    const existingEmail = await db.query(
+      "SELECT * FROM mentor WHERE email = $1",
+      [req.body.email]
+    );
     const email = existingEmail.rows[0]?.email;
 
     if (email) {
-      return res.status(401).json({ success: false, message: "EmailId already exists" });
+      return res
+        .status(401)
+        .json({ success: false, message: "EmailId already exists" });
     } else {
       const data = req.body;
       if (data.pass) {
         bcrypt.hash(data.pass, saltRounds, function (err, hash) {
           if (err) {
-            return res.status(500).json({ success: false, message: "Something went wrong" });
+            return res
+              .status(500)
+              .json({ success: false, message: "Something went wrong" });
           }
           data.pass = hash;
-          db.query("INSERT INTO STUDENT(student_name, batch, course, fees, phone, email, pass) VALUES ($1, $2, $3, $4, $5, $6, $7)", [data.student_name, data.batch, data.course, data.fees, data.phone, data.email, data.pass])
+          db.query(
+            "INSERT INTO MENTOR(mentor_name, designation, salary, phone, email, pass) VALUES ($1, $2, $3, $4, $5, $6)",
+            [
+              data.mentor_name,
+              data.designation,
+              data.salary,
+              data.phone,
+              data.email,
+              data.pass,
+            ]
+          )
             .then(() => {
-              return res.status(201).json({ success: true, message: "Student created successfully!" });
+              return res.status(201).json({
+                success: true,
+                message: "Mentor created successfully!",
+              });
             })
             .catch((error) => {
-              return res.status(401).json({ success: false, message:error.message, });
-            })
+              return res
+                .status(401)
+                .json({ success: false, message: error.message });
+            });
         });
       }
     }
   } catch (error) {
-    return res.status(500).json({ success: false, message:error.message, });
+    return res.status(500).json({ success: false, message: error.message });
   }
 }
 
-async function signInStudent(req, res) {
+async function signInMentor(req, res) {
   try {
     const { email, pass } = req.body;
 
@@ -53,20 +75,24 @@ async function signInStudent(req, res) {
       });
     }
 
-    await db.query("SELECT student_id,student_name,email,pass FROM student WHERE email = $1", [email])
+    await db
+      .query(
+        "SELECT mentor_id,mentor_name,email,pass FROM mentor WHERE email = $1",
+        [email]
+      )
       .then((response) => {
-        if (response.rows[0] && response.rows[0].student_id) {
+        if (response.rows[0] && response.rows[0].mentor_id) {
           bcrypt.compare(pass, response.rows[0].pass).then(function (result) {
             //if result is true then both the pass are crt
             if (result) {
-              const token = jwt.sign({ role: ["student"] }, secret, {
+              const token = jwt.sign({ role: ["mentor"] }, secret, {
                 expiresIn: 60 * 5, //session time
               });
               return res.status(200).json({
                 success: true,
                 message: "Sign In successful",
                 token: token,
-                user: response.rows[0].student_name,
+                user: response.rows[0].mentor_name,
               });
             } else {
               return res.status(401).json({
@@ -82,15 +108,13 @@ async function signInStudent(req, res) {
             message: "Account does not exists!",
           });
         }
-      })
-  }
-  catch (error) {
-    return res.status(500).json({ success: false, message: error.message,});
-
+      });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
   }
 }
 
-const forgotPasswordStudent = async (req, res) => {
+const forgotPasswordMentor = async (req, res) => {
   const { email } = req.body;
   if (!email) {
     return res.status(400).json({
@@ -99,8 +123,11 @@ const forgotPasswordStudent = async (req, res) => {
     });
   }
   try {
-    const response = await db.query("SELECT student_id FROM student WHERE email = $1", [email]);
-    const user_id = response.rows[0].student_id;
+    const response = await db.query(
+      "SELECT mentor_id FROM mentor WHERE email = $1",
+      [email]
+    );
+    const user_id = response.rows[0].mentor_id;
     if (response.rows[0] && user_id) {
       const token = await jwt.sign({ id: user_id }, secret, {
         expiresIn: 5 * 60, //session time
@@ -129,6 +156,7 @@ const forgotPasswordStudent = async (req, res) => {
               success: true,
               message: "Email Sent successfully",
               token: token,
+              id:user_id
             });
           }
         });
@@ -148,45 +176,51 @@ const forgotPasswordStudent = async (req, res) => {
   }
 };
 
-
-const updatePassStudent = async (req, res) => {
+const updatePassMentor = async (req, res) => {
   const password = req.body.pass;
   const { id, token } = req.params;
+
   if (!id && !token) {
-    res
-      .status(401)
-      .json({ success: false, message: "Unauthorized Access!" });
+    res.status(401).json({ success: false, message: "Unauthorized Access!" });
   }
   try {
-    const validuser = await db.query("SELECT student_id FROM student WHERE student_id = $1", [id]);
+    const validuser = await db.query(
+      "SELECT mentor_id FROM mentor WHERE mentor_id = $1",
+      [id]
+    );
     const verifyToken = jwt.verify(token, secret);
-    if (validuser.rows[0].student_id == verifyToken.id) {
+    if (validuser.rows[0].mentor_id == verifyToken.id) {
       const newpassword = await bcrypt.hash(password, saltRounds);
 
-      const response = await db.query("UPDATE student SET pass=$1 WHERE student_id = $2", [newpassword, id])
+      const response = await db.query(
+        "UPDATE mentor SET pass=$1 WHERE mentor_id = $2",
+        [newpassword, id]
+      );
       if (response) {
         res
           .status(201)
           .json({ success: true, message: "Password updated successfully" });
-      }
-      else {
+      } else {
         res
           .status(401)
           .json({ success: false, message: "something went wrong!" });
       }
-    }
-    else {
+    } else {
       res
         .status(401)
-        .json({ success: false, message: "Student does not exists!" });
+        .json({ success: false, message: "User does not exists!" });
     }
-  }
-  catch (error) {
+  } catch (error) {
     return res.status(500).send({
       success: false,
-      message: error.message,
+      message: error.message
     });
   }
 };
 
-module.exports = { createStudent, signInStudent, forgotPasswordStudent, updatePassStudent };
+module.exports = {
+  createMentor,
+  signInMentor,
+  forgotPasswordMentor,
+  updatePassMentor,
+};

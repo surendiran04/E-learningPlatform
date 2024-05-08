@@ -1,6 +1,5 @@
-require('dotenv').config();
-
 const pg = require("pg");
+require('dotenv').config();
 
 let { PGHOST, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
 const db = new pg.Client({
@@ -14,6 +13,12 @@ const db = new pg.Client({
   }
 });
 
+// async function getPgVersion() {    //to check whether the db is connected or not
+//     const result = await db.query(`select version()`);
+//     console.log(result);
+//   }
+  
+//   getPgVersion();
 
 module.exports = {
   db
