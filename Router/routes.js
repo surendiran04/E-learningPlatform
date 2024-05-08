@@ -12,6 +12,15 @@ const {
   updatePassMentor
 } = require("../Controllers/mentor_Authentication.controller");
 
+const {
+  createCourse
+  // signInMentor,
+  // forgotPasswordMentor,
+  // updatePassMentor
+} = require("../Controllers/course.controller");
+
+
+
 const AuthRouter = require("express").Router();
 
 AuthRouter.post("/studentSignUp", createStudent);
@@ -19,9 +28,11 @@ AuthRouter.post("/studentSignin", signInStudent);
 AuthRouter.post("/studentForgotPassword", forgotPasswordStudent);
 AuthRouter.patch("/studentResetPassword/:id/:token", updatePassStudent);
 
-AuthRouter.post("/mentorSignUp",createMentor);
+AuthRouter.post("/mentorSignUp", createMentor);
 AuthRouter.post("/mentorSignin", signInMentor);
 AuthRouter.post("/mentorForgotPassword", forgotPasswordMentor);
 AuthRouter.patch("/mentorResetPassword/:id/:token", updatePassMentor);
+
+AuthRouter.post("/createCourse", createCourse);
 
 module.exports = AuthRouter;
