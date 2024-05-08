@@ -10,7 +10,6 @@ async function createStudent(req, res) {
   try {
     const existingEmail = await db.query("SELECT * FROM student WHERE email = $1", [req.body.email]);
     const email = existingEmail.rows[0]?.email;
-
     if (email) {
       return res.status(401).json({ success: false, message: "EmailId already exists" });
     } else {
@@ -59,7 +58,7 @@ async function signInStudent(req, res) {
           bcrypt.compare(pass, response.rows[0].pass).then(function (result) {
             //if result is true then both the pass are crt
             if (result) {
-              const token = jwt.sign({ role: ["student"] }, secret, {
+              const token = jwt.sign({ role: ["student"] }, secret, {  //role based authorization
                 expiresIn: 60 * 5, //session time
               });
               return res.status(200).json({
