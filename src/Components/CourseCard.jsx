@@ -2,7 +2,7 @@ import React from 'react'
 
 function CourseCard() {
   return (
-    <div>CourseCard</div>
+    <div></div>
   )
 }
 

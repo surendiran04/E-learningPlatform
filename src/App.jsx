@@ -4,7 +4,7 @@ import { useAuthContext } from "../src/Contexts/AuthContext";
 import {ROUTES,PrivateRoutes} from "./Routes/Routes"
 import Home from "../src/Pages/Home"
 import NotFound from "../src/Pages/NotFound";
-
+import Sidebar  from "./Components/sidebar.jsx";
 function App() {
   // const { isLoggedIn, } = useAuthContext();
   const isLoggedIn = false;
@@ -30,6 +30,7 @@ function App() {
   
   return (
     <div className="w-screen h-screen">
+      <Sidebar/>
     <Routes>
       {renderRoutes()   }
       {renderPrivateRoutes()}
@@ -37,6 +38,7 @@ function App() {
       {/* {isLoggedIn && renderPrivateRoutes()} */}
       <Route Component={NotFound} path="*" />;
     </Routes>
+    
     </div>
   );
 }
