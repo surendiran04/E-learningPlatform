@@ -7,6 +7,8 @@ const AuthContext = createContext({
   decodedToken: {},
   user: "",
   SetUser: () => {},
+  open:false,
+  setOpen: () => {},
 });
 
 export const useAuthContext = () => useContext(AuthContext);
@@ -17,6 +19,7 @@ export default function AuthContextProvider({ children }) {
     const storedLoggedIn = sessionStorage.getItem("loggedIn");
     return storedLoggedIn === "true";
   });
+  const [open,setOpen] = useState(false); //sideBar hovering
   const [user, SetUser] = useState(sessionStorage.getItem("user"));
   let token = sessionStorage.getItem("_tk");
   const { decodedToken, isExpired } = useJwt(token || "");
@@ -44,6 +47,8 @@ export default function AuthContextProvider({ children }) {
     decodedToken,
     user,
     SetUser,
+    open,
+    setOpen
   });
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

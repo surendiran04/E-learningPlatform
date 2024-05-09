@@ -5,7 +5,6 @@ function Home() {
   return (
     <>
     <CourseCard/>
-    <div>Home</div>
     </>
   )
 }
