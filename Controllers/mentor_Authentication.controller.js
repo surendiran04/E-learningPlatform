@@ -29,10 +29,10 @@ async function createMentor(req, res) {
           }
           data.pass = hash;
           db.query(
-            "INSERT INTO MENTOR(mentor_name, designation, salary, phone, email, pass) VALUES ($1, $2, $3, $4, $5, $6)",
+            "INSERT INTO MENTOR(mentor_name, course, salary, phone, email, pass) VALUES ($1, $2, $3, $4, $5, $6)",
             [
               data.mentor_name,
-              data.designation,
+              data.course,
               data.salary,
               data.phone,
               data.email,
@@ -196,7 +196,7 @@ const updatePassMentor = async (req, res) => {
         "UPDATE mentor SET pass=$1 WHERE mentor_id = $2",
         [newpassword, id]
       );
-      if (response) {
+      if (response.rowCount===1) {
         res
           .status(201)
           .json({ success: true, message: "Password updated successfully" });

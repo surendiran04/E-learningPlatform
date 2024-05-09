@@ -10,6 +10,7 @@ async function createStudent(req, res) {
   try {
     const existingEmail = await db.query("SELECT * FROM student WHERE email = $1", [req.body.email]);
     const email = existingEmail.rows[0]?.email;
+    // const courseObject = await db.query("SELECT course_id FROM course WHERE course_name = $1", [req.body.course_name]);
     if (email) {
       return res.status(401).json({ success: false, message: "EmailId already exists" });
     } else {
@@ -20,7 +21,7 @@ async function createStudent(req, res) {
             return res.status(500).json({ success: false, message: "Something went wrong" });
           }
           data.pass = hash;
-          db.query("INSERT INTO STUDENT(student_name, batch, course, fees, phone, email, pass) VALUES ($1, $2, $3, $4, $5, $6, $7)", [data.student_name, data.batch, data.course, data.fees, data.phone, data.email, data.pass])
+          db.query("INSERT INTO STUDENT(student_name, phone, email, pass) VALUES ($1, $2, $3, $4)", [data.student_name, data.phone, data.email, data.pass])
             .then(() => {
               return res.status(201).json({ success: true, message: "Student created successfully!" });
             })
@@ -163,7 +164,7 @@ const updatePassStudent = async (req, res) => {
       const newpassword = await bcrypt.hash(password, saltRounds);
 
       const response = await db.query("UPDATE student SET pass=$1 WHERE student_id = $2", [newpassword, id])
-      if (response) {
+      if (response.rowCount===1) {
         res
           .status(201)
           .json({ success: true, message: "Password updated successfully" });
@@ -188,4 +189,19 @@ const updatePassStudent = async (req, res) => {
   }
 };
 
-module.exports = { createStudent, signInStudent, forgotPasswordStudent, updatePassStudent };
+const getStudent = async (req, res) => {
+
+  try {
+    const studentObject = await db.query("SELECT * FROM STUDENT where course = $1",[]);
+    const students = studentObject.rows;
+    if (students) {
+      return res.status(200).json({ success: true, message: "Students fetched successfully",courseData:students});
+    } else {
+      return res.status(500).json({ success: false, message: "Something went wrong!Students not fetched" });
+    }
+  }catch (error) {
+    return res.status(500).json({ success: false, message: error.message, });
+  }
+}
+
+module.exports = { createStudent, signInStudent, forgotPasswordStudent, updatePassStudent,getStudent };

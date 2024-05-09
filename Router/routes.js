@@ -13,15 +13,17 @@ const {
 } = require("../Controllers/mentor_Authentication.controller");
 
 const {
-  createCourse
-  // signInMentor,
-  // forgotPasswordMentor,
-  // updatePassMentor
+  createCourse,
+  deleteCourse,
+  getCourse
 } = require("../Controllers/course.controller");
 
-
+const {
+  enrollCourse
+} = require("../Controllers/batch.controller")
 
 const AuthRouter = require("express").Router();
+const courseRouter = require("express").Router();
 
 AuthRouter.post("/studentSignUp", createStudent);
 AuthRouter.post("/studentSignin", signInStudent);
@@ -33,6 +35,10 @@ AuthRouter.post("/mentorSignin", signInMentor);
 AuthRouter.post("/mentorForgotPassword", forgotPasswordMentor);
 AuthRouter.patch("/mentorResetPassword/:id/:token", updatePassMentor);
 
-AuthRouter.post("/createCourse", createCourse);
+courseRouter.post("/createCourse", createCourse);
+courseRouter.post("/deleteCourse", deleteCourse);
+courseRouter.get("/getCourse", getCourse);
 
-module.exports = AuthRouter;
+courseRouter.post("/enrollCourse",   enrollCourse);
+
+module.exports ={ AuthRouter,courseRouter};
