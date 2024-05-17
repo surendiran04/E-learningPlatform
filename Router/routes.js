@@ -22,6 +22,10 @@ const {
   enrollCourse
 } = require("../Controllers/batch.controller")
 
+const {
+  createTask
+} = require("../Controllers/task.controller")
+
 const AuthRouter = require("express").Router();
 const courseRouter = require("express").Router();
 
@@ -40,5 +44,8 @@ courseRouter.post("/deleteCourse", deleteCourse);
 courseRouter.get("/getCourse", getCourse);
 
 courseRouter.post("/enrollCourse",   enrollCourse);
+
+
+courseRouter.post("/createTask",  createTask);
 
 module.exports ={ AuthRouter,courseRouter};

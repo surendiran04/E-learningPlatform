@@ -13,7 +13,7 @@ const createCourse = async (req, res) => {
       return res.status(401).json({ success: false, message: "Course already exists" });
     } else {
       const data = req.body;
-      db.query("INSERT INTO COURSE(course_name, duration, fees ,mentor_id) VALUES ($1, $2, $3,$4)", [data.course_name, data.duration, data.fees,mentor_id])
+      db.query("INSERT INTO COURSE(course_name, duration, fees ,mentor_id,no_of_students) VALUES ($1, $2, $3,$4,$5)", [data.course_name, data.duration, data.fees,mentor_id,0])
         .then(() => {
           return res.status(201).json({ success: true, message: "Course created successfully!" });
         })
