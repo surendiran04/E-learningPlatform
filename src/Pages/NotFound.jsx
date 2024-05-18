@@ -14,8 +14,8 @@ export default function NotFound() {
           <FileX2 size={36} />
           </div>
           <h5>
-            Page that you are looking for is either NOT FOUND or You're not
-            unAuthorized to that page
+            Page that you are looking for is either NOT FOUND or You're 
+            unauthorized to that page
           </h5>
           <p>
             Please Go Back to{" "}

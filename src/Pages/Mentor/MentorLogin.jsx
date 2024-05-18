@@ -10,13 +10,13 @@ import "react-toastify/dist/ReactToastify.css";
 import "../../App.css";
 import { MdEmail } from "react-icons/md";
 import { FaKey } from "react-icons/fa";
-import Lord1 from "../../assets/lord4.jpg"
-
+import Lord1 from "../../assets/lord4.jpg";
 
 export default function MentorLogin() {
   const { isLoggedIn, setLoggedIn, SetUser } = useAuthContext();
 
-  let notify = () => toast.warn(errors.email?.message || errors.password?.message);
+  let notify = () =>
+    toast.warn(errors.email?.message || errors.password?.message);
 
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -40,10 +40,10 @@ export default function MentorLogin() {
   const handleLogin = async (data) => {
     try {
       setIsLoading(true);
-      const response = await fetch(`${VITE_BACKEND_URL}/signin`, {
-        method: 'POST',
+      const response = await fetch(`${VITE_BACKEND_URL}/api/auth/mentorSignin`, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
@@ -54,37 +54,26 @@ export default function MentorLogin() {
         toast.success(result.message);
         setLoggedIn(true);
         SetUser(result.user);
-        sessionStorage.setItem('_tk', result.token);
-        navigate('/Dashboard');
+        sessionStorage.setItem("_tk", result.token);
+        navigate("/Dashboard");
       } else {
-        // If email/pass is wrong
         toast.info(result.message);
-
       }
     } catch (error) {
       toast.error(error.message);
-
-    }
-    finally {
-      setIsLoading(false); // Set isLoading back to false after the request completes
+    } finally {
+      setIsLoading(false);
     }
   };
 
-
-
-
   return (
-    <div style={{ height: 'calc(94.5vh - 20px)', overflow: 'auto' }} className="container flex items-center justify-center gap-10  bg-gray-200 ">
+    <div className="h-full w-full flex items-center justify-center gap-10  bg-gray-200 ">
       <div>
-        <div
-          className="text-3xl font-extrabold  text-bl text-center non-italic"
-        >
+        <div className="text-3xl font-extrabold  text-bl text-center non-italic">
           Mentor Login
         </div>
         <div className="p-4">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-          >
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex gap-3  mb-5 py-2 px-5  border-solid border-white bg-white  border-2 ">
               <MdEmail className="text-4xl pt-1  pb-0 m-0 " />
               <input
@@ -105,9 +94,12 @@ export default function MentorLogin() {
                 placeholder="Enter your Password "
                 className="text-xl text-black border-none outline-none"
                 disabled={isLoading}
-                {...register("password", {
+                {...register("pass", {
                   required: "Password is required",
-                  minLength: { value: 8, message: "password should be minimum of 8 characters" },
+                  minLength: {
+                    value: 8,
+                    message: "password should be minimum of 8 characters",
+                  },
                 })}
               />
               <div onClick={toggleState} classname="cursor-pointer text-4xl">
@@ -117,7 +109,6 @@ export default function MentorLogin() {
                   <EyeOff size={32} color={"black"} />
                 )}
               </div>
-
             </div>
             <Link
               to="/mentor/forgotPassword"
@@ -129,10 +120,11 @@ export default function MentorLogin() {
               className={`
         w-full
         rounded-xl
-         font-bold hover:text-white py-3 px-4 border hover:border-transparent transition duration-500 outline-none mt-5 mb-4 ${isLoading
-                  ? "bg-green-400 hover:bg-green-600 text-white"
-                  : "bg-transparent border-black border-2 hover:bg-lb text-darkb"
-                }`}
+         font-bold hover:text-white py-3 px-4 border hover:border-transparent transition duration-500 outline-none mt-5 mb-4 ${
+           isLoading
+             ? "bg-green-400 hover:bg-green-600 text-white"
+             : "bg-transparent border-black border-2 hover:bg-lb text-darkb"
+         }`}
               type="submit"
               onClick={notify}
               disabled={isLoading}
@@ -156,7 +148,6 @@ export default function MentorLogin() {
 
       <div className=" w-1/4 h-2/4">
         <img src={Lord1} alt="" />
-
       </div>
       <ToastContainer
         position="top-right"
@@ -171,7 +162,6 @@ export default function MentorLogin() {
         theme="dark"
         transition:Bounce
       />
-
     </div>
   );
 }

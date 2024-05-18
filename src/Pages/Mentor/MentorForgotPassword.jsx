@@ -28,7 +28,7 @@ export default function MentorForgotPassword() {
     try {
       setIsLoading(true); // Set isLoading to true when the request starts
 
-      const response = await fetch(`${VITE_BACKEND_URL}/forgotPassword`, {
+      const response = await fetch(`${VITE_BACKEND_URL}/mentorForgotPassword`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

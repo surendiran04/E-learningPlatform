@@ -62,7 +62,7 @@ export default function SignUp() {
     }
   };
   return (
-    <div style={{ height: 'calc(94.5vh - 20px)', overflow: 'auto' }} className="container flex items-center justify-center gap-10  bg-gray-200">
+    <div  className="h-full w-full flex items-center justify-center gap-10  bg-gray-200">
       <div>
         <div className="text-3xl font-extrabold  text-bl text-center non-italic">
           Student Sign Up

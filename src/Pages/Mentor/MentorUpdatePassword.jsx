@@ -42,7 +42,7 @@ export default function MentorUpdatePassword() {
   const changePassword = async (data) => {
     try {
       setIsLoading(true)
-      const response = await fetch(`${VITE_BACKEND_URL}/resetPassword/${id}/${token}`, {
+      const response = await fetch(`${VITE_BACKEND_URL}/mentorResetPassword/${id}/${token}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

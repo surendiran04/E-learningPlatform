@@ -4,7 +4,7 @@ import { useAuthContext } from "../src/Contexts/AuthContext";
 import { ROUTES, studentPrivateRoutes, studentPublicRoutes, mentorPublicRoutes, mentorPrivateRoutes } from "./Routes/Routes"
 import NotFound from "../src/Pages/NotFound";
 import Sidebar from "./Components/sidebar.jsx";
-import NavBar from "./Components/NavBar.jsx";
+
 import CreateCourse from "./Pages/Course/CreateCourse.jsx";
 
 function App() {
@@ -69,7 +69,7 @@ function App() {
         <Sidebar />
       </div>
       <div className={` ${open ? "w-full mx-0" : "w-full"} `}>
-        <NavBar />
+       
         <Routes>
           {renderRoutes()}
           {renderMentorPublicRoutes()}
