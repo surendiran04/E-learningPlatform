@@ -24,30 +24,6 @@ export default function MentorForgotPassword() {
     reset();
   };
 
-  //using then catch block
-  // fetch(`${VITE_BACKEND_URL}/forgotPassword`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(data),
-  // })
-  //   .then((response) => {
-  //     return response.json();
-  //   })
-  //   .then((result) => {
-  //     if (result.success) {
-  //       toast.success(result.message);
-  //     }
-  //     else{
-  //       toast.info(result.message);
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     toast.error(error.message);
-  //   })
-  // };
-
   const handleEmail = async (data) => {
     try {
       setIsLoading(true); // Set isLoading to true when the request starts

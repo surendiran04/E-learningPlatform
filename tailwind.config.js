@@ -15,9 +15,11 @@ export default {
         'light-color':'#888',
         'light-bg':'#eee',
         'lb':'#457b9d',
-        'darkb':'#1d3557',
+        'darkb':'#1d3557', //dark blue1
         'lg':'#2f4550',
         'bl':'#023047',
+        'gb':'#40A578', //green blue
+        'db':'#006769', //dark blue2
         'white':'#fff',
         'border':'rgba(0,0,0,.2)'
 
