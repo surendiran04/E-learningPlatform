@@ -17,7 +17,7 @@ function CourseCard() {
         <img src={thumb1} alt="" className='h-56  rounded-xl	' />
       </div>
       <h3 className="text-2xl font-semibold mb-2" >Full Stack Development 2024</h3>
-      <button className={`focus:outline-none text-white bg-green-700 hover:bg-green-800  focus:ring-purple-300  rounded-lg text-xl  px-5 py-2.5 mb-2 `}  >Enroll Now</button>
+      <button className={`focus:outline-none text-white bg-green-700 hover:bg-green-800  focus:ring-purple-300  rounded-lg text-xl  px-5 py-2.5 mb-2 `}  >Read more</button>
     </div>
   )
 }

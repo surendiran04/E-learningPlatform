@@ -20,6 +20,8 @@ export default {
         'bl':'#023047',
         'gb':'#40A578', //green blue
         'db':'#006769', //dark blue2
+        'db3':'#222E3D',//dark blue3
+        'gold1':'#FCBF07',
         'white':'#fff',
         'border':'rgba(0,0,0,.2)'
 
