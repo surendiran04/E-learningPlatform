@@ -6,7 +6,7 @@ import ProfilePic from '../assets/login-1.jpg'
 
 function NavBar() {
     return (
-        <header className='sticky top-0 right-0 left-0 bg-white z-auto border-b-4 border-solid border-border '>
+        <header className='sticky top-0 right-0 left-0 bg-white z-auto border-b-2 border-solid border-black '>
 
             <section className='flex items-center justify-between relative py-2 px-8 '>
                 <a href='#' className="text-3xl font-semibold pl-4 text-black">E-Learning</a>

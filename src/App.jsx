@@ -4,8 +4,9 @@ import { useAuthContext } from "../src/Contexts/AuthContext";
 import { ROUTES, studentPrivateRoutes, studentPublicRoutes, mentorPublicRoutes, mentorPrivateRoutes } from "./Routes/Routes"
 import NotFound from "../src/Pages/NotFound";
 import Sidebar from "./Components/sidebar.jsx";
-
+import NavBar from "./Components/NavBar.jsx";
 import CreateCourse from "./Pages/Course/CreateCourse.jsx";
+import CourseDetails from "./Pages/Course/CourseDetails.jsx";
 
 function App() {
   // const { isLoggedIn, } = useAuthContext();
@@ -69,7 +70,7 @@ function App() {
         <Sidebar />
       </div>
       <div className={` ${open ? "w-full mx-0" : "w-full"} `}>
-       
+        {/* <NavBar /> */}
         <Routes>
           {renderRoutes()}
           {renderMentorPublicRoutes()}
@@ -80,6 +81,8 @@ function App() {
           {/* {isLoggedIn && renderPrivateRoutes()} */}
           <Route Component={NotFound} path="*" />;
           <Route Component={CreateCourse} path="/createcourse" />;
+          <Route Component={CourseDetails} path="/coursedetails" />;
+
         </Routes>
       </div>
     </div>
