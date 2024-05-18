@@ -26,6 +26,10 @@ const {
   createTask
 } = require("../Controllers/task.controller")
 
+const {
+  makePayment
+} = require("../Controllers/payment.controller")
+
 const AuthRouter = require("express").Router();
 const courseRouter = require("express").Router();
 
@@ -46,6 +50,8 @@ courseRouter.get("/getCourse", getCourse);
 courseRouter.post("/enrollCourse",   enrollCourse);
 
 
-courseRouter.post("/createTask",  createTask);
+courseRouter.post("/createTask",  createTask); 
+
+courseRouter.post("/makePayment",  makePayment);
 
 module.exports ={ AuthRouter,courseRouter};

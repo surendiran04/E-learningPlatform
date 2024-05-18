@@ -19,26 +19,6 @@ const createTask = async (req, res) => {
   }
 }
 
-const deleteTask = async (req, res) => {
-  try {
-    const existingCourse = await db.query("DELETE FROM course WHERE course_name = $1", [req.body]);
-    if(existingCourse.rowCount===1){
-      return res.status(200).json({
-        success:true,
-        message:"Course deleted successfully"
-      })
-    }
-    else{
-      return res.status(500).json({ //course is not available or duplicates courses are available (rowCount>2)
-        success:false,
-        message:"Something went wrong"
-      })
-    }
-
-  } catch (error) {
-    return res.status(500).json({ success: false, message: error.message, });
-  }
-}
 
 
 
