@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdEmail } from "react-icons/md";
 import { FaKey } from "react-icons/fa";
-import Lord1 from "../../assets/lord4.jpg"
+import Lord1 from "../../assets/lord2.jpg"
 
 
 export default function Login() {
@@ -78,7 +78,7 @@ export default function Login() {
         <div
           className="text-3xl font-extrabold  text-bl text-center non-italic"
         >
-          Login
+          Student Login
         </div>
         <div className="p-4">
           <form

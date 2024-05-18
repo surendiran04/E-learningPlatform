@@ -9,10 +9,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { FaUserGraduate } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaKey } from "react-icons/fa";
-import Lord2 from "../../assets/lord5.png"
+import Lord2 from "../../assets/lord1.png"
 
 
-export default function SignUp(){
+export default function SignUp() {
 
   let notify = () =>
     toast.warn(errors.Name?.message || errors.email?.message || errors.password?.message);
@@ -65,7 +65,7 @@ export default function SignUp(){
     <div style={{ height: 'calc(94.5vh - 20px)', overflow: 'auto' }} className="container flex items-center justify-center gap-10  bg-gray-200">
       <div>
         <div className="text-3xl font-extrabold  text-bl text-center non-italic">
-          Sign Up
+          Student Sign Up
         </div>
         <div className="p-4" >
           <form onSubmit={handleSubmit(onSubmit)}>

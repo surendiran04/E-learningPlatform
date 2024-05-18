@@ -79,7 +79,7 @@ export default function MentorLogin() {
         <div
           className="text-3xl font-extrabold  text-bl text-center non-italic"
         >
-          Login
+          Mentor Login
         </div>
         <div className="p-4">
           <form

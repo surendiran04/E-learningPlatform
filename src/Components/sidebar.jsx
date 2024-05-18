@@ -6,8 +6,9 @@ import { FaHome } from "react-icons/fa";
 import { MdRoundaboutLeft } from "react-icons/md";
 import { useAuthContext } from '../Contexts/AuthContext';
 import { LogOut } from "lucide-react";
-
 import '../App.css'
+
+
 const Sidebar = () => {
     const { open, setOpen } = useAuthContext();
     return (
