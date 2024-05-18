@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BookOpenCheck } from 'lucide-react';
-import ProfilePic from '../assets/login-1.jpg'
+import ProfilePic from '../assets/student1.png'
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { MdRoundaboutLeft } from "react-icons/md";

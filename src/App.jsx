@@ -38,7 +38,7 @@ function App() {
       <div className={`${open ? "w-40" : "w-20"} `}>
         <Sidebar />
       </div>
-      <div className={` ${open ? "w-full mx-0" : "w-full"}`}>
+      <div className={` ${open ? "w-full mx-0" : "w-full"} `}>
         <NavBar />
         <Routes>
           {renderRoutes()}

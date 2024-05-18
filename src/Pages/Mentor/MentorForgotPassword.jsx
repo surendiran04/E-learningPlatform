@@ -4,11 +4,10 @@ import { useForm } from "react-hook-form";
 const { VITE_BACKEND_URL } = import.meta.env;
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import "../App.css";
 import { MdEmail } from "react-icons/md";
 
 
-export default function ForgotPassword() {
+export default function MentorForgotPassword() {
   let notify = () =>
     toast.warn(errors.email?.message);
   const [isLoading, setIsLoading] = useState(false);

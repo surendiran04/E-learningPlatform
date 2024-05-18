@@ -14,7 +14,10 @@ export default {
         'orange':'#f39c12',
         'light-color':'#888',
         'light-bg':'#eee',
-        'black':'#2c3e50',
+        'lb':'#457b9d',
+        'darkb':'#1d3557',
+        'lg':'#2f4550',
+        'bl':'#023047',
         'white':'#fff',
         'border':'rgba(0,0,0,.2)'
 

@@ -3,37 +3,43 @@ import Signup from "../Pages/Signup";
 import ForgotPassword from "../Pages/ForgotPassword";
 import Dashboard from "../Pages/Dashboard";
 import UpdatePassword from '../Pages/UpdatePassword';
-import Home from "../Pages/Home" 
+import Home from "../Pages/Home"
+import MentorLogin from '../Pages/Mentor/MentorLogin';
+import MentorSignUp from '../Pages/Mentor/MentorSignup';
+import MentorForgotPassword from '../Pages/Mentor/MentorForgotPassword'
+import MentorUpdatePassword from '../Pages/Mentor/MentorUpdatePassword';
 
-export  const ROUTES = [
+export const ROUTES = [
   {
-    title:"Home",
-    Component:Home,
-    path:"/"
+    title: "Home",
+    Component: Home,
+    path: "/"
   },
   {
     title: "Sign In",
-    Component:Login,
+    Component: Login,
     path: "/login",
   },
   {
     title: "Sign Up",
-    Component:Signup,
+    Component: Signup,
     path: "/signup",
   },
   {
     title: "Reset Password",
-    Component:ForgotPassword,
+    Component: ForgotPassword,
     path: "/forgotPassword",
   },
   {
     title: "update Password",
-    Component:UpdatePassword,
-    path: "/resetPassword/:id/:token",
+    Component: UpdatePassword,
+    // path: "/resetPassword/:id/:token",
+    path: "/resetPassword",
+
   },
 ];
 
-export const PrivateRoutes=[
+export const PrivateRoutes = [
   {
     title: "Dashboard",
     Component: Dashboard,
@@ -41,7 +47,7 @@ export const PrivateRoutes=[
   },
 ];
 
-export const studentPrivateRoutes=[
+export const studentPrivateRoutes = [
   {
     title: "Dashboard",
     Component: Dashboard,
@@ -49,7 +55,7 @@ export const studentPrivateRoutes=[
   },
 ];
 
-export const mentorPrivateRoutes=[
+export const mentorPrivateRoutes = [
   {
     title: "Dashboard",
     Component: Dashboard,
@@ -57,4 +63,4 @@ export const mentorPrivateRoutes=[
   },
 ];
 
-export default {ROUTES,PrivateRoutes};
+export default { ROUTES, PrivateRoutes };

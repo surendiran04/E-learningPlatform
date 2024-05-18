@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../Contexts/AuthContext";
+import { useAuthContext } from "../../Contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 const { VITE_BACKEND_URL } = import.meta.env;
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../App.css";
+import "../../App.css";
 import { MdEmail } from "react-icons/md";
 import { FaKey } from "react-icons/fa";
-import Lord1 from "../assets/lord4.jpg"
+import Lord1 from "../../assets/lord4.jpg"
 
 
-export default function Login() {
+export default function MentorLogin() {
   const { isLoggedIn, setLoggedIn, SetUser } = useAuthContext();
 
   let notify = () => toast.warn(errors.email?.message || errors.password?.message);
@@ -74,7 +74,7 @@ export default function Login() {
 
 
   return (
-    <div  style={{ height: 'calc(94.5vh - 20px)', overflow:'auto'}} className="container flex items-center justify-center gap-10  bg-gray-200 ">
+    <div style={{ height: 'calc(94.5vh - 20px)', overflow: 'auto' }} className="container flex items-center justify-center gap-10  bg-gray-200 ">
       <div>
         <div
           className="text-3xl font-extrabold  text-bl text-center non-italic"

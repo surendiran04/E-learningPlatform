@@ -6,11 +6,10 @@ import { Eye, EyeOff } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useJwt } from "react-jwt";
 const { VITE_BACKEND_URL } = import.meta.env;
-import "../App.css";
 import { FaKey } from "react-icons/fa";
 
 
-export default function UpdatePassword() {
+export default function MentorUpdatePassword() {
   const { id, token } = useParams();
   const { decodedToken, isExpired } = useJwt(token || "");
   let notify = () => toast.warn(errors.password?.message);

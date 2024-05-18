@@ -8,8 +8,13 @@ const { VITE_BACKEND_URL } = import.meta.env;
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../App.css";
+import { FaUserGraduate } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { FaKey } from "react-icons/fa";
+import Lord2 from "../assets/lord5.png"
 
-export default function Login() {
+
+export default function SignUp(){
 
   let notify = () =>
     toast.warn(errors.Name?.message || errors.email?.message || errors.password?.message);
@@ -59,93 +64,89 @@ export default function Login() {
     }
   };
   return (
-    <div className="flex justify-center items-center font-anta bg-gradient1">
-      <div className="md:w-1/3 w-1/2 md:h-3/4 h-1/3 md:mt-4 rounded-md p-6  card-gradient">
-        <div className="flex items-center justify-center flex-col gap-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-12 h-12 p-2 rounded-full shadow-lg text-white bg-purple-500"
-          >
-            <path
-              fillRule="evenodd"
-              d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <h1
-            className="text-3xl font-bold  text-white  tracking-wide text-center mb-6
-            italic"
-          >
-            Sign Up
-          </h1>
+    <div style={{ height: 'calc(94.5vh - 20px)', overflow: 'auto' }} className="container flex items-center justify-center gap-10  bg-gray-200">
+      <div>
+        <div className="text-3xl font-extrabold  text-bl text-center non-italic">
+          Sign Up
         </div>
-
-        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <input
-            name="name"
-            className="w-full p-3 rounded-full text-xl  text-black outline-none border-none px-5 shadow-xl"
-            placeholder="Enter your Name"
-            type="text"
-            {...register("Name", { required: "Name is required" })}
-            disabled={isLoading}
-          />
-          <input
-            name="email"
-            className="w-full p-3 rounded-full text-xl  text-black outline-none border-none px-5 shadow-xl"
-            placeholder="Enter your Email"
-            type="email"
-            {...register("email", { required: "Email is required" })}
-            disabled={isLoading}
-          />
-          <div className="flex">
-            <input
-              name="password"
-              type={isShow ? "text" : "password"}
-              placeholder="Enter your Password "
-              className="w-full p-3 rounded-full text-xl text-black outline-none border-none px-5 z-0"
-              disabled={isLoading}
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 8,
-                  message: "password should be minimum of 8 characters",
-                },
-              })}
-            />
-            <div onClick={toggleState} classname="cursor-pointer  mt-10">
-              {isShow ? <Eye size={36} /> : <EyeOff size={36} />}
+        <div className="p-4" >
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex gap-3  mb-5 py-2 px-5  border-solid border-white bg-white  border-2 ">
+              <FaUserGraduate className="text-4xl pt-1  pb-0 m-0 " />
+              <input
+                name="name"
+                className="text-xl text-black border-none outline-none  "
+                placeholder="Enter your Name"
+                type="text"
+                {...register("Name", { required: "Name is required" })}
+                disabled={isLoading}
+              />
             </div>
-          </div>
+            <div className="flex gap-3  mb-5 py-2 px-5  border-solid border-white bg-white  border-2 ">
+              <MdEmail className="text-4xl pt-1  pb-0 m-0 " />
+              <input
+                name="email"
+                className="text-xl text-black border-none outline-none   "
+                placeholder="Enter your Email"
+                type="email"
+                {...register("email", { required: "Email is required" })}
+                disabled={isLoading}
+              />
+            </div>
+            <div className="flex  gap-3  mb-3 py-2 px-5  border-solid border-white bg-white  border-2">
+              <FaKey className="text-4xl pt-1  pb-0 m-0 " />
+              <input
+                name="password"
+                type={isShow ? "text" : "password"}
+                placeholder="Enter your Password "
+                className="text-xl text-black border-none outline-none"
+                disabled={isLoading}
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 8,
+                    message: "password should be minimum of 8 characters",
+                  },
+                })}
+              />
+              <div onClick={toggleState} classname="cursor-pointer  text-4xl">
+                {isShow ? <Eye size={36} /> : <EyeOff size={36} />}
+              </div>
 
-          <button
-            className={`
+            </div>
+
+            <button
+              className={`
         w-full
-        rounded-full
-         font-semibold hover:text-white py-3 px-4 border hover:border-transparent transition duration-500 outline-none ${
-           isLoading
-             ? "bg-green-400 hover:bg-green-600 text-white"
-             : "bg-transparent border-purple-500 hover:bg-purple-500 text-purple-700"
-         }`}
-            type="submit"
-            onClick={notify}
-            disabled={isLoading}
-          >
-            {isLoading ? "Loading" : "Sign Up"}
-          </button>
-        </form>
-        <div className="text-center mt-7">
-          <p className="text-white font-semibold text-[18px]">
-            Already have an account?{" "}
-            <Link
-              to="/"
-              className="text-blue-700 underline cursor-pointer font-bold "
+        rounded-xl 
+         font-bold hover:text-white py-3 px-4 border hover:border-transparent transition duration-500 outline-none  mt-5 mb-4  ${isLoading
+                  ? "bg-green-400 hover:bg-green-600 text-white"
+                  : "bg-transparent border-black border-2 hover:bg-lb text-darkb"
+                }`}
+              type="submit"
+              onClick={notify}
+              disabled={isLoading}
             >
-              Login
-            </Link>
-          </p>
+              {isLoading ? "Loading" : "Sign Up"}
+            </button>
+          </form>
+          <div className="text-center ">
+            <p className="text-black font-semibold text-[18px]">
+              Already have an account?{" "}
+              <Link
+                to="/"
+                className="text-blue-700 underline cursor-pointer font-bold "
+              >
+                Login
+              </Link>
+            </p>
+          </div>
         </div>
+      </div>
+
+      <div className=" w-1/4 h-2/4">
+        <img src={Lord2} alt="" />
+
       </div>
       <ToastContainer
         position="top-right"
