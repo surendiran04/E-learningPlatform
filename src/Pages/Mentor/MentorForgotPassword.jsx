@@ -117,7 +117,7 @@ export default function MentorForgotPassword() {
             <p className="text-black font-semibold text-[18px]">
               Don't have an Email?{" "}
               <Link
-                to="/signup"
+                to="/mentor/signup"
                 className="text-blue-700 underline cursor-pointer font-bold "
               >
                 Sign Up

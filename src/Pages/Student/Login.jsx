@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../Contexts/AuthContext";
+import { useAuthContext } from "../../Contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 const { VITE_BACKEND_URL } = import.meta.env;
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../App.css";
 import { MdEmail } from "react-icons/md";
 import { FaKey } from "react-icons/fa";
-import Lord1 from "../assets/lord4.jpg"
+import Lord1 from "../../assets/lord4.jpg"
 
 
 export default function Login() {
@@ -120,7 +119,7 @@ export default function Login() {
 
             </div>
             <Link
-              to="/forgotPassword"
+              to="/student/forgotPassword"
               className="text-lg  underline cursor-pointer font-bold "
             >
               Forgot Password
@@ -144,7 +143,7 @@ export default function Login() {
             <p className="text-black font-semibold text-[18px]">
               Don't have an account?{" "}
               <Link
-                to="/signup"
+                to="/student/signup"
                 className="text-blue-700 underline cursor-pointer font-bold "
               >
                 Sign Up

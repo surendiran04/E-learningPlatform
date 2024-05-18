@@ -6,7 +6,6 @@ import { Eye, EyeOff } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useJwt } from "react-jwt";
 const { VITE_BACKEND_URL } = import.meta.env;
-import "../App.css";
 import { FaKey } from "react-icons/fa";
 
 

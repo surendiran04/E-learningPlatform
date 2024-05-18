@@ -1,12 +1,10 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { useAuthContext } from "../src/Contexts/AuthContext";
-import { ROUTES, PrivateRoutes } from "./Routes/Routes"
-import Home from "../src/Pages/Home"
+import {  ROUTES, studentPrivateRoutes, studentPublicRoutes,mentorPublicRoutes, mentorPrivateRoutes } from "./Routes/Routes"
 import NotFound from "../src/Pages/NotFound";
 import Sidebar from "./Components/sidebar.jsx";
 import NavBar from "./Components/NavBar.jsx";
-import CourseCard from "./Components/CourseCard.jsx";
 
 function App() {
   // const { isLoggedIn, } = useAuthContext();
@@ -23,12 +21,43 @@ function App() {
       />
     ));
   }
-  function renderPrivateRoutes() {
-    return PrivateRoutes.map((route, index) => (
+
+  function renderStudentPublicRoutes() {
+    return  studentPublicRoutes.map((route, index) => (
       <Route
         key={`${route.title}-${index}`}
         Component={route.Component}
-        path={route.path}
+        path={`/student${route.path}`}
+      />
+    ));
+  }
+
+  function renderStudentPrivateRoutes() {
+    return studentPrivateRoutes.map((route, index) => (
+      <Route
+        key={`${route.title}-${index}`}
+        Component={route.Component}
+        path={`/student${route.path}`}
+      />
+    ));
+  }
+
+  function renderMentorPrivateRoutes() {
+    return mentorPrivateRoutes.map((route, index) => (
+      <Route
+        key={`${route.title}-${index}`}
+        Component={route.Component}
+        path={`/mentor${route.path}`}
+      />
+    ));
+  }
+
+  function renderMentorPublicRoutes() {
+    return mentorPublicRoutes.map((route, index) => (
+      <Route
+        key={`${route.title}-${index}`}
+        Component={route.Component}
+        path={`/mentor${route.path}`}
       />
     ));
   }
@@ -42,7 +71,10 @@ function App() {
         <NavBar />
         <Routes>
           {renderRoutes()}
-          {renderPrivateRoutes()}
+          {renderMentorPublicRoutes()}
+          {renderMentorPrivateRoutes()}
+          {renderStudentPublicRoutes()}
+          {renderStudentPrivateRoutes() }
           {/* {isLoggedIn && renderRoutes()} */}
           {/* {isLoggedIn && renderPrivateRoutes()} */}
           <Route Component={NotFound} path="*" />;

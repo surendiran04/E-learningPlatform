@@ -1,6 +1,6 @@
 import React from "react";
 import { LogOut } from "lucide-react";
-import { useAuthContext } from "../Contexts/AuthContext";
+import { useAuthContext } from "../../Contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 

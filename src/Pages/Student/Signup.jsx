@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 const { VITE_BACKEND_URL } = import.meta.env;
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../App.css";
 import { FaUserGraduate } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaKey } from "react-icons/fa";
-import Lord2 from "../assets/lord5.png"
+import Lord2 from "../../assets/lord5.png"
 
 
 export default function SignUp(){
@@ -134,7 +132,7 @@ export default function SignUp(){
             <p className="text-black font-semibold text-[18px]">
               Already have an account?{" "}
               <Link
-                to="/"
+                to="/student/login"
                 className="text-blue-700 underline cursor-pointer font-bold "
               >
                 Login

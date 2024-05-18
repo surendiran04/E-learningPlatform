@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 const { VITE_BACKEND_URL } = import.meta.env;
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import "../App.css";
 import { MdEmail } from "react-icons/md";
 
 
@@ -118,7 +117,7 @@ export default function ForgotPassword() {
             <p className="text-black font-semibold text-[18px]">
               Don't have an Email?{" "}
               <Link
-                to="/signup"
+                to="/student/signup"
                 className="text-blue-700 underline cursor-pointer font-bold "
               >
                 Sign Up

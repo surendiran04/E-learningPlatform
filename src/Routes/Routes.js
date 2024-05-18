@@ -1,8 +1,8 @@
-import Login from '../Pages/Login'
-import Signup from "../Pages/Signup";
-import ForgotPassword from "../Pages/ForgotPassword";
-import Dashboard from "../Pages/Dashboard";
-import UpdatePassword from '../Pages/UpdatePassword';
+import Login from '../Pages/Student/Login'
+import Signup from "../Pages/Student/Signup";
+import ForgotPassword from "../Pages/Student/ForgotPassword";
+import Dashboard from "../Pages/Student/Dashboard";
+import UpdatePassword from '../Pages/Student/UpdatePassword';
 import Home from "../Pages/Home"
 import MentorLogin from '../Pages/Mentor/MentorLogin';
 import MentorSignUp from '../Pages/Mentor/MentorSignup';
@@ -14,7 +14,18 @@ export const ROUTES = [
     title: "Home",
     Component: Home,
     path: "/"
+  }
+];
+
+export const studentPrivateRoutes = [
+  {
+    title:"Dashboard",
+    Component: Dashboard,
+    path: "/dashboard",
   },
+];
+
+export const studentPublicRoutes = [
   {
     title: "Sign In",
     Component: Login,
@@ -39,19 +50,26 @@ export const ROUTES = [
   },
 ];
 
-export const PrivateRoutes = [
+export const mentorPublicRoutes = [
   {
-    title: "Dashboard",
-    Component: Dashboard,
-    path: "/dashboard",
+    title: "Mentor Login",
+    Component:MentorLogin,
+    path: "/Login",
   },
-];
-
-export const studentPrivateRoutes = [
   {
-    title: "Dashboard",
-    Component: Dashboard,
-    path: "/dashboard",
+    title: "Mentor SignUp",
+    Component:MentorSignUp,
+    path: "/Signup",
+  },
+  {
+    title: "Mentor Reset Password",
+    Component:MentorForgotPassword,
+    path: "/ForgotPassword",
+  },
+  {
+    title: "Mentor update password",
+    Component:MentorUpdatePassword,
+    path: "/resetPassword",
   },
 ];
 
@@ -63,4 +81,4 @@ export const mentorPrivateRoutes = [
   },
 ];
 
-export default { ROUTES, PrivateRoutes };
+export default { ROUTES, studentPrivateRoutes, studentPublicRoutes,mentorPublicRoutes, mentorPrivateRoutes };

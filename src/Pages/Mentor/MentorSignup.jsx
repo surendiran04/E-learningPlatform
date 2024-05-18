@@ -133,7 +133,7 @@ export default function MentorSignUp() {
             <p className="text-black font-semibold text-[18px]">
               Already have an account?{" "}
               <Link
-                to="/"
+                to="/mentor/login"
                 className="text-blue-700 underline cursor-pointer font-bold "
               >
                 Login

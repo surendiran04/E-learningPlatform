@@ -15,7 +15,7 @@ export default function NotFound() {
           </div>
           <h5>
             Page that you are looking for is either NOT FOUND or You're not
-            allowed to that page
+            unAuthorized to that page
           </h5>
           <p>
             Please Go Back to{" "}

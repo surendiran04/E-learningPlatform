@@ -120,7 +120,7 @@ export default function MentorLogin() {
 
             </div>
             <Link
-              to="/forgotPassword"
+              to="/mentor/forgotPassword"
               className="text-lg  underline cursor-pointer font-bold "
             >
               Forgot Password
@@ -144,7 +144,7 @@ export default function MentorLogin() {
             <p className="text-black font-semibold text-[18px]">
               Don't have an account?{" "}
               <Link
-                to="/signup"
+                to="/mentor/signup"
                 className="text-blue-700 underline cursor-pointer font-bold "
               >
                 Sign Up
