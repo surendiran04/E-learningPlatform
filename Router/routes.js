@@ -23,10 +23,6 @@ const {
 } = require("../Controllers/batch.controller")
 
 const {
-  createTask
-} = require("../Controllers/task.controller")
-
-const {
   makePayment
 } = require("../Controllers/payment.controller")
 
@@ -49,8 +45,6 @@ courseRouter.get("/getCourse", getCourse);
 
 courseRouter.post("/enrollCourse",   enrollCourse);
 
-
-courseRouter.post("/createTask",  createTask); 
 
 courseRouter.post("/makePayment",  makePayment);
 
