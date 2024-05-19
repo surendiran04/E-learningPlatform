@@ -68,7 +68,6 @@ function App() {
         <Sidebar />
       </div>
       <div className={` ${open ? "w-full ml-40" : "ml-20 w-full"} `}>
-        <Header/>        
         <Routes>
           {renderRoutes()}
           {renderMentorPublicRoutes()}

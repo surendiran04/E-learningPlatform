@@ -6,7 +6,7 @@ import { MdAssessment } from "react-icons/md";
 import { Laptop } from 'lucide-react';
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-
+import Header from '../../Components/Header';
 
 function CourseDetails() {
     const navigate = useNavigate();
@@ -15,6 +15,7 @@ function CourseDetails() {
     }
 
     return (
+        <><Header/>
         <div>
             <div className='flex flex-col gap-3 w-full  bg-db3 p-10'>
                 <h1 className='text-5xl text-white mb-4'>Data Structures and Algorithm	</h1>
@@ -157,6 +158,7 @@ function CourseDetails() {
 
             </section>
         </div>
+        </>
     )
 }
 

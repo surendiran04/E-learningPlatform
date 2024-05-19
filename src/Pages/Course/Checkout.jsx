@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FaIndianRupeeSign } from "react-icons/fa6";
-
+import Header from '../../Components/Header';
 
 function Checkout() {
     let notify = () => toast.warn(errors.email?.message || errors.password?.message);
@@ -12,6 +12,9 @@ function Checkout() {
         reset();
     };
     return (
+        <>
+        <Header/>        
+
         <div className=' flex items-center justify-center mt-10'>
             <div className='w-1/3'>
                 <div className="text-4xl font-bold  text-dg text-center non-italic mb-4">
@@ -47,6 +50,7 @@ function Checkout() {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 
