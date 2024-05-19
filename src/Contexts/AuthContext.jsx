@@ -15,9 +15,8 @@ export const useAuthContext = () => useContext(AuthContext);
 
 export default function AuthContextProvider({ children }) {
   const [isLoggedIn, setLoggedIn] = useState(() => {
-    // Retrieve login state from session storage (if available)
     const storedLoggedIn = sessionStorage.getItem("loggedIn");
-    return storedLoggedIn === "false";
+    return storedLoggedIn === true;
   });
   const [open,setOpen] = useState(false); //sideBar hovering
   const [user, SetUser] = useState(() => sessionStorage.getItem("user"));

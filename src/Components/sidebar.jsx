@@ -106,7 +106,8 @@ const combinedFunction = composeFunctions(profile, notify);
           )}
         </div>
         </div>
-        <ToastContainer
+     </div>
+     <ToastContainer
         position="top-right"
         autoClose={2000}
         hideProgressBar={false}
@@ -120,8 +121,6 @@ const combinedFunction = composeFunctions(profile, notify);
         transition:Bounce
         className="z-[1000]"
       />
-     
-     </div>
     </div>
   );
 };
