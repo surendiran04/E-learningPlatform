@@ -36,7 +36,7 @@ function CourseDetails() {
                     rounded-xl text-xl
                     font-semibold hover:text-white py-3 px-4 border hover:border-transparent transition duration-500 outline-none mt-5 mb-4 ${isLoading
                             ? "bg-green-400 hover:bg-green-600 text-white"
-                            : "bg-transparent border-white border-2 hover:bg-green-400 text-white"
+                            : "bg-transparent border-white border-2 hover:bg-green-600 text-white"
                         }`}
                     type="submit"
                     onClick={notify}
@@ -143,7 +143,7 @@ function CourseDetails() {
                     rounded-xl text-xl
                     font-semibold hover:text-white py-3 px-4 border hover:border-transparent transition duration-500 outline-none mt-5 mb-14 ${isLoading
                             ? "bg-green-400 hover:bg-green-600 text-white"
-                            : "bg-transparent border-black border-2 hover:bg-green-400 text-black"
+                            : "bg-transparent border-black border-2 hover:bg-green-600 text-black"
                         }`}
                     type="submit"
                     onClick={notify}
