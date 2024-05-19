@@ -58,26 +58,6 @@ function Home() {
           </NavLink>
         </div>
       </div>
-      {/* <div className='flex justify-evenly my-20 w-3/4 overflow-x-hidden'>
-        <div className='bg-gray-200 flex flex-col justify-center items-center py-10'>
-          <FaPhoneAlt className=' text-xl' />
-          <h3 className='font-bold  text-xl'>Phone number</h3>
-          <p className='font-semibold'>123-456-7890</p>
-          <p className='font-semibold'>111-222-3333</p>
-        </div>
-        <div className='bg-gray-200 flex flex-col justify-center items-center py-10 '>
-          <MdEmail className=' text-xl' />
-          <h3 className='font-bold  text-xl '>Email address</h3>
-          <p className='font-semibold'>shaikhanas@gmail.come</p>
-          <p className='font-semibold'>anasbhai@gmail.come</p>
-        </div>
-        <div className='bg-gray-200 flex flex-col justify-center items-center py-10 '>
-          <IoLocation className='text-2xl' />
-          <h3 className='font-bold text-xl'>Office address</h3>
-          <p className='font-semibold'>flat no. 1, a-1 building, </p>
-          <p className='font-semibold'>jogeshwari, mumbai, india - 400104</p>
-        </div>
-      </div> */}
       <div className=' grid grid-cols-3 my-7 gap-10 mx-7 '>
         <div className='bg-gray-200 flex  flex-col justify-center items-center py-5 '>
           <FaPhoneAlt className=' text-xl' />
