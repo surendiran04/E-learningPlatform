@@ -10,6 +10,7 @@ import MentorSignUp from '../Pages/Mentor/MentorSignup';
 import MentorForgotPassword from '../Pages/Mentor/MentorForgotPassword'
 import MentorUpdatePassword from '../Pages/Mentor/MentorUpdatePassword';
 import Profile from '../Pages/Profile';
+import Checkout from '../Pages/Course/Checkout';
 
 export const ROUTES = [
   {
@@ -26,6 +27,10 @@ export const ROUTES = [
     title: "Profile",
     Component: Profile,
     path: "/profile"
+  },{
+    title: "Checkout",
+    Component: Checkout,
+    path: "/checkout"
   }
 ];
 

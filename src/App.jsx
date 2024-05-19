@@ -68,7 +68,7 @@ function App() {
         <Sidebar />
       </div>
       <div className={` ${open ? "w-full ml-40" : "ml-20 w-full"} `}>
-        {/* <NavBar /> */}
+        <Header/>        
         <Routes>
           {renderRoutes()}
           {renderMentorPublicRoutes()}
@@ -79,8 +79,6 @@ function App() {
           {/* {isLoggedIn && renderPrivateRoutes()} */}
           <Route Component={NotFound} path="*" />;
           <Route Component={CreateCourse} path="/createcourse" />;
-          {/* <Route Component={CourseDetails} path="/coursedetails" />; */}
-
         </Routes>
       </div>
     </div>

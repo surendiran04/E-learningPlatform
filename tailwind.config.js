@@ -21,7 +21,9 @@ export default {
         'gb':'#40A578', //green blue
         'db':'#006769', //dark blue2
         'db3':'#222E3D',//dark blue3
+        'db4':'#01241B', //dark black1
         'gold1':'#FCBF07',
+        'dg':'#013528', //dark green
         'white':'#fff',
         'border':'rgba(0,0,0,.2)'
 

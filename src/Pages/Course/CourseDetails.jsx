@@ -1,23 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import { ShieldCheck } from 'lucide-react';
 import { MdAssessment } from "react-icons/md";
 import { Laptop } from 'lucide-react';
+import { FaIndianRupeeSign } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+
 
 function CourseDetails() {
-    let notify = () => toast.warn(errors.email?.message || errors.password?.message);
-
-    const [isLoading, setIsLoading] = useState(false);
-
-    const onSubmit = (data) => {
-        // handleLogin(data);
-        reset();
-    };
+    const navigate = useNavigate();
+    const navi = () => {
+        navigate('/checkout')
+    }
 
     return (
         <div>
-            <header className="text-3xl min-h-14  pl-10 py-2 text-black">E-Learning</header>
             <div className='flex flex-col gap-3 w-full  bg-db3 p-10'>
                 <h1 className='text-5xl text-white mb-4'>Data Structures and Algorithm	</h1>
                 <h2 className='text-2xl text-gold1 mb-3'>Master the art of efficient coding!	</h2>
@@ -30,20 +28,27 @@ function CourseDetails() {
                     <FaRegStar className='text-gold1 text-3xl' />
                     <span className='text-white text-3xl pl-3'>4.1</span>
                 </div>
+                <div className='flex gap-2'>
+                    <p className='text-2xl text-white '> Buy this course @</p>
+                    <div className='flex'>
+                        <FaIndianRupeeSign className='text-2xl text-white mt-2 ' />
+                        <span className='text-2xl text-gold1 mb-3'>2500</span>
+                    </div>
+                </div>
+                <div className='w-1/4 bg-gray-600 p-3 flex'>
+                    <h4 className='text-white text-2xl ml-3'> Duration: Months</h4>
+                </div>
                 <button
                     className={`
                     w-1/4
                     rounded-xl text-xl
-                    font-semibold hover:text-white py-3 px-4 border hover:border-transparent transition duration-500 outline-none mt-5 mb-4 ${isLoading
-                            ? "bg-green-400 hover:bg-green-600 text-white"
-                            : "bg-transparent border-white border-2 hover:bg-green-400 text-white"
-                        }`}
+                    font-semibold hover:text-white py-3 px-4  hover:border-transparent transition duration-500 outline-none mt-5 mb-4 
+                    bg-transparent border-white border-2 hover:bg-green-600 text-white
+                        `}
                     type="submit"
-                    onClick={notify}
-                    disabled={isLoading}
+                    onClick={navi}
                 >
-                    {isLoading ? "Loading" : "Enroll Now"}
-
+                    Enroll Now
                 </button>
             </div>
             <section>
@@ -141,16 +146,13 @@ function CourseDetails() {
                     w-4/6
                     ml-48
                     rounded-xl text-xl
-                    font-semibold hover:text-white py-3 px-4 border hover:border-transparent transition duration-500 outline-none mt-5 mb-14 ${isLoading
-                            ? "bg-green-400 hover:bg-green-600 text-white"
-                            : "bg-transparent border-black border-2 hover:bg-green-400 text-black"
-                        }`}
+                    font-semibold hover:text-white py-3 px-4  hover:border-transparent transition duration-500 outline-none mt-5 mb-14  bg-transparent border-black border-2 hover:bg-green-600 text-black
+                        `}
                     type="submit"
-                    onClick={notify}
-                    disabled={isLoading}
-                >
-                    {isLoading ? "Loading" : "Enroll Now"}
+                    onClick={navi}
 
+                >
+                    Enroll Now
                 </button>
 
             </section>
