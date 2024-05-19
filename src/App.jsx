@@ -7,6 +7,8 @@ import Sidebar from "./Components/sidebar.jsx";
 import NavBar from "./Components/NavBar.jsx";
 import CreateCourse from "./Pages/Course/CreateCourse.jsx";
 import CourseDetails from "./Pages/Course/CourseDetails.jsx";
+import Checkout from "./Pages/Course/Checkout.jsx";
+import Header from "./Components/Header.jsx";
 
 function App() {
   // const { isLoggedIn, } = useAuthContext();
@@ -70,7 +72,7 @@ function App() {
         <Sidebar />
       </div>
       <div className={` ${open ? "w-full ml-40" : "ml-20 w-full"} `}>
-        {/* <NavBar /> */}
+        <Header/>        
         <Routes>
           {renderRoutes()}
           {renderMentorPublicRoutes()}
@@ -82,7 +84,7 @@ function App() {
           <Route Component={NotFound} path="*" />;
           <Route Component={CreateCourse} path="/createcourse" />;
           <Route Component={CourseDetails} path="/coursedetails" />;
-
+          <Route Component={Checkout} path="/checkout" />;
         </Routes>
       </div>
     </div>
