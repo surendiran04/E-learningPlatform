@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FaIndianRupeeSign } from "react-icons/fa6";
-import Header from '../../Components/Header';
+
 
 function Checkout() {
     let notify = () => toast.warn(errors.email?.message || errors.password?.message);
@@ -12,15 +12,12 @@ function Checkout() {
         reset();
     };
     return (
-        <>
-        <Header/>        
-
         <div className=' flex items-center justify-center mt-10'>
             <div className='w-1/3'>
                 <div className="text-4xl font-bold  text-dg text-center non-italic mb-4">
                     Checkout
                 </div>
-                <div className='bg-dg p-10 '>
+                <div className='bg-darkb p-10 '>
 
                     <h1 className='text-3xl text-white mb-4'>Data Structures and Algorithm	</h1>
                     <div className='flex gap-2 mb-3'>
@@ -30,7 +27,7 @@ function Checkout() {
                             <span className='text-2xl text-gold1 mb-3'>2500</span>
                         </div>
                     </div>
-                    <div className='w-fit bg-db4 p-3 flex mb-3'>
+                    <div className='w-fit bg-gray-600 p-3 flex mb-3'>
                         <h4 className='text-white text-2xl ml-3'> Duration: 6 Months</h4>
                     </div>
                     <button
@@ -50,7 +47,6 @@ function Checkout() {
                 </div>
             </div>
         </div>
-        </>
     )
 }
 

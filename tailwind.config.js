@@ -24,6 +24,8 @@ export default {
         'db4':'#01241B', //dark black1
         'gold1':'#FCBF07',
         'dg':'#013528', //dark green
+        'v1':'#49243E', // violet 1
+        'b2':'#6AD4DD', //blue 2
         'white':'#fff',
         'border':'rgba(0,0,0,.2)'
 
