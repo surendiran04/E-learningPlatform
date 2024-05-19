@@ -41,13 +41,13 @@ const combinedFunction = composeFunctions(profile, notify);
 
 
   return (
-    <div className="flex  h-screen ">
+    <div className="flex h-screen ">
       <div
         className={`bg-white h-screen p-5 pt-8  duration-300 relative border-solid border-black border-r-2 `}
         onMouseOver={() => setOpen(true)}
         onMouseOut={() => setOpen(false)}
       >
-        <div className=" flex flex-col my-auto items-center mt">
+        <div className={`flex flex-col my-auto items-center ${open?"":"mt-28"}`}>
           <img src={ProfilePic} alt="Profile Logo" />
           {open && (
             <>
@@ -62,6 +62,7 @@ const combinedFunction = composeFunctions(profile, notify);
             </>
           )}
         </div>
+        <div className={`flex flex-col  ${open?"gap-6":"justify-center items-center mt-2"} `}>
         <div className="flex gap-3 mb-4 mt-6">
           <FaHome color="black" size={32} />
           {open && (
@@ -75,7 +76,7 @@ const combinedFunction = composeFunctions(profile, notify);
           {open && (
             <h3 className="text-black sedan-sc-regular text-xl">
               {" "}
-              <Link to="/">courses</Link>
+              <Link to="/courses">courses</Link>
             </h3>
           )}
         </div>
@@ -92,7 +93,7 @@ const combinedFunction = composeFunctions(profile, notify);
         <div className="flex gap-3 mb-4 ">
           <MdRoundaboutLeft color="black" size={32} />
           {open && (
-            <h3 className="text-black sedan-sc-regular text-xl">About</h3>
+            <h3 className="text-black sedan-sc-regular text-xl ">My</h3>
           )}
         </div>
 
@@ -103,6 +104,7 @@ const combinedFunction = composeFunctions(profile, notify);
               <button onClick={Logout}>Logout</button>
             </h3>
           )}
+        </div>
         </div>
         <ToastContainer
         position="top-right"
@@ -118,8 +120,8 @@ const combinedFunction = composeFunctions(profile, notify);
         transition:Bounce
         className="z-[1000]"
       />
-      </div>
-      
+     
+     </div>
     </div>
   );
 };

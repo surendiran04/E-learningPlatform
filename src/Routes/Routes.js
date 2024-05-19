@@ -11,12 +11,19 @@ import MentorForgotPassword from '../Pages/Mentor/MentorForgotPassword'
 import MentorUpdatePassword from '../Pages/Mentor/MentorUpdatePassword';
 import Profile from '../Pages/Profile';
 import Checkout from '../Pages/Course/Checkout';
+import Courses from '../Pages/Course/Courses';
+import Mycourses from '../Pages/Course/Mycourses';
 
 export const ROUTES = [
   {
     title: "Home",
     Component: Home,
     path: "/"
+  },
+  {
+    title: "Courses",
+    Component:Courses,
+    path: "/courses"
   },
   {
     title: "course details",
@@ -36,9 +43,9 @@ export const ROUTES = [
 
 export const studentPrivateRoutes = [
   {
-    title:"Dashboard",
-    Component: Dashboard,
-    path: "/dashboard",
+    title:"My courses",
+    Component: Mycourses,
+    path: "/mycourses",
   },
 ];
 

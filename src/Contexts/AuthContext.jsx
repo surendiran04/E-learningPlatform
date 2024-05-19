@@ -17,9 +17,9 @@ export default function AuthContextProvider({ children }) {
   const [isLoggedIn, setLoggedIn] = useState(() => {
     // Retrieve login state from session storage (if available)
     const storedLoggedIn = sessionStorage.getItem("loggedIn");
-    return storedLoggedIn === "true";
+    return storedLoggedIn === "false";
   });
-  const [open,setOpen] = useState(true); //sideBar hovering
+  const [open,setOpen] = useState(false); //sideBar hovering
   const [user, SetUser] = useState(() => sessionStorage.getItem("user"));
   let token = sessionStorage.getItem("_tk");
   const { decodedToken, isExpired } = useJwt(token || "");

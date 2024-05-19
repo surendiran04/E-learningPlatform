@@ -64,10 +64,10 @@ function App() {
 
   return (
     <div className="w-screen h-screen flex">
-      <div className={`${open ? "w-40 fixed" : "w-20 fixed"} `}>
+      <div className={`${open ? "w-44 fixed" : "w-24 fixed"} `}>
         <Sidebar />
       </div>
-      <div className={` ${open ? "w-full ml-40" : "ml-20 w-full"} `}>
+      <div className={` ${open ? "w-full ml-44" : "ml-24 w-full"} `}>
         <Routes>
           {renderRoutes()}
           {renderMentorPublicRoutes()}
