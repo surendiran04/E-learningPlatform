@@ -12,7 +12,7 @@ import { FaKey } from "react-icons/fa";
 export default function UpdatePassword() {
   const { id, token } = useParams();
   const { decodedToken, isExpired } = useJwt(token || "");
-  let notify = () => toast.warn(errors.password?.message);
+  let notify = () => toast.warn(errors.pass?.message);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isShow, setIsShow] = useState(false);
@@ -42,7 +42,7 @@ export default function UpdatePassword() {
   const changePassword = async (data) => {
     try {
       setIsLoading(true)
-      const response = await fetch(`${VITE_BACKEND_URL}/resetPassword/${id}/${token}`, {
+      const response = await fetch(`${VITE_BACKEND_URL}/api/auth/studentResetPassword/${id}/${token}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export default function UpdatePassword() {
                 placeholder="Enter your new Password "
                 className="text-xl text-black border-none outline-none"
                 disabled={isLoading}
-                {...register("password", {
+                {...register("pass", {
                   required: "this is required",
                   minLength: { value: 8, message: "Minimum length should be 8" },
                 })}

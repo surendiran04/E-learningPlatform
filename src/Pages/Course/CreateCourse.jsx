@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+const { VITE_BACKEND_URL } = import.meta.env;
 
 function CreateCourse() {
     const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +15,6 @@ function CreateCourse() {
         || errors.projects?.message
         || errors.assessments?.message
         || errors.duration?.message
-
     );
 
     const {
@@ -23,11 +23,42 @@ function CreateCourse() {
         formState: { errors },
         reset,
     } = useForm();
+
     const onSubmit = (data) => {
-        // handleLogin(data);
-        console.log(data);
+        const projectString =data.project;
+        data.project=JSON.parse(`[${projectString}]`);
+        const syllabusString=data.syllabus;
+        data.syllabus=JSON.parse(`[${syllabusString}]`);
+        const assessmentString=data.assessments;
+        data.assessments=JSON.parse(`[${assessmentString}]`);
+        handleInput(data);
         // reset();
     };
+    const handleInput = async (data) => {
+        try {
+          setIsLoading(true);
+          const response = await fetch(`${VITE_BACKEND_URL}/createCourse`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          });
+          const result = await response.json();
+          if (result.success) {
+            toast.success(result.message);
+          } else {
+            toast.info(result.message);
+          }
+        } catch (error) {
+          toast.error(error.message);
+    
+        }
+        finally {
+          setIsLoading(false);
+        }
+      };
+
     return (
         <div className="container flex items-center justify-center gap-10  bg-gray-200 ">
             <div className='w-2/5'>

@@ -6,16 +6,15 @@ import { Eye, EyeOff } from "lucide-react";
 const { VITE_BACKEND_URL } = import.meta.env;
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FaUserGraduate } from "react-icons/fa";
+import { FaUserGraduate,FaPhoneAlt,FaKey } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import { FaKey } from "react-icons/fa";
 import Lord2 from "../../assets/lord1.png"
 
 
 export default function SignUp() {
 
   let notify = () =>
-    toast.warn(errors.Name?.message || errors.email?.message || errors.password?.message);
+    toast.warn(errors.student_name?.message || errors.email?.message || errors.pass?.message ||errors.phone?.message);
 
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -39,18 +38,17 @@ export default function SignUp() {
   const handleSignup = async (data) => {
     try {
       setIsLoading(true);
-      const response = await fetch(`${VITE_BACKEND_URL}/signUp`, {
+      const response = await fetch(`${VITE_BACKEND_URL}/api/auth/studentSignUp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-
       const result = await response.json();
       if (result.success) {
         toast.success(result.message);
-        // navigate("/");
+        navigate("/student/login");
       } else {
         toast.info(result.message);
       }
@@ -58,7 +56,7 @@ export default function SignUp() {
       toast.error(error.message);
     }
     finally {
-      setIsLoading(false); // Set isLoading back to false after the request completes
+      setIsLoading(false); 
     }
   };
   return (
@@ -74,12 +72,22 @@ export default function SignUp() {
               <input
                 name="name"
                 className="text-xl text-black border-none outline-none  "
-                placeholder="Enter your Name"
+                placeholder="Enter student Name"
                 type="text"
-                {...register("Name", { required: "Name is required" })}
+                {...register("student_name", { required: "student name is required" })}
                 disabled={isLoading}
               />
             </div>
+            <div className="flex gap-3  mb-5 py-2 px-5  border-solid border-white bg-white  border-2 ">
+              <FaPhoneAlt className="text-4xl pt-1  pb-0 m-0 "/>
+              <input
+                className="text-xl text-black border-none outline-none   "
+                placeholder="Enter Phone number"
+                type="text"
+                {...register("phone", { required: "Phone number is required" })}
+                disabled={isLoading}
+              />
+              </div>
             <div className="flex gap-3  mb-5 py-2 px-5  border-solid border-white bg-white  border-2 ">
               <MdEmail className="text-4xl pt-1  pb-0 m-0 " />
               <input
@@ -99,7 +107,7 @@ export default function SignUp() {
                 placeholder="Enter your Password "
                 className="text-xl text-black border-none outline-none"
                 disabled={isLoading}
-                {...register("password", {
+                {...register("pass", {
                   required: "Password is required",
                   minLength: {
                     value: 8,

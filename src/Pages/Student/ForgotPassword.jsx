@@ -27,20 +27,16 @@ export default function ForgotPassword() {
 
   const handleEmail = async (data) => {
     try {
-      setIsLoading(true); // Set isLoading to true when the request starts
-
-      const response = await fetch(`${VITE_BACKEND_URL}/forgotPassword`, {
+      setIsLoading(true); 
+      const response = await fetch(`${VITE_BACKEND_URL}/api/auth/studentForgotPassword`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
-
       const result = await response.json();
-
       if (result.success) {
-
         toast.success(result.message);
       } else {
         toast.info(result.message);
@@ -50,7 +46,7 @@ export default function ForgotPassword() {
       toast.error(error.message);
       console.error(error);
     } finally {
-      setIsLoading(false); // Set isLoading back to false after the request completes
+      setIsLoading(false);
     }
   }
 

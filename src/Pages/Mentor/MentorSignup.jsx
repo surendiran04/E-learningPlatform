@@ -14,7 +14,7 @@ export default function MentorSignUp() {
 
   let notify = () =>
     toast.warn(
-      errors.Name?.message || errors.email?.message || errors.password?.message
+      errors.mentor_name?.message || errors.course?.message || errors.email?.message || errors.pass?.message || errors.salary?.message|| errors.phone?.message
     );
 
   const navigate = useNavigate();

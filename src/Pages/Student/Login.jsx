@@ -15,7 +15,7 @@ import Lord1 from "../../assets/lord2.jpg"
 export default function Login() {
   const { isLoggedIn, setLoggedIn, SetUser } = useAuthContext();
 
-  let notify = () => toast.warn(errors.email?.message || errors.password?.message);
+  let notify = () => toast.warn(errors.email?.message || errors.pass?.message);
 
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -39,33 +39,29 @@ export default function Login() {
   const handleLogin = async (data) => {
     try {
       setIsLoading(true);
-      const response = await fetch(`${VITE_BACKEND_URL}/signin`, {
+      const response = await fetch(`${VITE_BACKEND_URL}/api/auth/studentSignin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
-
       const result = await response.json();
-
       if (result.success) {
         toast.success(result.message);
         setLoggedIn(true);
         SetUser(result.user);
         sessionStorage.setItem('_tk', result.token);
-        navigate('/Dashboard');
+        navigate('/');
       } else {
-        // If email/pass is wrong
         toast.info(result.message);
-
       }
     } catch (error) {
       toast.error(error.message);
 
     }
     finally {
-      setIsLoading(false); // Set isLoading back to false after the request completes
+      setIsLoading(false);
     }
   };
 
@@ -104,7 +100,7 @@ export default function Login() {
                 placeholder="Enter your Password "
                 className="text-xl text-black border-none outline-none"
                 disabled={isLoading}
-                {...register("password", {
+                {...register("pass", {
                   required: "Password is required",
                   minLength: { value: 8, message: "password should be minimum of 8 characters" },
                 })}
