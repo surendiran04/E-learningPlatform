@@ -12,7 +12,7 @@ import '../App.css'
 const Sidebar = () => {
     const { open, setOpen } = useAuthContext();
     return (
-        <div className='flex flex-col  h-screen overflow-hidden' >
+        <div className='flex flex-col  h-screen ' >
             <div className={`bg-white h-screen p-5 pt-8  duration-300 relative border-solid border-black border-r-2 `} onMouseOver={() => setOpen(true)}
                 onMouseOut={() => setOpen(false)}>
                 <div className=' flex flex-col my-auto items-center mt'>

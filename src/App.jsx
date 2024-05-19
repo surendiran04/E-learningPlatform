@@ -66,7 +66,7 @@ function App() {
 
   return (
     <div className="w-screen h-screen flex">
-      <div className={`${open ? "w-40" : "w-20"} `}>
+      <div className={`${open ? "w-40 fixed" : "w-20 fixed"} `}>
         <Sidebar />
       </div>
       <div className={` ${open ? "w-full mx-0" : "w-full"} `}>

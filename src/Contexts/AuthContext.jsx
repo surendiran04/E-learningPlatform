@@ -36,11 +36,7 @@ export default function AuthContextProvider({ children }) {
     }
   }, [token,isLoggedIn]);
 
-  // useEffect(() => {
-  //   sessionStorage.setItem("loggedIn", isLoggedIn);
-  //   sessionStorage.setItem("user", user);
-  // }, [isLoggedIn]);
-
+  
   const values = Object.seal({
     isLoggedIn,
     setLoggedIn,
