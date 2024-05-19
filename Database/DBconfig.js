@@ -2,6 +2,7 @@ const pg = require("pg");
 require('dotenv').config();
 
 let { PGHOST, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
+
 const db = new pg.Client({
   user: PGUSER,
   host: PGHOST,

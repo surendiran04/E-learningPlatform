@@ -13,7 +13,6 @@ async function createMentor(req, res) {
       [req.body.email]
     );
     const email = existingEmail.rows[0]?.email;
-
     if (email) {
       return res
         .status(401)
@@ -38,8 +37,7 @@ async function createMentor(req, res) {
               data.email,
               data.pass,
             ]
-          )
-            .then(() => {
+          ).then(() => {
               return res.status(201).json({
                 success: true,
                 message: "Mentor created successfully!",
@@ -77,7 +75,7 @@ async function signInMentor(req, res) {
 
     await db
       .query(
-        "SELECT mentor_id,mentor_name,email,pass FROM mentor WHERE email = $1",
+        "SELECT mentor_id,mentor_name,email,pass,phone FROM mentor WHERE email = $1",
         [email]
       )
       .then((response) => {
@@ -86,13 +84,13 @@ async function signInMentor(req, res) {
             //if result is true then both the pass are crt
             if (result) {
               const token = jwt.sign({ role: ["mentor"] }, secret, {
-                expiresIn: 60 * 5, //session time
+                expiresIn: 60 * 15, //session time
               });
               return res.status(200).json({
                 success: true,
                 message: "Sign In successful",
                 token: token,
-                user: response.rows[0].mentor_name,
+                user: response.rows[0],
               });
             } else {
               return res.status(401).json({
@@ -139,8 +137,9 @@ const forgotPasswordMentor = async (req, res) => {
             address: process.env.EMAIL_USER,
           },
           to: email,
-          subject: "Reset Password - Reg",
-          html: `<h3>Hello! Here is your New password Link</h3>
+          subject: "E-learning Reset Password - Reg",
+          html: `<h2>E-learning</h2>
+                 <h3>Hello! Here is your New password Link</h3>
                 <h5>The Link is valid only for the next 3 minutes</h5>
               <a href="${FE_URL}/resetPassword/${user_id}/${token}">Click here</a>`,
         };

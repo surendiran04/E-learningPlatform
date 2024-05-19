@@ -10,7 +10,6 @@ async function createStudent(req, res) {
   try {
     const existingEmail = await db.query("SELECT * FROM student WHERE email = $1", [req.body.email]);
     const email = existingEmail.rows[0]?.email;
-    // const courseObject = await db.query("SELECT course_id FROM course WHERE course_name = $1", [req.body.course_name]);
     if (email) {
       return res.status(401).json({ success: false, message: "EmailId already exists" });
     } else {
@@ -21,7 +20,7 @@ async function createStudent(req, res) {
             return res.status(500).json({ success: false, message: "Something went wrong" });
           }
           data.pass = hash;
-          db.query("INSERT INTO STUDENT(student_name, phone, email, pass) VALUES ($1, $2, $3, $4)", [data.student_name, data.phone, data.email, data.pass])
+          db.query("INSERT INTO STUDENT(student_name, phone, email, pass,fees) VALUES ($1, $2, $3, $4,$5)", [data.student_name, data.phone, data.email, data.pass,0])
             .then(() => {
               return res.status(201).json({ success: true, message: "Student created successfully!" });
             })
@@ -53,20 +52,20 @@ async function signInStudent(req, res) {
       });
     }
 
-    await db.query("SELECT student_id,student_name,email,pass FROM student WHERE email = $1", [email])
+    await db.query("SELECT student_id,student_name,email,pass,phone FROM student WHERE email = $1", [email])
       .then((response) => {
         if (response.rows[0] && response.rows[0].student_id) {
           bcrypt.compare(pass, response.rows[0].pass).then(function (result) {
             //if result is true then both the pass are crt
             if (result) {
               const token = jwt.sign({ role: ["student"] }, secret, {  //role based authorization
-                expiresIn: 60 * 5, //session time
+                expiresIn: 60 * 15, //session time
               });
               return res.status(200).json({
                 success: true,
                 message: "Sign In successful",
                 token: token,
-                user: response.rows[0].student_name,
+                user: response.rows[0],
               });
             } else {
               return res.status(401).json({
@@ -112,8 +111,10 @@ const forgotPasswordStudent = async (req, res) => {
             address: process.env.EMAIL_USER,
           },
           to: email,
-          subject: "Reset Password - Reg",
-          html: `<h3>Hello! Here is your New password Link</h3>
+          subject: "E-learning Reset Password - Reg",
+          html: `<h2>E-learning</h2>
+                <h3>Hello! Here is your New password Link</h3>
+
                 <h5>The Link is valid only for the next 3 minutes</h5>
               <a href="${FE_URL}/resetPassword/${user_id}/${token}">Click here</a>`,
         };
