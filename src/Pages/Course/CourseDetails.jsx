@@ -138,8 +138,8 @@ function CourseDetails() {
                 </div>
                 <button
                     className={`
-                    w-5/6
-                    
+                    w-4/6
+                    ml-48
                     rounded-xl text-xl
                     font-semibold hover:text-white py-3 px-4 border hover:border-transparent transition duration-500 outline-none mt-5 mb-14 ${isLoading
                             ? "bg-green-400 hover:bg-green-600 text-white"
