@@ -6,6 +6,7 @@ import { FaHome } from "react-icons/fa";
 import { MdRoundaboutLeft } from "react-icons/md";
 import { useAuthContext } from '../Contexts/AuthContext';
 import { LogOut } from "lucide-react";
+import { Link } from "react-router-dom";
 import '../App.css'
 
 
@@ -27,15 +28,16 @@ const Sidebar = () => {
                 </div>
                 <div className='flex gap-3 mb-4 mt-6' >
                     <FaHome color='black' size={32} />
-                    {open && <h3 className='text-black  sedan-sc-regular text-xl' >Home</h3>}
+                    {open && <h3 className='text-black  sedan-sc-regular text-xl' >
+                        <Link to="/">Home</Link></h3>}
                 </div>
                 <div className='flex gap-3 mb-4' >
                     <BookOpenCheck color='black' size={32} />
-                    {open && <h3 className='text-black sedan-sc-regular text-xl' >Courses</h3>}
+                    {open && <h3 className='text-black sedan-sc-regular text-xl' > <Link to="/">course</Link></h3>}
                 </div>
                 <div className='flex gap-3 mb-4' >
                     <FaChalkboardTeacher color='black' size={32} />
-                    {open && <h3 className='text-black sedan-sc-regular text-xl' >Mentors</h3>}
+                    {open && <h3 className='text-black sedan-sc-regular text-xl' > <Link to="/mentor/Login">Mentors</Link></h3>}
                 </div>
 
                 <div className='flex gap-3 mb-4 ' >
