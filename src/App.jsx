@@ -77,7 +77,6 @@ function App() {
           {/* {isLoggedIn && renderRoutes()} */}
           {/* {isLoggedIn && renderPrivateRoutes()} */}
           <Route Component={NotFound} path="*" />;
-          <Route Component={CreateCourse} path="/createcourse" />;
         </Routes>
       </div>
     </div>

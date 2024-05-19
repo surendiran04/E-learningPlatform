@@ -11,6 +11,10 @@ import MentorForgotPassword from '../Pages/Mentor/MentorForgotPassword'
 import MentorUpdatePassword from '../Pages/Mentor/MentorUpdatePassword';
 import Profile from '../Pages/Profile';
 import Checkout from '../Pages/Course/Checkout';
+import MentorDashboard from '../Pages/Mentor/MentorDashboard';
+import ViewStudents from '../Pages/Mentor/ViewStudents';
+import ViewMentors from '../Pages/Mentor/ViewMentors';
+import CreateCourse from '../Pages/Course/CreateCourse';
 
 export const ROUTES = [
   {
@@ -93,9 +97,26 @@ export const mentorPublicRoutes = [
 export const mentorPrivateRoutes = [
   {
     title: "Dashboard",
-    Component: Dashboard,
+    Component: MentorDashboard,
     path: "/dashboard",
   },
+  {
+    title: "View Students",
+    Component: ViewStudents,
+    path: "/viewstudents",
+  },
+  {
+    title: "View Mentors",
+    Component: ViewMentors,
+    path: "/viewmentors",
+  },
+  {
+    title: "Create Couse",
+    Component: CreateCourse,
+    path: "/createcourse",
+  },
+
+
 ];
 
 export default { ROUTES, studentPrivateRoutes, studentPublicRoutes,mentorPublicRoutes, mentorPrivateRoutes };
