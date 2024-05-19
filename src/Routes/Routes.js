@@ -4,16 +4,28 @@ import ForgotPassword from "../Pages/Student/ForgotPassword";
 import Dashboard from "../Pages/Student/Dashboard";
 import UpdatePassword from '../Pages/Student/UpdatePassword';
 import Home from "../Pages/Home"
+import CourseDetails from "../Pages/Course/CourseDetails";
 import MentorLogin from '../Pages/Mentor/MentorLogin';
 import MentorSignUp from '../Pages/Mentor/MentorSignup';
 import MentorForgotPassword from '../Pages/Mentor/MentorForgotPassword'
 import MentorUpdatePassword from '../Pages/Mentor/MentorUpdatePassword';
+import Profile from '../Pages/Profile';
 
 export const ROUTES = [
   {
     title: "Home",
     Component: Home,
     path: "/"
+  },
+  {
+    title: "course details",
+    Component: CourseDetails,
+    path: "/coursedetails"
+  },
+  {
+    title: "Profile",
+    Component: Profile,
+    path: "/profile"
   }
 ];
 

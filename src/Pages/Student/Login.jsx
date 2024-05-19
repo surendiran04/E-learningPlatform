@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../Contexts/AuthContext";
-import { Link } from "react-router-dom";
+import { Link,useNavigate  } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 const { VITE_BACKEND_URL } = import.meta.env;

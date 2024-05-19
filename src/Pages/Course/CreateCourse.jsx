@@ -73,7 +73,7 @@ function CreateCourse() {
                         className='flex flex-col '
                     >
                         <input
-                            className=" text-xl text-black outline-none   border-solid border-black bg-white  border-2  mb-5 py-2 px-5   "
+                            className=" text-xl text-black outline-none   border-solid border-black  border-2  bg-white mb-5 py-2 px-5   "
                             placeholder="Enter Course Name"
                             type="text"
                             {...register("course_name", { required: "Course name is required" })}

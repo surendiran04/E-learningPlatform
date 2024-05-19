@@ -5,7 +5,7 @@ const AuthContext = createContext({
   isLoggedIn: false,
   setLoggedIn: () => {},
   decodedToken: {},
-  user: "",
+  user: {},
   SetUser: () => {},
   open:false,
   setOpen: () => {},
@@ -19,8 +19,8 @@ export default function AuthContextProvider({ children }) {
     const storedLoggedIn = sessionStorage.getItem("loggedIn");
     return storedLoggedIn === "true";
   });
-  const [open,setOpen] = useState(false); //sideBar hovering
-  const [user, SetUser] = useState(sessionStorage.getItem("user"));
+  const [open,setOpen] = useState(true); //sideBar hovering
+  const [user, SetUser] = useState(() => sessionStorage.getItem("user"));
   let token = sessionStorage.getItem("_tk");
   const { decodedToken, isExpired } = useJwt(token || "");
 
