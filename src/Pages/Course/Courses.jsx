@@ -1,4 +1,5 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import CourseCard from "../../Components/CourseCard";
 import { FaSearch } from "react-icons/fa";
 import { BookCheck } from "lucide-react";
@@ -10,6 +11,15 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Courses() {
   const { isLoggedIn } = useAuthContext();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   return (
     <div>
@@ -18,19 +28,22 @@ function Courses() {
           <a href="#" className="text-3xl font-semibold pl-4 text-black">
             E-Learning
           </a>
-          <form className="flex ml-60 gap-2 w-4/12 py-1 px-5 rounded-lg  border-solid border-black  border-2 bg-light-bg  ">
+          <form className="flex ml-60 gap-2 w-4/12 py-1 px-5 rounded-lg  border-solid border-black  border-2 bg-light-bg"
+            onBlur={handleSubmit(onSubmit)}
+          >
             <input
               type="text"
               placeholder="search courses..."
               maxLength="100"
               className="w-full text-xl bg-inherit outline-none border-light-bg 	"
+              {...register("search")}
             />
             <div className="text-2xl">
               <FaSearch />
             </div>
           </form>
 
-          {isLoggedIn && 
+          {isLoggedIn &&
             <NavLink className="text-xl flex gap-1 ml-72 mt-2 " to="/student/mycourses">
               <BookCheck className="mt-1" />
               My course

@@ -68,7 +68,7 @@ function Home() {
         <div className='bg-gray-200 flex  flex-col justify-center items-center  '>
           <MdEmail className=' text-xl' />
           <h3 className='font-bold  text-xl '>Email address</h3>
-          <p className='font-semibold'>shaikhanas@gmail.come</p>
+          <p className='font-semibold'>apharisangar4@gmail.come</p>
           <p className='font-semibold'>anasbhai@gmail.come</p>
         </div>
         <div className='bg-gray-200 flex  flex-col justify-center items-center  '>

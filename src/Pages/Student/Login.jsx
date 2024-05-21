@@ -127,7 +127,7 @@ export default function Login() {
                   ? "bg-green-400 hover:bg-green-600 text-white"
                   : "bg-transparent border-black border-2 hover:bg-lb text-darkb"
                 }`}
-              type="submit"
+              type="submit" 
               onClick={notify}
               disabled={isLoading}
             >
