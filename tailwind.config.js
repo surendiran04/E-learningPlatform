@@ -10,7 +10,7 @@ export default {
         "dark-purple" : "#081A51",
         "light-white" : "rgba(255,255,255,0.18)",
         'main-color':'#8e44ad',
-        'red':'#e74c3c',
+        'r':'#FF0000', //red
         'orange':'#f39c12',
         'light-color':'#888',
         'light-bg':'#eee',
