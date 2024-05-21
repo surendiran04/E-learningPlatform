@@ -1,13 +1,51 @@
 import React from "react";
+import {Link} from "react-router-dom"
 import MentorPic from "../assets/mentor.svg";
 import thumb1 from "../assets/thumb-1.png";
 import { useCourseContext } from "../Contexts/CourseContext";
 
 function CourseCard() {
-  const { courseData, isLoading } = useCourseContext();
+  // const { courseData, isLoading } = useCourseContext();
+  const isLoading=false;
+  const courseData = [
+    {
+        "course_id": 9,
+        "course_name": "ML",
+        "duration": "4-months",
+        "fees": "7000",
+        "mentor_id": 9,
+        "no_of_students": 0,
+        "mentor_name": "Striver"
+    },
+    {
+        "course_id": 6,
+        "course_name": "artificial intelligence",
+        "duration": "3-months",
+        "fees": "2500",
+        "mentor_id": 13,
+        "no_of_students": 1,
+        "mentor_name": "Berlin"
+    },
+    {
+        "course_id": 10,
+        "course_name": "Data structures & algorithm",
+        "duration": "4-months",
+        "fees": "7500",
+        "mentor_id": 12,
+        "no_of_students": 0,
+        "mentor_name": "Abdul Bari"
+    },
+    {
+        "course_id": 11,
+        "course_name": "Full-stack",
+        "duration": "6-months",
+        "fees": "2500",
+        "mentor_id": 11,
+        "no_of_students": 0,
+        "mentor_name": "Vishnu"
+    }
+]
 
-  // courseData?.map((data, i) => console.log(data[i]?.mentor_name));
-  // console.log("cd", courseData?.mentor_name);
 
   return (
     <div className="flex flex-wrap gap-5 ml-5 mt-5">
@@ -37,7 +75,7 @@ function CourseCard() {
             <button
               className={`focus:outline-none text-white bg-green-700 hover:bg-green-800  focus:ring-purple-300  rounded-lg text-xl  px-5 py-2.5 mb-2 `}
             >
-              Read more
+            <Link to={`/coursedetails/${data.course_id}`}>Read more</Link>
             </button>
           </div>
         ))

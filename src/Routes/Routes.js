@@ -32,7 +32,7 @@ export const ROUTES = [
   {
     title: "course details",
     Component: CourseDetails,
-    path: "/coursedetails"
+    path: "/coursedetails/:id"
   },
   {
     title: "Profile",
@@ -41,7 +41,7 @@ export const ROUTES = [
   },{
     title: "Checkout",
     Component: Checkout,
-    path: "/checkout"
+    path: "/checkout/:id"
   }
 ];
 
