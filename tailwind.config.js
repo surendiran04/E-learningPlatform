@@ -26,6 +26,10 @@ export default {
         'dg':'#013528', //dark green
         'v1':'#49243E', // violet 1
         'b2':'#6AD4DD', //blue 2
+        'sw':'#FEFAF1', // sandel white
+        'lb2':'#2D95EC', // lite blue 2
+        'lb3':'#FFF1D7',
+        'e':'#363636', // elephant color
         'white':'#fff',
         'border':'rgba(0,0,0,.2)'
 

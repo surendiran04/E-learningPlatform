@@ -6,16 +6,25 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { IoLocation } from "react-icons/io5";
 import { SiTicktick } from "react-icons/si";
-
+import LearnPic from "../assets/GroupLearning.png"
+import TitleCard from "../assets/titlecard.png"
 function Home() {
   return (
     <div className="">
       <Header />
-      <div className=' flex items-center gap-2  bg-gray-600 p-10 '>
-        <div className='flex '>
-          <img src={About} alt="" className='w-full' />
+      <img src={TitleCard} alt="" className='h-96' ></img>
+      <div className='w-full  bg-sw py-5 grid grid-cols-2 '>
+        <div className='p-20'>
+          <p className=' text-lb2 home-card-p mb-2'>GET STARTED WITH E-LEARNING</p>
+          <h1 className='text-6xl text-gray-900 font-bold mb-5'>Stop Dreaming,</h1>
+          <h1 className='text-7xl text-gray-900 font-bold'>Start Learning</h1>
         </div>
-        <div class="flex-1">
+        <div >
+          <img src={LearnPic} alt="" className=' h-96' />
+        </div>
+      </div>
+      <div className=' grid grid-cols-2 bg-gray-600  '>
+        <div className=" ml-36 mt-28">
           <h3 className='text-4xl font-bold pb-4 text-white'>Why Choose Us?</h3>
           <ul class="list-none text-xl tracking-widest text-white mb-5">
             <div className='flex gap-3 pb-5'>
@@ -50,12 +59,15 @@ function Home() {
                     w-full
                     text-center
                     rounded-xl text-xl
-                    font-semibold hover:text-white py-3 px-4  hover:border-transparent transition duration-500 outline-none mb-10 
+                    font-semibold hover:text-white py-3 px-4  hover:border-transparent transition duration-500 outline-none  
                     bg-transparent border-white border-2 hover:bg-b2 text-white
                         `}
           >
             Courses
           </NavLink>
+        </div>
+        <div className='mr-28 mb-20 '>
+          <img src={About} alt="" className="" />
         </div>
       </div>
       <div className=' grid grid-cols-3 my-7 gap-10 mx-7 '>
