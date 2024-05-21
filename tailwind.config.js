@@ -10,7 +10,7 @@ export default {
         "dark-purple" : "#081A51",
         "light-white" : "rgba(255,255,255,0.18)",
         'main-color':'#8e44ad',
-        'red':'#e74c3c',
+        'r':'#FF0000', //red
         'orange':'#f39c12',
         'light-color':'#888',
         'light-bg':'#eee',
@@ -26,6 +26,10 @@ export default {
         'dg':'#013528', //dark green
         'v1':'#49243E', // violet 1
         'b2':'#6AD4DD', //blue 2
+        'sw':'#FEFAF1', // sandel white
+        'lb2':'#2D95EC', // lite blue 2
+        'lb3':'#FFF1D7',
+        'e':'#363636', // elephant color
         'white':'#fff',
         'border':'rgba(0,0,0,.2)'
 

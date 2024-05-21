@@ -5,6 +5,7 @@ import { ROUTES, studentPrivateRoutes, studentPublicRoutes, mentorPublicRoutes, 
 import NotFound from "../src/Pages/NotFound";
 import Sidebar from "./Components/sidebar.jsx";
 import CreateCourse from "./Pages/Course/CreateCourse.jsx";
+import Class from "./Pages/Course/Class.jsx";
 
 function App() {
   // const { isLoggedIn,decodedToken } = useAuthContext();
@@ -77,6 +78,7 @@ function App() {
           {/* {isLoggedIn && renderRoutes()} */}
           {/* {isLoggedIn && renderPrivateRoutes()} */}
           <Route Component={NotFound} path="*" />;
+          <Route Component={Class} path="/class" />;
         </Routes>
       </div>
     </div>
