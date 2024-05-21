@@ -29,7 +29,7 @@ function Courses() {
             E-Learning
           </a>
           <form className="flex ml-60 gap-2 w-4/12 py-1 px-5 rounded-lg  border-solid border-black  border-2 bg-light-bg"
-            onBlur={handleSubmit(onSubmit)}
+            onChange={handleSubmit(onSubmit)}
           >
             <input
               type="text"
