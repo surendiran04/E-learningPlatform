@@ -13,12 +13,13 @@ function ViewStudents() {
     reset,
   } = useForm();
   return (
+    
     <div className=''>
       <div className="text-4xl font-bold  text-dg text-center non-italic m-4">
         Students List
       </div>
       <form class=" flex justify-evenly flex-wrap m-10"
-        onBlur={handleSubmit(onSubmit)}
+        onChange={handleSubmit(onSubmit)}
       >
         <div className='flex mt-3  gap-2 h-14 px-3  w-1/4 rounded-lg  border-solid border-black  border-2 bg-light-bg '>
           <input

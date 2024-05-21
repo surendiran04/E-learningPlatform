@@ -18,7 +18,7 @@ function ViewMentors() {
         Mentors List
       </div>
       <form class=" flex justify-evenly flex-wrap m-10"
-        onBlur={handleSubmit(onSubmit)}>
+        onChange={handleSubmit(onSubmit)}>
         <div className='flex gap-2 h-14 px-3 mt-3  w-1/4 rounded-lg  border-solid border-black  border-2 bg-light-bg '>
           <input
             type="text"

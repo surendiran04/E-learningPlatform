@@ -7,7 +7,7 @@ function CourseCard() {
   const { courseData, isLoading } = useCourseContext();
 
   // courseData?.map((data, i) => console.log(data[i]?.mentor_name));
-  console.log("cd", courseData?.mentor_name);
+  // console.log("cd", courseData?.mentor_name);
 
   return (
     <div className="flex flex-wrap gap-5 ml-5 mt-5">
