@@ -43,7 +43,7 @@ AuthRouter.patch("/mentorResetPassword/:id/:token", updatePassMentor);
 courseRouter.post("/createCourse", createCourse);
 courseRouter.post("/deleteCourse", deleteCourse);
 courseRouter.get("/getCourse", getCourse);
-courseRouter.get("/getCourseContent/:id", getCourseContent);
+courseRouter.get("/getCourseContent", getCourseContent);
 
 courseRouter.post("/enrollCourse",   enrollCourse);
 courseRouter.post("/getStudentCourse", getStudentCourse); 

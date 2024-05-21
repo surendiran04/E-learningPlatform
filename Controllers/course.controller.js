@@ -109,9 +109,7 @@ const getCourse = async (req, res) => {
 
 const getCourseContent = async (req, res) => {
   try {
-    const course_id = req.params.id;
-    console.log(course_id)
-    const CourseObject = await db.query("SELECT * FROM course_content where course_id= $1",[course_id]);
+    const CourseObject = await db.query("SELECT * FROM course_content cc join course c on c.course_id=cc.course_id ");
     const courses = CourseObject.rows;
     if (courses) {
       return res
