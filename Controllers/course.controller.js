@@ -3,7 +3,7 @@ const { db } = require("../Database/DBconfig");
 const createCourse = async (req, res) => {
   try {
     const existingCourse = await db.query(
-      "SELECT * FROM course WHERE course_name = $1",
+      "SELECT * FROM \"course\" WHERE course_name = $1",
       [req.body.course_name]
     );
     const mentorObject = await db.query(
@@ -107,4 +107,31 @@ const getCourse = async (req, res) => {
   }
 };
 
-module.exports = { createCourse, deleteCourse, getCourse };
+const getCourseContent = async (req, res) => {
+  try {
+    const course_id = req.params.id;
+    console.log(course_id)
+    const CourseObject = await db.query("SELECT * FROM course_content where course_id= $1",[course_id]);
+    const courses = CourseObject.rows;
+    if (courses) {
+      return res
+        .status(200)
+        .json({
+          success: true,
+          message: "CoursesData fetched successfully", 
+          courseContent: courses,
+        });
+    } else { 
+      return res
+        .status(500)
+        .json({
+          success: false,
+          message: "Something went wrong! CoursesContent not fetched",
+        });
+    }
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { createCourse, deleteCourse, getCourse,getCourseContent };

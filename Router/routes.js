@@ -15,11 +15,12 @@ const {
 const {
   createCourse,
   deleteCourse,
-  getCourse
+  getCourse,
+  getCourseContent
 } = require("../Controllers/course.controller");
 
 const {
-  enrollCourse
+  enrollCourse, getStudentCourse
 } = require("../Controllers/batch.controller")
 
 const {
@@ -42,9 +43,10 @@ AuthRouter.patch("/mentorResetPassword/:id/:token", updatePassMentor);
 courseRouter.post("/createCourse", createCourse);
 courseRouter.post("/deleteCourse", deleteCourse);
 courseRouter.get("/getCourse", getCourse);
+courseRouter.get("/getCourseContent/:id", getCourseContent);
 
 courseRouter.post("/enrollCourse",   enrollCourse);
-
+courseRouter.post("/getStudentCourse", getStudentCourse); 
 
 courseRouter.post("/makePayment",  makePayment);
 
