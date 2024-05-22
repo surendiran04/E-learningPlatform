@@ -1,64 +1,138 @@
 const { db } = require("../Database/DBconfig");
 
+// const createCourse = async (req, res) => {
+//   try {
+//     console.log(req.body)
+//     const existingCourse = await db.query(
+//       'SELECT * FROM "course" WHERE course_name = $1',
+//       [req.body.course_name]
+//     );
+//     const mentorObject = await db.query(
+//       "SELECT mentor_id FROM mentor WHERE mentor_name = $1",
+//       [req.body.mentor_name]
+//     );
+//     const course = existingCourse.rows[0]?.course_name;
+//     const mentor_id = mentorObject.rows[0]?.mentor_id;
+
+//     if (!mentor_id) {
+//       return res
+//         .status(401)
+//         .json({ success: false, message: "Mentor doesn't exist" });
+//     }
+
+//     if (course) {
+//       return res
+//         .status(401)
+//         .json({ success: false, message: "Course already exists" });
+//     } else {
+//       const data = req.body;
+
+//       // Insert data into the 'course' table and capture the 'course_id'
+//       const courseInsertQuery = `
+//       WITH course_key AS (
+//         INSERT INTO course (course_name, duration, fees, mentor_id, no_of_students)
+//         VALUES ($1, $2, $3, $4, 0)
+//         RETURNING course_id
+//       )
+//       INSERT INTO course_content (course_id, project, assessments, description, tagline, syllabus)
+//       SELECT course_key.course_id, $5, $6, $7, $8, $9
+//       FROM course_key;
+
+//       INSERT INTO course_sessions (course_id, session_data)
+//       VALUES (course_key.course_id, null);
+//     `;
+//       await db.query(courseInsertQuery, [
+//         data.course_name,
+//         data.duration,
+//         data.fees,
+//         mentor_id,
+//         data.project,
+//         data.assessments,
+//         data.description,
+//         data.tagline,
+//         data.syllabus,
+//       ]);
+
+//       return res
+//         .status(201)
+//         .json({ success: true, message: "Course created successfully!" });
+//     }
+//   } catch (error) {
+//     return res.status(500).json({ success: false, message: error.message });
+//   }
+// };
+
 const createCourse = async (req, res) => {
   try {
-    const existingCourse = await db.query(
-      'SELECT * FROM "course" WHERE course_name = $1',
-      [req.body.course_name]
-    );
-    const mentorObject = await db.query(
-      "SELECT mentor_id FROM mentor WHERE mentor_name = $1",
-      [req.body.mentor_name]
-    );
-    const course = existingCourse.rows[0]?.course_name;
-    const mentor_id = mentorObject.rows[0]?.mentor_id;
+      const existingCourse = await db.query(
+          'SELECT * FROM "course" WHERE course_name = $1',
+          [req.body.course_name]
+      );
 
-    if (!mentor_id) {
-      return res
-        .status(401)
-        .json({ success: false, message: "Mentor doesn't exist" });
-    }
+      const mentorObject = await db.query(
+          "SELECT mentor_id FROM mentor WHERE mentor_name = $1",
+          [req.body.mentor_name]
+      );
 
-    if (course) {
-      return res
-        .status(401)
-        .json({ success: false, message: "Course already exists" });
-    } else {
+      const course = existingCourse.rows[0]?.course_name;
+      const mentor_id = mentorObject.rows[0]?.mentor_id;
+
+      if (!mentor_id) {
+          return res
+              .status(401)
+              .json({ success: false, message: "Mentor doesn't exist" });
+      }
+
+      if (course) {
+          return res
+              .status(401)
+              .json({ success: false, message: "Course already exists" });
+      }
+
       const data = req.body;
 
-      // Insert data into the 'course' table and capture the 'course_id'
-      const courseInsertQuery = `
-      WITH course_key AS (
-        INSERT INTO course (course_name, duration, fees, mentor_id, no_of_students)
-        VALUES ($1, $2, $3, $4, 0)
-        RETURNING course_id
-      )
-      INSERT INTO course_content (course_id, project, assessments, description, tagline, syllabus)
-      SELECT course_key.course_id, $5, $6, $7, $8, $9
-      FROM course_key;
-      
-      -- Insert the course_id into the course_sessions table
-      INSERT INTO course_sessions (course_id, session_data)
-      VALUES (course_key.course_id, null);
-    `;
-      await db.query(courseInsertQuery, [
-        data.course_name,
-        data.duration,
-        data.fees,
-        mentor_id,
-        data.project,
-        data.assessments,
-        data.description,
-        data.tagline,
-        data.syllabus,
+      // Insert data into the 'course' table
+      const insertCourseQuery = `
+          INSERT INTO course (course_name, duration, fees, mentor_id, no_of_students)
+          VALUES ($1, $2, $3, $4, 0)
+          RETURNING course_id;
+      `;
+
+      const courseResult = await db.query(insertCourseQuery, [
+          data.course_name,
+          data.duration,
+          data.fees,
+          mentor_id,
       ]);
 
+      const course_id = courseResult.rows[0]?.course_id;
+
+      // Insert data into the 'course_content' table
+      const insertContentQuery = `
+          INSERT INTO course_content (course_id, project, assessments, description, tagline, syllabus)
+          VALUES ($1, $2, $3, $4, $5, $6);
+      `;
+
+      await db.query(insertContentQuery, [
+          course_id,
+          data.project,
+          data.assessments,
+          data.description,
+          data.tagline,
+          data.syllabus,
+      ]);
+
+      // Insert initial session data (assuming 'session_data' is nullable)
+      await db.query(
+          "INSERT INTO course_sessions (course_id, session_data) VALUES ($1, null);",
+          [course_id]
+      );
+
       return res
-        .status(201)
-        .json({ success: true, message: "Course created successfully!" });
-    }
+          .status(201)
+          .json({ success: true, message: "Course created successfully!" });
   } catch (error) {
-    return res.status(500).json({ success: false, message: error.message });
+      return res.status(500).json({ success: false, message: error.message });
   }
 };
 
