@@ -42,7 +42,6 @@ export default function MentorForgotPassword() {
       }
     } catch (error) {
       toast.error(error.message);
-      console.error(error);
     } finally {
       setIsLoading(false);
     }

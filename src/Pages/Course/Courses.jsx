@@ -5,7 +5,6 @@ import { FaSearch } from "react-icons/fa";
 import { BookCheck } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useAuthContext } from "../../Contexts/AuthContext";
-import { useCourseContext } from "../../Contexts/CourseContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

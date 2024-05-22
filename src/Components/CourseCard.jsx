@@ -7,6 +7,7 @@ import { useCourseContext } from "../Contexts/CourseContext";
 function CourseCard() {
   // const { courseData, isLoading } = useCourseContext();
   const isLoading=false;
+
   const courseData = [
     {
         "course_id": 9,
@@ -50,7 +51,7 @@ function CourseCard() {
   return (
     <div className="flex flex-wrap gap-5 ml-5 mt-5">
       {isLoading ? (
-        <div>courses are loading waiting...</div>
+        <div>courses are loading...</div>
       ) : (
         courseData?.map((data, i) => (
           <div

@@ -1,10 +1,21 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import { useForm } from "react-hook-form";
 import { FaSearch } from "react-icons/fa";
+const { VITE_BACKEND_URL } = import.meta.env;
+
 
 function ViewStudents() {
+  
+  const [students,setStudents] = useState([]);
+  const [studentsDuplicate,setStudentsDuplicate] = useState([]);
+
+
   const onSubmit = (data) => {
-    console.log(data);
+    const filterdata = students.filter((d) => d.student_name.toLowerCase().includes(data.search.toLowerCase()))
+    setStudents(filterdata)
+    if(data.search==""){
+      setStudents(studentsDuplicate)
+    }
   };
   const {
     register,
@@ -12,6 +23,27 @@ function ViewStudents() {
     formState: { errors },
     reset,
   } = useForm();
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async()=>{
+    try{
+        const response = await fetch(`${VITE_BACKEND_URL}/getStudent`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+        const result = await response.json();
+        setStudents(result.data);
+        setStudentsDuplicate(result.data)
+    }
+    catch (error){
+        console.log(error.message)
+    }
+  }
   return (
     
     <div className=''>
@@ -19,7 +51,7 @@ function ViewStudents() {
         Students List
       </div>
       <form class=" flex justify-evenly flex-wrap m-10"
-        onChange={handleSubmit(onSubmit)}
+        onKeyUp={handleSubmit(onSubmit)}
       >
         <div className='flex mt-3  gap-2 h-14 px-3  w-1/4 rounded-lg  border-solid border-black  border-2 bg-light-bg '>
           <input
@@ -33,18 +65,6 @@ function ViewStudents() {
           <div className="text-2xl mt-3">
             <FaSearch />
           </div>
-        </div>
-        <div className='w-1/4'>
-          <label for="sort" class="text-xl font-medium text-black ml-2 mb-6  ">Sort by</label>
-          <select id="sort" class="bg-gray-200 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            {...register("sort-by")}
-          >
-            <option value="student">
-              Students
-            </option>
-            <option value="course" selected
-            >Course</option>
-          </select>
         </div>
       </form>
 
@@ -61,18 +81,20 @@ function ViewStudents() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className='border-black border-2 p-2' >1</td>
-              <td className='border-black border-2 p-2' >4</td>
-              <td className='border-black border-2 p-2'>harisangar</td>
-              <td className='border-black border-2 p-2'>9952878399</td>
-              <td className='border-black border-2 p-2'>apharisangar@gmail.com</td>
-              <td className='border-black border-2 p-2'>Full Stack</td>
+          {
+            students?.map((d,i)=>(
+              <tr key={i}>
+              <td className='border-black border-2 p-2' >{i+1}</td>
+              <td className='border-black border-2 p-2' >{d.student_id}</td>
+              <td className='border-black border-2 p-2'>{d.student_name}</td>
+              <td className='border-black border-2 p-2'>{d.phone}</td>
+              <td className='border-black border-2 p-2'>{d.email}</td>
+              <td className='border-black border-2 p-2'>{d.batch_name}</td>
             </tr>
+            ))
+           }
           </tbody>
         </table>
-
-
       </div>
     </div>
   )
