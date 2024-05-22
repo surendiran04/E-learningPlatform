@@ -31,6 +31,7 @@ function CreateCourse() {
         data.syllabus=JSON.parse(`[${syllabusString}]`);
         const assessmentString=data.assessments;
         data.assessments=JSON.parse(`[${assessmentString}]`);
+        console.log(data)
         handleInput(data);
         // reset();
     };

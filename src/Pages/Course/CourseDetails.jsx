@@ -12,10 +12,10 @@ import { useCourseContext } from "../../Contexts/CourseContext";
 function CourseDetails() {
   const { id } = useParams();
 
-  // const { courseContent , isContentLoading}=useCourseContext();
-  const isContentLoading = false;
+  const { courseContent , isContentLoading}=useCourseContext();
+  // const isContentLoading = false;
 
-  const courseContent = [
+  const course = [
     {
       course_id: 10,
       description:
