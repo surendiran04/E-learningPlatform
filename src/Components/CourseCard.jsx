@@ -46,6 +46,44 @@ function CourseCard() {
 //         "mentor_name": "Vishnu"
 //     }
 // ]
+//   const courseData = [
+//     {
+//         "course_id": 9,
+//         "course_name": "ML",
+//         "duration": "4-months",
+//         "fees": "7000",
+//         "mentor_id": 9,
+//         "no_of_students": 0,
+//         "mentor_name": "Striver"
+//     },
+//     {
+//         "course_id": 6,
+//         "course_name": "artificial intelligence",
+//         "duration": "3-months",
+//         "fees": "2500",
+//         "mentor_id": 13,
+//         "no_of_students": 1,
+//         "mentor_name": "Berlin"
+//     },
+//     {
+//         "course_id": 10,
+//         "course_name": "Data structures & algorithm",
+//         "duration": "4-months",
+//         "fees": "7500",
+//         "mentor_id": 12,
+//         "no_of_students": 0,
+//         "mentor_name": "Abdul Bari"
+//     },
+//     {
+//         "course_id": 11,
+//         "course_name": "Full-stack",
+//         "duration": "6-months",
+//         "fees": "2500",
+//         "mentor_id": 11,
+//         "no_of_students": 0,
+//         "mentor_name": "Vishnu"
+//     }
+// ]
 
 
   return (

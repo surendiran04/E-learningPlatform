@@ -12,44 +12,44 @@ import { useCourseContext } from "../../Contexts/CourseContext";
 function CourseDetails() {
   const { id } = useParams();
 
-  const { courseContent, isContentLoading } = useCourseContext();
+  const { courseContent , isContentLoading}=useCourseContext();
   // const isContentLoading = false;
 
-  // const courseContent = [
-  //   {
-  //     course_id: 10,
-  //     description:
-  //       "This course covers fundamental data structures and algorithms used in computer science.Students will learn how to design, analyze, and implement efficient algorithms.Practical problem-solving skills will be emphasized through coding exercises and projects.",
-  //     tagline: "Master the art of efficient coding!",
-  //     project: [
-  //       "Linked List Implementation",
-  //       "Binary Tree Construction",
-  //       "Travel Planner Using Graphs",
-  //     ],
-  //     assessments: [
-  //       "Regular coding assignments and quizzes",
-  //       "Midterm and final exams",
-  //     ],
-  //     syllabus: [
-  //       "Introduction to DSA",
-  //       "Arrays and Strings",
-  //       "Linked Lists",
-  //       "Stacks and Queues",
-  //       "Trees and Binary Search Trees (BSTs)",
-  //       "Graphs and Graph Algorithms",
-  //       "Sorting Algorithms (BubbleSort, QuickSort, MergeSort)",
-  //       "Searching Algorithms (Linear Search, Binary Search)",
-  //       "Dynamic Programming",
-  //       "Hashing and Hash Tables",
-  //       "Advanced Topics (Red-Black Trees, AVL Trees, etc.)",
-  //     ],
-  //     course_name: "Data structures & algorithm",
-  //     duration: "4-months",
-  //     fees: "7500",
-  //     mentor_id: 12,
-  //     no_of_students: 0,
-  //   },
-  // ];
+  const course = [
+    {
+      course_id: 10,
+      description:
+        "This course covers fundamental data structures and algorithms used in computer science.Students will learn how to design, analyze, and implement efficient algorithms.Practical problem-solving skills will be emphasized through coding exercises and projects.",
+      tagline: "Master the art of efficient coding!",
+      project: [
+        "Linked List Implementation",
+        "Binary Tree Construction",
+        "Travel Planner Using Graphs",
+      ],
+      assessments: [
+        "Regular coding assignments and quizzes",
+        "Midterm and final exams",
+      ],
+      syllabus: [
+        "Introduction to DSA",
+        "Arrays and Strings",
+        "Linked Lists",
+        "Stacks and Queues",
+        "Trees and Binary Search Trees (BSTs)",
+        "Graphs and Graph Algorithms",
+        "Sorting Algorithms (BubbleSort, QuickSort, MergeSort)",
+        "Searching Algorithms (Linear Search, Binary Search)",
+        "Dynamic Programming",
+        "Hashing and Hash Tables",
+        "Advanced Topics (Red-Black Trees, AVL Trees, etc.)",
+      ],
+      course_name: "Data structures & algorithm",
+      duration: "4-months",
+      fees: "7500",
+      mentor_id: 12,
+      no_of_students: 0,
+    },
+  ];
 
   let content = courseContent?.filter((ele) => {
     return ele.course_id == id;
