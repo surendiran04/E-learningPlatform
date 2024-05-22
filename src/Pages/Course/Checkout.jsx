@@ -7,21 +7,22 @@ import "react-toastify/dist/ReactToastify.css";
 import { useCourseContext } from "../../Contexts/CourseContext";
 
 function Checkout() {
+
   const [isLoading, setIsLoading] = useState(false);
   let notify = () => {};
 
   const { id } = useParams();
 
-//   const { courseContent , isContentLoading}=useCourseContext();
+  const { courseContent , isContentLoading}=useCourseContext();
 
-  const courseContent = [
-    {
-      course_id: 10,
-      course_name: "Data structures & algorithm",
-      duration: "4-months",
-      fees: "7500",
-    },
-  ];
+  // const courseContent = [
+  //   {
+  //     course_id: 10,
+  //     course_name: "Data structures & algorithm",
+  //     duration: "4-months",
+  //     fees: "7500",
+  //   },
+  // ];
 
   let content = courseContent?.filter((ele) => {
     return ele.course_id == id;
@@ -49,7 +50,7 @@ function Checkout() {
       const result = await response.json();
       if (result.success) {
         toast.success(result.message);
-        navigate('/');
+        // navigate('/');
       } else {
         toast.info(result.message);
       }
