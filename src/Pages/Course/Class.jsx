@@ -1,6 +1,8 @@
 import React from 'react'
 import AccordianVideo from "../../Components/AccordianVideo"
+
 function Class() {
+    
     const totalClass = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     const attendance = 90;
     return (
@@ -19,7 +21,7 @@ function Class() {
                     </ul>
                 </div>
             </div>
-            <div className='  h-80 py-7 '>
+            <div className=' h-80 py-7 '>
                 <h2 className='text-3xl font-semibold  mb-4'>Session Roadmap</h2>
                 <div className='grid grid-cols-3  h-full place-content-evenly pl-8 border-black border-2'>
                     {
@@ -40,7 +42,7 @@ function Class() {
                     <span className={`text-xl font-bold ${attendance > 75 ? "text-green-900" : "text-r"}`}>{attendance}%</span>
                 </div>
             </div>
-            <div className='col-span-3 w-full p-10 border-black border-2'>
+            <div className='col-span-4 w-full p-8 border-black border-2'>
                 <h2 className='text-3xl font-semibold  mb-4'>Tutorial Link:</h2>
                 <AccordianVideo/>
             </div>

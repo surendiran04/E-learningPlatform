@@ -12,16 +12,16 @@ function Checkout() {
 
   const { id } = useParams();
 
-  const { courseContent , isContentLoading}=useCourseContext();
+//   const { courseContent , isContentLoading}=useCourseContext();
 
-//   const courseContent = [
-//     {
-//       course_id: 10,
-//       course_name: "Data structures & algorithm",
-//       duration: "4-months",
-//       fees: "7500",
-//     },
-//   ];
+  const courseContent = [
+    {
+      course_id: 10,
+      course_name: "Data structures & algorithm",
+      duration: "4-months",
+      fees: "7500",
+    },
+  ];
 
   let content = courseContent?.filter((ele) => {
     return ele.course_id == id;

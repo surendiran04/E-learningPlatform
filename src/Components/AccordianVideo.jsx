@@ -4,7 +4,6 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 export default function AccordionExpandIcon() {
     return (
@@ -14,7 +13,6 @@ export default function AccordionExpandIcon() {
                     expandIcon={<ArrowDownwardIcon />}
                     aria-controls="panel1-content"
                     id="panel1-header"
-
                 >
                     <Typography >Video</Typography>
                 </AccordionSummary>
@@ -25,7 +23,6 @@ export default function AccordionExpandIcon() {
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
                             className='w-full h-96'
                         >
-
                         </iframe>
                     </Typography>
                 </AccordionDetails>
