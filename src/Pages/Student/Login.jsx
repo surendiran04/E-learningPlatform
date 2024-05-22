@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuthContext } from "../../Contexts/AuthContext";
-import { Link,useNavigate  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 const { VITE_BACKEND_URL } = import.meta.env;
@@ -63,10 +63,6 @@ export default function Login() {
       setIsLoading(false);
     }
   };
-
-
-
-
   return (
     <div className="h-full  w-full flex items-center justify-center gap-10 bg-gray-200 ">
       <div>
@@ -127,7 +123,7 @@ export default function Login() {
                   ? "bg-green-400 hover:bg-green-600 text-white"
                   : "bg-transparent border-black border-2 hover:bg-lb text-darkb"
                 }`}
-              type="submit" 
+              type="submit"
               onClick={notify}
               disabled={isLoading}
             >

@@ -2,7 +2,9 @@ import React from 'react'
 import AccordianVideo from "../../Components/AccordianVideo"
 
 function Class() {
-    
+    const submit = (e) => {
+        console.log(e.target.innerHTML);
+    };
     const totalClass = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     const attendance = 90;
     return (
@@ -26,7 +28,7 @@ function Class() {
                 <div className='grid grid-cols-3  h-full place-content-evenly pl-8 border-black border-2'>
                     {
                         totalClass.map((i) => (
-                            <button className='bg-white rounded-full w-12 h-12 border-black border-2' key={i}>{i}</button>
+                            <button className='bg-white rounded-full w-12 h-12 border-black border-2' key={i} onClick={submit} >{i}</button>
                         ))
                     }
                 </div>
@@ -44,7 +46,7 @@ function Class() {
             </div>
             <div className='col-span-4 w-full p-8 border-black border-2'>
                 <h2 className='text-3xl font-semibold  mb-4'>Tutorial Link:</h2>
-                <AccordianVideo/>
+                <AccordianVideo />
             </div>
 
         </div>

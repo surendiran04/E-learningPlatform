@@ -4,12 +4,21 @@ import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AccordianVideo from "../../Components/AccordianVideo"
+import Attendance from '../../Components/Attendance';
 
 function MentorDashboard() {
     const navigate = useNavigate();
     const onSubmit = (data) => {
         console.log(data);
+        const content = {
+            1: data
+        }
+        console.log(content);
     };
+    const sessionBtn = (e) => {
+        console.log(e.target.innerHTML);
+    };
+
     const [isLoading, setIsLoading] = useState(false);
     let notify = () => toast.warn(errors.heading?.message
         || errors.content?.message
@@ -25,8 +34,6 @@ function MentorDashboard() {
     } = useForm();
     const totalClass = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     const attendance = 90;
-
-
     return (
         <div>
             <div className='flex flex-col gap-3 w-full  bg-v1 p-10'>
@@ -119,7 +126,7 @@ function MentorDashboard() {
                     <div className='grid grid-cols-3  h-full place-content-evenly pl-8 border-black border-2'>
                         {
                             totalClass.map((i) => (
-                                <button className='bg-white rounded-full w-12 h-12 border-black border-2' key={i}>{i}</button>
+                                <button className='bg-white rounded-full w-12 h-12 border-black border-2' key={i} onClick={sessionBtn} >{i}</button>
                             ))
                         }
                     </div>
@@ -128,12 +135,9 @@ function MentorDashboard() {
                     <h2 className='text-3xl font-semibold  mb-4'>Content Link:</h2>
                     <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" className='underline text-xl text-blue-700'>Intro to HTML</a>
                 </div>
-                <div className='h-40 p-2 border-black border-2'>
-                    <h2 className='text-3xl font-semibold  mb-4'>Attendance</h2>
-                    <div className='flex items-center justify-center gap-4'>
-                        <meter value={attendance} min="0" max="100" className='text-4xl '></meter>
-                        <span className={`text-xl font-bold ${attendance > 75 ? "text-green-900" : "text-r"}`}>{attendance}%</span>
-                    </div>
+                {/* Attendance */}
+                <div className='h-fit '>
+                    <Attendance />
                 </div>
                 <div className='col-span-3 w-full p-10 border-black border-2'>
                     <h2 className='text-3xl font-semibold  mb-4'>Tutorial Link:</h2>
@@ -178,9 +182,6 @@ function MentorDashboard() {
                     </form>
                 </div>
             </div>
-
-
-
             <ToastContainer
                 position="top-right"
                 autoClose={5000}
