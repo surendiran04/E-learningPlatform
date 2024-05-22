@@ -52,7 +52,7 @@ async function signInStudent(req, res) {
       });
     }
 
-    await db.query("SELECT student_id,student_name,email,pass,phone FROM student WHERE email = $1", [email])
+    await db.query("SELECT student_id,student_name,email,pass,b.course_id phone FROM student WHERE email = $1", [email])
       .then((response) => {
         if (response.rows[0] && response.rows[0].student_id) {
           bcrypt.compare(pass, response.rows[0].pass).then(function (result) {
@@ -190,19 +190,6 @@ const updatePassStudent = async (req, res) => {
   }
 };
 
-const getStudent = async (req, res) => {
 
-  try {
-    const studentObject = await db.query("SELECT * FROM STUDENT where course = $1",[]);
-    const students = studentObject.rows;
-    if (students) {
-      return res.status(200).json({ success: true, message: "Students fetched successfully",courseData:students});
-    } else {
-      return res.status(500).json({ success: false, message: "Something went wrong!Students not fetched" });
-    }
-  }catch (error) {
-    return res.status(500).json({ success: false, message: error.message, });
-  }
-}
 
-module.exports = { createStudent, signInStudent, forgotPasswordStudent, updatePassStudent,getStudent };
+module.exports = { createStudent, signInStudent, forgotPasswordStudent, updatePassStudent };
