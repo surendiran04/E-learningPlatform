@@ -4,16 +4,21 @@ import { Link, useParams } from "react-router-dom";
 const { VITE_BACKEND_URL } = import.meta.env;
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useAuthContext } from "../../Contexts/AuthContext";
 import { useCourseContext } from "../../Contexts/CourseContext";
 
 function Checkout() {
 
   const [isLoading, setIsLoading] = useState(false);
+
+ const {} useAuthContext();
   let notify = () => {};
 
   const { id } = useParams();
 
   const { courseContent , isContentLoading}=useCourseContext();
+
+  console.log(courseContent)
 
   // const courseContent = [
   //   {
