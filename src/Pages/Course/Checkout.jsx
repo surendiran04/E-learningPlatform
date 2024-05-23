@@ -11,7 +11,7 @@ function Checkout() {
 
   const [isLoading, setIsLoading] = useState(false);
 
- const {} useAuthContext();
+//  const {} useAuthContext();
   let notify = () => {};
 
   const { id } = useParams();
