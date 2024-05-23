@@ -7,15 +7,14 @@ import { useAuthContext } from "./AuthContext";
 const CourseContext = createContext({
     courseData: [],
     courseContent:[],
-    mycourse:[],
+    filterdata:[],
     isLoading:true,
     isContentLoading:true,
-    mycoursesLoading:true
 });
 
 export const useCourseContext = () => useContext(CourseContext);
 
-export default function CourseContextProvider({ children }) {
+export default function CourseContextProvider({ children }){
 
   const { user } = useAuthContext();
    
@@ -24,7 +23,7 @@ export default function CourseContextProvider({ children }) {
    const [courseData,setCourseData] = useState([]);
    const [courseContent,setCourseContent] = useState([]);
    const [mycourse,setMyCourse] = useState([]);
-   const [mycoursesLoading,setMycoursesLoading] = useState(true);
+   const [filterdata,setFilterdata] = useState([]);
    const [isLoading, setIsLoading] = useState(true);
    const [isContentLoading, setContentLoading] = useState(true);
 
@@ -35,7 +34,7 @@ export default function CourseContextProvider({ children }) {
 
   useEffect(()=>{
     fetchStudentCourse();
-  },[student_id])
+  },[user])
    
   const fetchCourseData = async()=>{
     try{
@@ -71,7 +70,6 @@ export default function CourseContextProvider({ children }) {
     }
   }  
 
-
   const fetchStudentCourse = async()=>{
     try{
         const response = await fetch(`${VITE_BACKEND_URL}/getStudentCourse`, {
@@ -83,20 +81,30 @@ export default function CourseContextProvider({ children }) {
           });
         const result = await response.json();
         setMyCourse(result.course_id);
-        setMycoursesLoading(false);
     }
     catch (error){
         console.log(error.message)
     }
   }  
+
+
+  useEffect(()=>{
+    const myCourseIds = mycourse.map(course => course.course_id);
+  const data = courseData?.filter((d) => myCourseIds.course_id?.includes(d.course_id))
+  setFilterdata(data)
+  },[mycourse])
+
+
   
+ 
+  console.log(filterdata)
+
   const values = Object.seal({
     courseData,
     courseContent,
     isLoading,
     isContentLoading,
-    mycourse,
-    mycoursesLoading
+    filterdata
   });
 
   return <CourseContext.Provider value={values}>{children}</CourseContext.Provider>;

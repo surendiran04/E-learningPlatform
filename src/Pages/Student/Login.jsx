@@ -49,7 +49,8 @@ export default function Login() {
       if (result.success) {
         toast.success(result.message);
         setLoggedIn(true);
-        SetUser(result.user);
+        // SetUser(result.user);
+        sessionStorage.setItem('user', JSON.stringify(result.user));
         sessionStorage.setItem('_tk', result.token);
         navigate('/');
       } else {

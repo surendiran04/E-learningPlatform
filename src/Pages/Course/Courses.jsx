@@ -1,17 +1,27 @@
-import React from "react";
+import React,{useState} from "react";
 import { useForm } from "react-hook-form";
-import CourseCard from "../../Components/CourseCard";
 import { FaSearch } from "react-icons/fa";
 import { BookCheck } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink,Link } from "react-router-dom";
 import { useAuthContext } from "../../Contexts/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import MentorPic from "../../assets/mentor.svg";
+import thumb1 from "../../assets/thumb-1.png";
+import { useCourseContext } from "../../Contexts/CourseContext";
 
 function Courses() {
   const { isLoggedIn } = useAuthContext();
+
+  const { courseData, isLoading } = useCourseContext();
+  const [cdata,SetCdata] = useState(courseData);
+
   const onSubmit = (data) => {
-    console.log(data);
+    const filterdata = courseData.filter((d) => d.course_name.toLowerCase().includes(data.search.toLowerCase()))
+    SetCdata(filterdata)
+    if(data.search==""){
+      SetCdata(courseData)
+    }
   };
   const {
     register,
@@ -28,7 +38,7 @@ function Courses() {
             E-Learning
           </a>
           <form className="flex ml-60 gap-2 w-4/12 py-1 px-5 rounded-lg  border-solid border-black  border-2 bg-light-bg"
-            onChange={handleSubmit(onSubmit)}
+            onKeyUp={handleSubmit(onSubmit)}
           >
             <input
               type="text"
@@ -50,7 +60,39 @@ function Courses() {
           }
         </section>
       </header>
-      <CourseCard />
+      <div className="flex flex-wrap gap-5 ml-5 mt-5">
+      {isLoading ? (
+        <div>courses are loading...</div>
+      ) : (
+        cdata?.map((data, i) => (
+          <div
+            key={i}
+            className="box p-2 rounded-lg grid  w-96 border-solid border-black border-2"
+          >
+            <div className="flex items-center mb-2">
+              <img src={MentorPic} alt="photo" className="h-20 w-20 mr-2 " />
+              <div>
+                <h3 className="text-xl font-semibold mt-2">
+                  {data.mentor_name}
+                </h3>
+                <span className="text-gray-500 text-xl m-2">{data.duration}</span>
+              </div>
+            </div>
+            <div className="mb-2">
+              <img src={thumb1} alt="" className="h-56  rounded-xl	" />
+            </div>
+            <h3 className="text-2xl font-semibold mb-2">
+              {data.course_name}
+            </h3>
+            <button
+              className={`focus:outline-none text-white bg-green-700 hover:bg-green-800  focus:ring-purple-300  rounded-lg text-xl  px-5 py-2.5 mb-2 `}
+            >
+            <Link to={`/coursedetails/${data.course_id}`}>Read more</Link>
+            </button>
+          </div>
+        ))
+      )}
+    </div>
       <ToastContainer
         position="top-right"
         autoClose={2000}
