@@ -51,21 +51,21 @@ async function signInStudent(req, res) {
         message: "Password is missing",
       });
     }
-
-    await db.query("SELECT student_id,student_name,email,pass,b.course_id phone FROM student WHERE email = $1", [email])
+    await db.query("SELECT student_id,student_name,email,pass,phone FROM student WHERE email = $1", [email])
       .then((response) => {
         if (response.rows[0] && response.rows[0].student_id) {
           bcrypt.compare(pass, response.rows[0].pass).then(function (result) {
             //if result is true then both the pass are crt
             if (result) {
-              const token = jwt.sign({ role: ["student"] }, secret, {  //role based authorization
+              const token = jwt.sign({ role: ["student"] }, secret, {  //role based authorization 
                 expiresIn: 60 * 15, //session time
               });
+              const user = response.rows[0]
               return res.status(200).json({
                 success: true,
                 message: "Sign In successful",
-                token: token,
-                user: response.rows[0],
+                token: token,   
+                user:user,
               });
             } else {
               return res.status(401).json({
@@ -106,7 +106,7 @@ const forgotPasswordStudent = async (req, res) => {
       });
       if (token) {
         const options = {
-          from: {
+          from: { 
             name: "Web Admin",
             address: process.env.EMAIL_USER,
           },

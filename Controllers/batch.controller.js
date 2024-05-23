@@ -1,13 +1,17 @@
 const { db } = require("../Database/DBconfig");
+const transporter = require("../Utils/sendEmail");
 
 const enrollCourse = async (req, res) => {
   try {
+    const email = req.body.email
     const existingStudentObject = await db.query(
       "SELECT * FROM batch WHERE student_id = $1 AND course_id = $2",
       [req.body.student_id, req.body.course_id]
     );
     const existingStudent = existingStudentObject.rows;
-    if (existingStudent) {
+
+    console.log(existingStudent)
+    if (existingStudent.length>0) {
       return res
         .status(401)
         .json({
@@ -20,7 +24,6 @@ const enrollCourse = async (req, res) => {
       [req.body.course_id]
     );
     const courseDetails = courseObject.rows[0];
-
     if (courseDetails) {
       await db.query(
         "INSERT INTO batch (batch_name, course_id, student_id, mentor_id) VALUES ($1, $2, $3, $4)",
@@ -37,32 +40,36 @@ const enrollCourse = async (req, res) => {
       );
 
       await db.query(
-        "INSERT INTO progres (course_id, student_id, class_finished) VALUES ($1, $2, 0)",
+        "INSERT INTO progress (course_id, student_id, class_finished) VALUES ($1, $2, 0)",
         [req.body.course_id, req.body.student_id]
       );
-      const options = {
-        from: {
-          name: "Web Admin",
-          address: process.env.EMAIL_USER,
-        },
-        to: email,
-        subject: "E-learning course enrollment",
-        html: `<h2>E-learning</h2>
-              <h3>Enrollment successful for the course : ${courseDetails.course_name}</h3>
-            `,
-      };
-      // Send Email
-      transporter.sendMail(options, function (err, info) {
-        if (err) {
-          return res
-            .status(404)
-            .json({ success: false, message: "Course enrollment failed" });
-        } else {
-          return res
-            .status(201)
-            .json({ success: true, message: "Enrolled successfully!" });
-        }
-      });
+    return res
+      .status(201)
+      .json({ success: true, message: "Enrolled successfully!" });
+      // const options = {
+      //   from: {
+      //     name: "Web Admin",
+      //     address: process.env.EMAIL_USER,
+      //   },
+      //   to: email,
+      //   subject: "E-learning course enrollment",
+      //   html: `<h2>E-learning</h2>
+      //         <h3>Enrollment successful for the course : ${courseDetails.course_name}</h3>
+      //       `,
+      // };
+      // // Send Email
+      // transporter.sendMail(options, function (err, info) {
+      //   if (err) {
+      //     console.log(err)
+      //     return res
+      //       .status(404)
+      //       .json({ success: false, message: "Course enrollment failed" });
+      //   } else {
+      //     return res
+      //       .status(201)
+      //       .json({ success: true, message: "Enrolled successfully!" });
+      //   }
+      // });
     }
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
@@ -76,7 +83,6 @@ const getStudentCourse = async (req, res) => {
       [req.body.student_id]
     );
     const courses = CourseObject.rows;
-    console.log(courses);
     if (courses) {
       return res.status(200).json({
         success: true,
