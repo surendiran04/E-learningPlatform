@@ -80,7 +80,7 @@ const createCourse = async (req, res) => {
       if (!mentor_id) {
           return res
               .status(401)
-              .json({ success: false, message: "Mentor doesn't exist" });
+              .json({ success: false, message: "Mentor doesn't exist" });   
       }
 
       if (course) {
@@ -159,28 +159,60 @@ const deleteCourse = async (req, res) => {
   }
 };
 
-const createSession = async (req, res) => {
+const  createSession = async (req, res) => {
   try {
-    const response = await db.query(
-      "UPDATE course_sessions SET session_data = jsonb_set(session_data,$1) WHERE course_id = $2",
-      [req.body.session_data, req.body.course_data]
+    const { session_data, course_id } = req.body;
+
+    const existingDataResponse = await db.query(
+      "SELECT session_data FROM course_sessions WHERE course_id = $1",
+      [course_id]
+    );
+   let newData;
+    if (existingDataResponse.rows.length === 0) {
+       newData = session_data;
+    } else {
+      const existingData = existingDataResponse.rows[0].session_data;
+       newData = { ...existingData, ...session_data };
+    }
+
+    const updateResponse = await db.query(
+      "UPDATE course_sessions SET session_data = $1 WHERE course_id = $2",
+      [newData, course_id]
     );
 
-    if (response.rowCount === 1) {
-      res
-        .status(201)
-        .json({ success: true, message: "session created successfully" });
+    if (updateResponse.rowCount === 1) {
+      res.status(201).json({ success: true, message: "Session data updated successfully" });
     } else {
-      res
-        .status(401)
-        .json({ success: false, message: "something went wrong!" });
+      res.status(401).json({ success: false, message: "Something went wrong!" });
     }
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
 
-const getCourse = async (req, res) => {
+const getSession = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await db.query(
+      "select session_data from course_sessions WHERE course_id = $1",
+      [id]
+    );
+    const sessionData = response.rows;
+    if (sessionData) {
+      res
+        .status(200)
+        .json({ success: true, message: "session data fetched successfully",sessionData:sessionData });
+    } else {
+      res
+        .status(401)
+        .json({ success: false, message: "sesssion data not fetched!" });
+    }
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+const getCourse = async (req, res) => {  
   try {
     const CourseObject = await db.query(
       "SELECT c.*, m.mentor_name FROM course c JOIN mentor m ON c.mentor_id = m.mentor_id"
@@ -233,4 +265,5 @@ module.exports = {
   getCourse,
   getCourseContent,
   createSession,
+  getSession
 };

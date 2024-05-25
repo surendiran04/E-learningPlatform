@@ -9,8 +9,6 @@ const enrollCourse = async (req, res) => {
       [req.body.student_id, req.body.course_id]
     );
     const existingStudent = existingStudentObject.rows;
-
-    console.log(existingStudent)
     if (existingStudent.length>0) {
       return res
         .status(401)
@@ -76,7 +74,7 @@ const enrollCourse = async (req, res) => {
   }
 };
 
-const getStudentCourse = async (req, res) => {
+const getStudentCourse = async (req, res) => {    
   try {
     const CourseObject = await db.query(
       "SELECT course_id FROM batch where student_id= $1",

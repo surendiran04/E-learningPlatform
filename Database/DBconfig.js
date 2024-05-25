@@ -13,6 +13,7 @@ const db = new pg.Client({
     require: true
   }
 });
+ 
 
 // async function getPgVersion() {    //to check whether the db is connected or not
 //     const result = await db.query(`select version()`);

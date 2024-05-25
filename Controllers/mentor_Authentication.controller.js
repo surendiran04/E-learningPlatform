@@ -75,7 +75,7 @@ async function signInMentor(req, res) {
 
     await db
       .query(
-        "SELECT mentor_id,mentor_name,email,pass,phone FROM mentor WHERE email = $1",
+        "SELECT m.mentor_id,mentor_name,email,pass,phone,c.course_id FROM mentor m join course c on m.course=c.course_name WHERE email = $1",
         [email]
       )
       .then((response) => {
@@ -141,7 +141,7 @@ const forgotPasswordMentor = async (req, res) => {
           html: `<h2>E-learning</h2>
                  <h3>Hello! Here is your New password Link</h3>
                 <h5>The Link is valid only for the next 3 minutes</h5>
-              <a href="${FE_URL}/resetPassword/${user_id}/${token}">Click here</a>`,
+              <a href="${FE_URL}/mentor/resetPassword/${user_id}/${token}">Click here</a>`,
         };
         // Send Email
         transporter.sendMail(options, function (err, info) {

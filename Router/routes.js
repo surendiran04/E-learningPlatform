@@ -17,7 +17,8 @@ const {
   deleteCourse,
   getCourse,
   getCourseContent,
-  createSession
+  createSession,
+  getSession
 } = require("../Controllers/course.controller");
 
 const {
@@ -49,6 +50,7 @@ courseRouter.post("/deleteCourse", deleteCourse);
 courseRouter.get("/getCourse", getCourse);
 courseRouter.get("/getCourseContent", getCourseContent);
 courseRouter.post("/createSession", createSession); 
+courseRouter.get("/getSession/:id",getSession); 
 
 courseRouter.post("/enrollCourse",   enrollCourse);
 courseRouter.post("/getStudentCourse", getStudentCourse);  //my courses
