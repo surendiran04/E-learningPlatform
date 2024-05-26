@@ -38,7 +38,7 @@ const enrollCourse = async (req, res) => {
       );
 
       await db.query(
-        "INSERT INTO progress (course_id, student_id, class_finished) VALUES ($1, $2, 0)",
+        "INSERT INTO progress (course_id, student_id, class_finished,class_attended) VALUES ($1, $2,0,0)",
         [req.body.course_id, req.body.student_id]
       );
     return res
@@ -127,17 +127,45 @@ const getMentor = async (req, res) => {
   }
 }
 
-const updateAttendance = async (req, res) => {
-  const { student_ids } = req.body; 
+const getStudentByCourse = async (req, res) => {
   try {
-    for (const student_id of student_ids) {
-      // Call the increment_class_finished function for each student
-      await pool.query('SELECT increment_class_finished($1)', [student_id]);
+    const {id} = req.params;
+    const studentObject = await db.query("SELECT student_name,s.student_id FROM STUDENT s join batch b on b.student_id=s.student_id where b.course_id=$1",[id]);
+    const students = studentObject.rows;
+    if (students) {
+      return res.status(200).json({ success: true, message: "Students fetched successfully",data:students});
+    } else {
+      return res.status(500).json({ success: false, message: "Something went wrong!" });
     }
-    res.status(200).json({ message: 'Attendance updated for all students' });
   }catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ success: false, message: error.message, });
   }
 }
 
-module.exports = { enrollCourse, getStudentCourse ,getStudent,getMentor,updateAttendance };
+const updateAttendance = async (req, res) => {
+  const  {student_ids,course_id}  = req.body;
+  try {
+    for (const student_id of student_ids) {
+      await db.query('SELECT update_class_attendance($1,$2)', [student_id,course_id]);
+    }
+    res.status(200).json({success:true, message: 'Attendance updated for all students' });
+  }catch (error) {
+    res.status(500).json({success:false, message:  error.message });
+  }
+}
+
+const getAttendance = async (req, res) => {
+  try {
+    const Object = await db.query("SELECT attendance,class_finished FROM Progress  where course_id=$1 and student_id = $2",[req.body.course_id,req.body.student_id]);
+    const data = Object.rows[0];
+    if (data) {
+      return res.status(200).json({ success: true, message: "Attendance fetched successfully",data:data});
+    } else {
+      return res.status(500).json({ success: false, message: "Something went wrong!" });
+    }
+  }catch (error) {
+    return res.status(500).json({ success: false, message: error.message, });
+  }
+}
+
+module.exports = { enrollCourse, getStudentCourse ,getStudent,getMentor,getStudentByCourse,updateAttendance,getAttendance };

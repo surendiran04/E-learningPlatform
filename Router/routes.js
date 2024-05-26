@@ -22,7 +22,7 @@ const {
 } = require("../Controllers/course.controller");
 
 const {
-  enrollCourse, getStudentCourse,  getStudent,getMentor,updateAttendance 
+  enrollCourse, getStudentCourse,  getStudent,getMentor,getStudentByCourse,updateAttendance,getAttendance
 } = require("../Controllers/batch.controller")
 
 const {
@@ -51,10 +51,12 @@ courseRouter.get("/getCourse", getCourse);
 courseRouter.get("/getCourseContent", getCourseContent);
 courseRouter.post("/createSession", createSession); 
 courseRouter.get("/getSession/:id",getSession); 
+courseRouter.post("/getAttendance",getAttendance);
 
 courseRouter.post("/enrollCourse",   enrollCourse);
-courseRouter.post("/getStudentCourse", getStudentCourse);  //my courses
-courseRouter.post("/updateAttendance ", updateAttendance ); 
+courseRouter.post("/getStudentCourse", getStudentCourse);  //my courses 
+courseRouter.get("/getStudentByCourse/:id", getStudentByCourse);
+courseRouter.post("/updateAttendance", updateAttendance ); 
 
 courseRouter.post("/makePayment",  makePayment);
 
