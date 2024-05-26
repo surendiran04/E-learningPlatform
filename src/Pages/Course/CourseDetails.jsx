@@ -5,56 +5,36 @@ import { ShieldCheck } from "lucide-react";
 import { MdAssessment } from "react-icons/md";
 import { Laptop } from "lucide-react";
 import { FaIndianRupeeSign } from "react-icons/fa6";
-import { Link, useParams } from "react-router-dom";
+import {  useParams,useNavigate } from "react-router-dom";
 import Header from "../../Components/Header";
 import { useCourseContext } from "../../Contexts/CourseContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useAuthContext } from "../../Contexts/AuthContext";
 
 function CourseDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const {isLoggedIn} = useAuthContext();
 
   const { courseContent , isContentLoading}=useCourseContext();
-  // const isContentLoading = false;
-
-  const course = [
-    {
-      course_id: 10,
-      description:
-        "This course covers fundamental data structures and algorithms used in computer science.Students will learn how to design, analyze, and implement efficient algorithms.Practical problem-solving skills will be emphasized through coding exercises and projects.",
-      tagline: "Master the art of efficient coding!",
-      project: [
-        "Linked List Implementation",
-        "Binary Tree Construction",
-        "Travel Planner Using Graphs",
-      ],
-      assessments: [
-        "Regular coding assignments and quizzes",
-        "Midterm and final exams",
-      ],
-      syllabus: [
-        "Introduction to DSA",
-        "Arrays and Strings",
-        "Linked Lists",
-        "Stacks and Queues",
-        "Trees and Binary Search Trees (BSTs)",
-        "Graphs and Graph Algorithms",
-        "Sorting Algorithms (BubbleSort, QuickSort, MergeSort)",
-        "Searching Algorithms (Linear Search, Binary Search)",
-        "Dynamic Programming",
-        "Hashing and Hash Tables",
-        "Advanced Topics (Red-Black Trees, AVL Trees, etc.)",
-      ],
-      course_name: "Data structures & algorithm",
-      duration: "4-months",
-      fees: "7500",
-      mentor_id: 12,
-      no_of_students: 0,
-    },
-  ];
 
   let content = courseContent?.filter((ele) => {
     return ele.course_id == id;
   });
   content = { ...content[0] };
+
+  let notify = () => toast.info("Login to Enroll course!");
+
+
+  const enroll = () => {
+    if (isLoggedIn) {
+      navigate(`/checkout/${content.course_id}`);
+    }
+    else{
+      notify();
+    } 
+  };
 
   return (
     <>
@@ -96,8 +76,9 @@ function CourseDetails() {
                     bg-transparent border-white border-2 hover:bg-green-600 text-white
                    `}
               type="submit"
+              onClick={enroll}
             >
-              <Link to={`/checkout/${content.course_id}`}> Enroll Now</Link>
+           Enroll Now
             </button>
           </div>
           <section>
@@ -146,10 +127,25 @@ function CourseDetails() {
                     font-semibold hover:text-white py-3 px-4  hover:border-transparent transition duration-500 outline-none mt-5 mb-14  bg-transparent border-black border-2 hover:bg-green-600 text-black
                         `}
               type="submit"
+              onClick={enroll}
             >
-              <Link to={`/checkout/${content.course_id}`}> Enroll Now</Link>
+             Enroll Now
             </button>
           </section>
+          <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition:Bounce
+        className="z-[1000]"
+      />
         </div>
       )}
     </>

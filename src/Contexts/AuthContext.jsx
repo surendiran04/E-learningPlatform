@@ -19,11 +19,10 @@ export default function AuthContextProvider({ children }) {
     return storedLoggedIn === "true";
   });
   const [open,setOpen] = useState(false); //sideBar hovering
-  const storedUserString = sessionStorage.getItem('user');
-  const initialUser = storedUserString ? JSON.parse(storedUserString) : null;
+  let storedUserString;
+  let initialUser;
   
   const [user, SetUser] = useState(initialUser);
-  // console.log(user)
 
   let token = sessionStorage.getItem("_tk");
   const { decodedToken, isExpired } = useJwt(token || "");
@@ -31,7 +30,9 @@ export default function AuthContextProvider({ children }) {
   useEffect(() => {
     token = sessionStorage.getItem("_tk");
     sessionStorage.setItem("loggedIn", isLoggedIn);
-    // sessionStorage.setItem("user", user);
+    storedUserString = sessionStorage.getItem('user');
+    initialUser = storedUserString ? JSON.parse(storedUserString) : null;
+    SetUser(initialUser)
     if (decodedToken) {
       setLoggedIn(true);
     }

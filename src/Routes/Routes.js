@@ -16,6 +16,7 @@ import ViewMentors from '../Pages/Mentor/ViewMentors';
 import CreateCourse from '../Pages/Course/CreateCourse';
 import Courses from '../Pages/Course/Courses';
 import Mycourses from '../Pages/Course/Mycourses';
+import Class from '../Pages/Course/Class';
 
 export const ROUTES = [
   {
@@ -50,6 +51,11 @@ export const studentPrivateRoutes = [
     Component: Mycourses,
     path: "/mycourses",
   },
+  {
+    title:"Class",
+    Component: Class,
+    path: "/class/:id",
+  },
 ];
 
 export const studentPublicRoutes = [
@@ -72,7 +78,6 @@ export const studentPublicRoutes = [
     title: "update Password",
     Component: UpdatePassword,
     path: "/resetPassword/:id/:token",
-    // path: "/resetPassword",
   },
 ];
 

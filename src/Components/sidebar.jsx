@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { BookOpenCheck } from "lucide-react";
+import { BookOpenCheck,BriefcaseBusiness } from "lucide-react";
 import ProfilePic from "../assets/student1.png";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
-import { MdRoundaboutLeft } from "react-icons/md";
 import { useAuthContext } from "../Contexts/AuthContext";
 import { LogIn ,LogOut} from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,9 +19,11 @@ const Sidebar = () => {
   const Logout = () => {
     sessionStorage.removeItem("_tk");
     sessionStorage.removeItem("user");
+    sessionStorage.removeItem("loggedIn");
     setLoggedIn(false);
     navigate("/");
   };
+
 
   const Login = () => {
     navigate("/student/login");
@@ -54,25 +55,17 @@ const Sidebar = () => {
     );
   };
   
-    let notify = () => toast.info("Login to view profile");
-
+  let notify = () => toast.info("Login to view profile");
 
   const profile = () => {
     if (isLoggedIn) {
       navigate("/profile");
     }
     else{
-      notify;
-    }
-    
+      notify();
+    } 
   };
 
-  function composeFunctions(...funcs) {
-    return () => {
-      funcs.forEach((func) => func());
-    };
-  }
-  const combinedFunction = composeFunctions(profile, notify);
 
   return (
     <div className="flex h-screen ">
@@ -92,7 +85,7 @@ const Sidebar = () => {
               <h3 className="text-xl font-semibold mt-2"> {name}</h3>
               <p className="text-gray-500 text-xl m-2">{userRole}</p>
               <button
-                onClick={combinedFunction}
+                onClick={profile}
                 className={`focus:outline-none text-white bg-purple-700 hover:bg-purple-800  focus:ring-purple-300  rounded-lg text-xl  px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 w-35   `}
               >
                 View Profile
@@ -133,9 +126,12 @@ const Sidebar = () => {
           </div>
 
           <div className="flex gap-3 mb-4 ">
-            <MdRoundaboutLeft color="black" size={32} />
+            <BriefcaseBusiness color="black" size={32} />
             {open && (
-              <h3 className="text-black sedan-sc-regular text-xl ">My</h3>
+              <h3 className="text-black sedan-sc-regular text-xl ">
+             {isLoggedIn && userRole==="mentor" ?<Link to="/mentor/dashboard">Dashboard</Link>:<Link to="/student/mycourses">Mycourses</Link>}
+               </h3>
+              
             )}
           </div>
 

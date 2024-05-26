@@ -16,7 +16,7 @@ export const useCourseContext = () => useContext(CourseContext);
 
 export default function CourseContextProvider({ children }){
 
-  const { user } = useAuthContext();
+  const { user, isLoggedIn } = useAuthContext();
    
    const student_id = user?.student_id;
 
@@ -34,7 +34,7 @@ export default function CourseContextProvider({ children }){
 
   useEffect(()=>{
     fetchStudentCourse();
-  },[user])
+  },[isLoggedIn,courseData])
    
   const fetchCourseData = async()=>{
     try{
@@ -90,14 +90,10 @@ export default function CourseContextProvider({ children }){
 
   useEffect(()=>{
     const myCourseIds = mycourse.map(course => course.course_id);
-  const data = courseData?.filter((d) => myCourseIds.course_id?.includes(d.course_id))
+  const data = courseData?.filter((d) => myCourseIds?.includes(d.course_id))
   setFilterdata(data)
   },[mycourse])
 
-
-  
- 
-  console.log(filterdata)
 
   const values = Object.seal({
     courseData,
