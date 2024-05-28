@@ -17,17 +17,9 @@ function Attendance() {
   }, [isLoggedIn]);
 
   const attendanceBtn = (data) => {
-    const target = "1";
-    const student_ids = [];
-    for (let a in data) {
-      if (data[a] === target) {
-        student_ids.push(a);
-      }
-    }
     const val = {};
-    val.student_ids = student_ids;
+    val.student_ids = data;
     val.course_id = user?.course_id;
-    console.log(val);
     updateAttendance(val);
     reset();
   };
