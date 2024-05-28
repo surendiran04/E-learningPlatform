@@ -143,16 +143,18 @@ const getStudentByCourse = async (req, res) => {
 }
 
 const updateAttendance = async (req, res) => {
-  const  {student_ids,course_id}  = req.body;
+  const { student_ids, course_id } = req.body;
   try {
-    for (const student_id of student_ids) {
-      await db.query('SELECT update_class_attendance($1,$2)', [student_id,course_id]);
+    for (const student_id in student_ids) {
+      const incrementBoth = student_ids[student_id] === '1';
+      await db.query('SELECT update_class_attendance($1, $2, $3)', [student_id, course_id, incrementBoth]);
     }
-    res.status(200).json({success:true, message: 'Attendance updated for all students' });
-  }catch (error) {
-    res.status(500).json({success:false, message:  error.message });
+    res.status(200).json({ success: true, message: 'Attendance updated for all students' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
   }
-}
+};
+
 
 const getAttendance = async (req, res) => {
   try {
