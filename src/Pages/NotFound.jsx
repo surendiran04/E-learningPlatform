@@ -3,8 +3,7 @@ import { useAuthContext } from "../Contexts/AuthContext";
 import { FileX2 } from "lucide-react";
 
 export default function NotFound() {
-  // const { isLoggedIn } = useAuthContext();
-  const isLoggedIn = false;
+  const { isLoggedIn } = useAuthContext();
 
   return (
     <div className="bg-gray-100 flex items-center justify-center  h-screen">
@@ -20,10 +19,10 @@ export default function NotFound() {
           <p>
             Please Go Back to{" "}
             <Link
-              to={isLoggedIn ? "/dashboard" : "/"}
+              to={isLoggedIn ? "/" : "/"}
               className="text-blue-700 underline cursor-pointer font-bold "
             >
-              {isLoggedIn ? "dashboard" : "Home"}
+              Home
             </Link>
           </p>
       </div>

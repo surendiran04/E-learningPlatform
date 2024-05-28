@@ -1,9 +1,11 @@
-import React,{useState} from "react";
+import React, { useEffect } from "react";
 import { useCourseContext } from "../../Contexts/CourseContext";
+import MentorPic from "../../assets/mentor.svg";
+import thumb1 from "../../assets/thumb-1.png";
+import { Link } from "react-router-dom";
 
 function Mycourses() {
-  const { filterdata } = useCourseContext();
-  console.log(filterdata )
+  const {filterdata} = useCourseContext();
 
   return (
     <div className="flex flex-wrap gap-5 ml-5 mt-5">
@@ -31,7 +33,7 @@ function Mycourses() {
             <button
               className={`focus:outline-none text-white bg-green-700 hover:bg-green-800  focus:ring-purple-300  rounded-lg text-xl  px-5 py-2.5 mb-2 `}
             >
-              <Link to={`/coursedetails/${data.course_id}`}>Read more</Link>
+              <Link to={`/class/${data.course_id}`}>Watch</Link>
             </button>
           </div>
         )

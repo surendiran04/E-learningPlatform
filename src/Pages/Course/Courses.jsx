@@ -14,6 +14,7 @@ function Courses() {
   const { isLoggedIn } = useAuthContext();
 
   const { courseData, isLoading } = useCourseContext();
+
   const [cdata,SetCdata] = useState(courseData);
 
   const onSubmit = (data) => {

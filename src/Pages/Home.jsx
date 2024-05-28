@@ -1,13 +1,14 @@
 import React from 'react'
 import About from '../assets/about-img.svg'
 import Header from '../Components/Header'
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { IoLocation } from "react-icons/io5";
 import { SiTicktick } from "react-icons/si";
 import LearnPic from "../assets/GroupLearning.png"
 import TitleCard from "../assets/titlecard.png"
+
 function Home() {
   return (
     <div className="">

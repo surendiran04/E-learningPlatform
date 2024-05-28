@@ -1,29 +1,30 @@
-import React, { useState } from 'react'
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useState,useEffect } from 'react'
+import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AccordianVideo from "../../Components/AccordianVideo"
 import Attendance from '../../Components/Attendance';
+import { useAuthContext } from '../../Contexts/AuthContext';
+const { VITE_BACKEND_URL } = import.meta.env;
+
 
 function MentorDashboard() {
-    const navigate = useNavigate();
-    const onSubmit = (data) => {
-        console.log(data);
-        const content = {
-            1: data
-        }
-        console.log(content);
-    };
-    const sessionBtn = (e) => {
-        console.log(e.target.innerHTML);
-    };
+
+    const {user,isLoggedIn} = useAuthContext();
+    const [sessionBtnValue, setSessionBtnValue] = useState(null);
+    const [session, setSession] = useState([]);
+    const [data, setData] = useState({});
+
 
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(()=>{
+        getSessionData();  
+    },[isLoggedIn])
+
     let notify = () => toast.warn(errors.heading?.message
         || errors.content?.message
         || errors.link?.message
-
     );
 
     const {
@@ -34,12 +35,70 @@ function MentorDashboard() {
     } = useForm();
 
     const totalClass = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-    const attendance = 90;
+   
+    
+    const sessionBtn = (e) => {
+        setSessionBtnValue(e.target.innerHTML)
+        console.log(data[sessionBtnValue])
+    };
+    const onSubmit = (data) => {
+        const content = { [sessionBtnValue]: data}
+        handleInput({session_data:content,course_id:user.course_id});
+    };
+ 
+
+    const handleInput = async (data) => {
+        try {
+            console.log(data)
+          setIsLoading(true);
+          const response = await fetch(`${VITE_BACKEND_URL}/createSession`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          });
+          const result = await response.json();
+          if (result.success) {
+            toast.success(result.message);
+          } else {
+            toast.info(result.message);
+          }
+        } catch (error) {
+          toast.error(error.message);
+    
+        }
+        finally {
+          setIsLoading(false);
+        }
+      };
+
+      const getSessionData = async () => {
+        try {
+          const response = await fetch(`${VITE_BACKEND_URL}/getSession/${user.course_id}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          const result = await response.json();
+          if (result.success) {
+            setSession(result.sessionData)
+            setData(session[0]?.session_data)
+          } else {
+            toast.info(result.message);
+          }
+        } catch (error) {
+          toast.error(error.message);
+        }
+      };
+
+      
     
     return (
         <div>
             <div className='flex flex-col gap-3 w-full  bg-v1 p-10'>
-                <h1 className='text-4xl text-white mb-2'> Hi Mentor, </h1>
+                <h1 className='text-4xl text-white mb-2'> Hi Mentor,</h1>
                 {/* grid grid-cols-2 gap-2 grid-flow-row */}
                 <div className='flex justify-evenly m-10 flex-wrap  gap-20'>
                     <NavLink
@@ -108,22 +167,22 @@ function MentorDashboard() {
                 </div>
             </div>
             {/* Course content show */}
-            <div className='grid grid-cols-4 p-4 gap-8'>
-                <div className='col-span-3 p-10 border-gray-900 border-2'>
+            <div className='grid grid-cols-4 ml-3 gap-5'>
+                <div className='col-span-3 p-10 border-gray-900 border-2 mt-10'>
                     <div className=' mb-4 '>
                         <div className="text-3xl font-semibold ">
-                            Intro to HTML
+                        {(data && data[sessionBtnValue]) ? data[sessionBtnValue].heading : "Class schedule is not updated"}
                         </div>
-                        <p>1/1/2024</p>
                     </div>
-                    <div className='pl-4'>
+                    <div className='pl-4 mb-4'>
                         <ul className='list-decimal text-xl'>
-                            <li>Header</li>
-                            <li>Footer</li>
+                        {(data && data[sessionBtnValue] && data[sessionBtnValue].content)?<p>{data[sessionBtnValue]?.content}</p>:"No contents available"}
                         </ul>
                     </div>
+                    <h3 className='text-2xl font-semibold  mb-4'>Content Link:</h3>
+                    {(data && data[sessionBtnValue] && data[sessionBtnValue].link)?<a href={data[sessionBtnValue]?.link} target="_blank"className='underline text-xl text-blue-700'>Link to Class</a>:<p>Link not available</p>}
                 </div>
-                <div className='  h-80 py-7 '>
+                <div className='col-span-1 h-60'>
                     <h2 className='text-3xl font-semibold  mb-4'>Session Roadmap</h2>
                     <div className='grid grid-cols-3  h-full place-content-evenly pl-8 border-black border-2'>
                         {
@@ -133,23 +192,15 @@ function MentorDashboard() {
                         }
                     </div>
                 </div>
-                <div className=' col-span-3 w-full p-10 border-black border-2'>
-                    <h2 className='text-3xl font-semibold  mb-4'>Content Link:</h2>
-                    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" className='underline text-xl text-blue-700'>Intro to HTML</a>
-                </div>
-                {/* Attendance */}
-                <div className='h-fit '>
-                    <Attendance />
-                </div>
-                <div className='col-span-3 w-full p-10 border-black border-2'>
+                {/* <div className='col-span-3 w-full p-10 border-black border-2'>
                     <h2 className='text-3xl font-semibold  mb-4'>Tutorial Link:</h2>
                     <AccordianVideo />
-                </div>
+                </div> */}
                 {/* Course content add*/}
-                <div className=' col-span-3 border-black border-2'>
+                <div className='col-span-3 border-black border-2'>
                     <form
                         onSubmit={handleSubmit(onSubmit)}
-                        className='flex flex-col m-10 w-3/4 '
+                        className='flex flex-col m-10 w-5/6 '
                     >
                         <input
                             className=" text-xl text-black outline-none   border-solid border-black  border-2  bg-white mb-5 py-2 px-5   "
@@ -182,6 +233,9 @@ function MentorDashboard() {
                             Add Content
                         </button>
                     </form>
+                </div>
+                <div className=''>
+                    <Attendance course_id={user.course_id}/>
                 </div>
             </div>
             <ToastContainer

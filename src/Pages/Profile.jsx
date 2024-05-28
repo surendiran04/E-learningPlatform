@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAuthContext } from "../Contexts/AuthContext";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 function Profile() {
@@ -11,7 +11,6 @@ function Profile() {
   const mname = user?.mentor_name;
   const email = user?.email;
   const phone = user?.phone;
- console.log(name)
  
   return (
     <>

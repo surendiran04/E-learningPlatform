@@ -32,8 +32,12 @@ function CreateCourse() {
         const assessmentString=data.assessments;
         data.assessments=JSON.parse(`[${assessmentString}]`);
         handleInput(data);
+<<<<<<< HEAD
         console.log(data);
         // reset();
+=======
+        reset();
+>>>>>>> c6c0587555ab8a009c23edb9861f19dcd28222af
     };
     const handleInput = async (data) => {
         try {
