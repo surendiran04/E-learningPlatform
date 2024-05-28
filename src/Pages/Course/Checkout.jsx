@@ -12,22 +12,18 @@ function Checkout() {
   const [isLoading, setIsLoading] = useState(false);
 
 //  const {} useAuthContext();
+  const { user } = useAuthContext();
+
+
+
   let notify = () => {};
 
   const { id } = useParams();
 
   const { courseContent , isContentLoading}=useCourseContext();
 
-  console.log(courseContent)
 
-  // const courseContent = [
-  //   {
-  //     course_id: 10,
-  //     course_name: "Data structures & algorithm",
-  //     duration: "4-months",
-  //     fees: "7500",
-  //   },
-  // ];
+
 
   let content = courseContent?.filter((ele) => {
     return ele.course_id == id;
@@ -37,11 +33,10 @@ function Checkout() {
 
 
   const onSubmit = (data) => {
-    console.log(content.course_id);
+    console.log(content.course_id,user.student_id);
     makePayment();
   };
-  const user = {};
-   user.student_id = 3;
+
   const makePayment = async () => {
     try {
         setIsLoading(true);
@@ -50,7 +45,7 @@ function Checkout() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({course_id:content.course_id,student_id:user.student_id}),
+        body: JSON.stringify({course_id:content.course_id,student_id:user.student_id,amount:content.fees,email:content.email}),
       });
       const result = await response.json();
       if (result.success) {

@@ -2,21 +2,13 @@ import React,{useState} from "react";
 import { useCourseContext } from "../../Contexts/CourseContext";
 
 function Mycourses() {
-  const { courseData, isLoading, mycourse, mycoursesLoading } = useCourseContext();
-
-  const [data,SetData] =useState([]);
- 
-    const filterdata = courseData.filter((d) => d.course_id.includes(mycourse))
-    SetData(filterdata)
-
-
+  const { filterdata } = useCourseContext();
+  console.log(filterdata )
 
   return (
     <div className="flex flex-wrap gap-5 ml-5 mt-5">
-      { (mycoursesLoading || isLoading )? (
-        <div>Your courses are loading...</div>
-      ) : (
-        data?.map((data, i) => (
+      {
+        filterdata?.map((data, i) => (
           <div
             key={i}
             className="box p-2 rounded-lg grid  w-96 border-solid border-black border-2"
@@ -42,7 +34,7 @@ function Mycourses() {
               <Link to={`/coursedetails/${data.course_id}`}>Read more</Link>
             </button>
           </div>
-        ))
+        )
       )}
     </div>
   );

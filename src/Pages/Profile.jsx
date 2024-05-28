@@ -5,14 +5,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 function Profile() {
 
-  const { user } = useAuthContext();
-  const name = user?.student_name?.mentor_name;
+  const { user,decodedToken } = useAuthContext();
+  const userRole = decodedToken?.role[0] ;
+  const name = user?.student_name;
+  const mname = user?.mentor_name;
   const email = user?.email;
-  const pass = user?.pass;
   const phone = user?.phone;
-  //    <>Name:{name}</>
-  //<>email:{email}</>
-  //<>Phone:{phone}</>
+ console.log(name)
+ 
   return (
     <>
       <div className=' flex items-center justify-center  mt-10'>
@@ -21,9 +21,9 @@ function Profile() {
             Profile
           </div>
           <div className='bg-darkb p-16 pl-24 flex flex-col gap-3'>
-            <p> <span className='text-3xl text-white '>Name: </span><span className='text-3xl text-gold1 '>Harisangar</span> </p>
-            <p> <span className='text-3xl text-white '>Email: </span><span className='text-3xl text-gold1 '>apharisangar@gmail.com</span> </p>
-            <p> <span className='text-3xl text-white '>Phone: </span><span className='text-2xl text-gold1 '>9952878399</span> </p>
+            <p> <span className='text-3xl text-white '>Name: </span><span className='text-3xl text-gold1 '>{userRole=="student"?name:mname}</span> </p>
+            <p> <span className='text-3xl text-white '>Email: </span><span className='text-3xl text-gold1 '>{email}</span> </p>
+            <p> <span className='text-3xl text-white '>Phone: </span><span className='text-2xl text-gold1 '>{phone}</span> </p>
             <NavLink
               to="/courses"
               className={`

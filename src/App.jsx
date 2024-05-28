@@ -4,15 +4,14 @@ import { useAuthContext } from "../src/Contexts/AuthContext";
 import { ROUTES, studentPrivateRoutes, studentPublicRoutes, mentorPublicRoutes, mentorPrivateRoutes } from "./Routes/Routes"
 import NotFound from "../src/Pages/NotFound";
 import Sidebar from "./Components/sidebar.jsx";
-import CreateCourse from "./Pages/Course/CreateCourse.jsx";
 import Class from "./Pages/Course/Class.jsx";
 
 function App() {
-  // const { isLoggedIn,decodedToken } = useAuthContext();
-  const isLoggedIn = false;
-  const { open, setOpen } = useAuthContext();
+  const { isLoggedIn,decodedToken,open, setOpen } = useAuthContext();
 
-  // const userRoles = decodedToken?.roles || [];  //for role based routes
+  const userRoles = decodedToken?.role[0] ;  //for role based routes
+
+
   function renderRoutes() {
     return ROUTES.map((route, index) => (
       <Route
@@ -72,10 +71,10 @@ function App() {
         <Routes>
           {renderRoutes()}
           {renderMentorPublicRoutes()}
-          {renderMentorPrivateRoutes()}
-          {renderStudentPublicRoutes()}
-          {renderStudentPrivateRoutes()}
-          {/* {isLoggedIn && renderRoutes()} */}
+          {/* {renderMentorPrivateRoutes()} */}
+          {/* {renderStudentPublicRoutes()} */}
+          {/* {renderStudentPrivateRoutes()} */}
+          {(isLoggedIn && userRoles==="student") ?(renderStudentPrivateRoutes()):(renderStudentPublicRoutes())}
           {/* {isLoggedIn && renderPrivateRoutes()} */}
           <Route Component={NotFound} path="*" />;
           <Route Component={Class} path="/class" />;

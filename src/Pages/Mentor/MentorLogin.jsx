@@ -54,9 +54,9 @@ export default function MentorLogin() {
       if (result.success) {
         toast.success(result.message);
         setLoggedIn(true);
-        SetUser(result.user);
+        sessionStorage.setItem('user', JSON.stringify(result.user));
         sessionStorage.setItem("_tk", result.token);
-        navigate("/Dashboard");
+        navigate("/mentor/dashboard");
       } else {
         toast.info(result.message);
       }

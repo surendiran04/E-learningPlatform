@@ -1,7 +1,6 @@
 import Login from '../Pages/Student/Login'
 import Signup from "../Pages/Student/Signup";
 import ForgotPassword from "../Pages/Student/ForgotPassword";
-import Dashboard from "../Pages/Student/Dashboard";
 import UpdatePassword from '../Pages/Student/UpdatePassword';
 import Home from "../Pages/Home"
 import CourseDetails from "../Pages/Course/CourseDetails";
@@ -72,9 +71,8 @@ export const studentPublicRoutes = [
   {
     title: "update Password",
     Component: UpdatePassword,
-    // path: "/resetPassword/:id/:token",
-    path: "/resetPassword",
-
+    path: "/resetPassword/:id/:token",
+    // path: "/resetPassword",
   },
 ];
 
@@ -85,11 +83,6 @@ export const mentorPublicRoutes = [
     path: "/Login",
   },
   {
-    title: "Mentor SignUp",
-    Component:MentorSignUp,
-    path: "/Signup",
-  },
-  {
     title: "Mentor Reset Password",
     Component:MentorForgotPassword,
     path: "/ForgotPassword",
@@ -97,8 +90,8 @@ export const mentorPublicRoutes = [
   {
     title: "Mentor update password",
     Component:MentorUpdatePassword,
-    path: "/resetPassword",
-  },
+    path: "/resetPassword/:id/:token",
+  }
 ];
 
 export const mentorPrivateRoutes = [
@@ -106,6 +99,11 @@ export const mentorPrivateRoutes = [
     title: "Dashboard",
     Component: MentorDashboard,
     path: "/dashboard",
+  },
+  {
+    title: "Mentor SignUp",
+    Component:MentorSignUp,
+    path: "/signup",
   },
   {
     title: "View Students",

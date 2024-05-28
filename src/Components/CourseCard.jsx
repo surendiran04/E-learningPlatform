@@ -6,6 +6,7 @@ import { useCourseContext } from "../Contexts/CourseContext";
 
 function CourseCard() {
   const { courseData, isLoading } = useCourseContext();
+<<<<<<< HEAD
 //   const isLoading=false;
 
 //   const courseData = [
@@ -85,6 +86,8 @@ function CourseCard() {
 //     }
 // ]
 
+=======
+>>>>>>> 1743b8bb382197f55cc93445e6069ed1e6f385f9
 
   return (
     <div className="flex flex-wrap gap-5 ml-5 mt-5">

@@ -5,18 +5,18 @@ import { FaChalkboardTeacher } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { MdRoundaboutLeft } from "react-icons/md";
 import { useAuthContext } from "../Contexts/AuthContext";
-import { LogOut } from "lucide-react";
-import { Link,useNavigate  } from "react-router-dom";
+import { LogIn ,LogOut} from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../App.css";
 
 const Sidebar = () => {
-  const { isLoggedIn, open, user, setOpen, decodedToken ,setLoggedIn} = useAuthContext();
+  const { isLoggedIn, open, user, setOpen, decodedToken, setLoggedIn } = useAuthContext();
   const navigate = useNavigate();
-  const userRole = decodedToken?.roles || "student";
-  const name = user?.student_name?.mentor_name || "username";
-  
+  const userRole = decodedToken?.role[0] ;
+  const name = user?.student_name || user?.mentor_name;
+
   const Logout = () => {
     sessionStorage.removeItem("_tk");
     sessionStorage.removeItem("user");
@@ -24,21 +24,55 @@ const Sidebar = () => {
     navigate("/");
   };
 
-  let notify = () =>  toast.info("Login to view profile");
+  const Login = () => {
+    navigate("/student/login");
+  };
+
+  const loginComponent = () => {
+    return (
+      <>
+        <LogIn color="black" size={32} />
+        {open && (
+          <h3 className="text-black sedan-sc-regular text-xl">
+            <button onClick={Login}>Login</button>
+          </h3>
+        )}
+      </>
+    );
+  };
+
+  const logoutComponent = () => {
+    return (
+      <>
+        <LogOut color="black" size={32} />
+        {open && (
+          <h3 className="text-black sedan-sc-regular text-xl">
+            <button onClick={Logout}>Logout</button>
+          </h3>
+        )}
+      </>
+    );
+  };
+  
+    let notify = () => toast.info("Login to view profile");
+
 
   const profile = () => {
     if (isLoggedIn) {
       navigate("/profile");
     }
+    else{
+      notify;
+    }
+    
   };
 
   function composeFunctions(...funcs) {
     return () => {
-        funcs.forEach(func => func());
+      funcs.forEach((func) => func());
     };
-}
-const combinedFunction = composeFunctions(profile, notify);
-
+  }
+  const combinedFunction = composeFunctions(profile, notify);
 
   return (
     <div className="flex h-screen ">
@@ -47,7 +81,11 @@ const combinedFunction = composeFunctions(profile, notify);
         onMouseOver={() => setOpen(true)}
         onMouseOut={() => setOpen(false)}
       >
-        <div className={`flex flex-col my-auto items-center ${open?"":"mt-28"}`}>
+        <div
+          className={`flex flex-col my-auto items-center ${
+            open ? "" : "mt-28"
+          }`}
+        >
           <img src={ProfilePic} alt="Profile Logo" />
           {open && (
             <>
@@ -62,52 +100,51 @@ const combinedFunction = composeFunctions(profile, notify);
             </>
           )}
         </div>
-        <div className={`flex flex-col  ${open?"gap-6":"justify-center items-center mt-2"} `}>
-        <div className="flex gap-3 mb-4 mt-6">
-          <FaHome color="black" size={32} />
-          {open && (
-            <h3 className="text-black  sedan-sc-regular text-xl">
-              <Link to="/">Home</Link>
-            </h3>
-          )}
-        </div>
-        <div className="flex gap-3 mb-4">
-          <BookOpenCheck color="black" size={32} />
-          {open && (
-            <h3 className="text-black sedan-sc-regular text-xl">
-              {" "}
-              <Link to="/courses">courses</Link>
-            </h3>
-          )}
-        </div>
-        <div className="flex gap-3 mb-4">
-          <FaChalkboardTeacher color="black" size={32} />
-          {open && (
-            <h3 className="text-black sedan-sc-regular text-xl">
-              {" "}
-              <Link to="/mentor/Login">Mentors</Link>
-            </h3>
-          )}
-        </div>
+        <div
+          className={`flex flex-col  ${
+            open ? "gap-6" : "justify-center items-center mt-2"
+          } `}
+        >
+          <div className="flex gap-3 mb-4 mt-6">
+            <FaHome color="black" size={32} />
+            {open && (
+              <h3 className="text-black  sedan-sc-regular text-xl">
+                <Link to="/">Home</Link>
+              </h3>
+            )}
+          </div>
+          <div className="flex gap-3 mb-4">
+            <BookOpenCheck color="black" size={32} />
+            {open && (
+              <h3 className="text-black sedan-sc-regular text-xl">
+                {" "}
+                <Link to="/courses">courses</Link>
+              </h3>
+            )}
+          </div>
+          <div className="flex gap-3 mb-4">
+            <FaChalkboardTeacher color="black" size={32} />
+            {open && (
+              <h3 className="text-black sedan-sc-regular text-xl">
+                {" "}
+                <Link to="/mentor/Login">Mentors</Link>
+              </h3>
+            )}
+          </div>
 
-        <div className="flex gap-3 mb-4 ">
-          <MdRoundaboutLeft color="black" size={32} />
-          {open && (
-            <h3 className="text-black sedan-sc-regular text-xl ">My</h3>
-          )}
-        </div>
+          <div className="flex gap-3 mb-4 ">
+            <MdRoundaboutLeft color="black" size={32} />
+            {open && (
+              <h3 className="text-black sedan-sc-regular text-xl ">My</h3>
+            )}
+          </div>
 
-        <div className="flex gap-3 mb-4 ">
-          <LogOut color="black" size={32} />
-          {open && (
-            <h3 className="text-black sedan-sc-regular text-xl">
-              <button onClick={Logout}>Logout</button>
-            </h3>
-          )}
+          <div className="flex gap-3 mb-4 ">
+            {isLoggedIn?logoutComponent():loginComponent()}
+          </div>
         </div>
-        </div>
-     </div>
-     <ToastContainer
+      </div>
+      <ToastContainer
         position="top-right"
         autoClose={2000}
         hideProgressBar={false}
