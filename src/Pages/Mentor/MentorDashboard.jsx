@@ -44,6 +44,7 @@ function MentorDashboard() {
     const onSubmit = (data) => {
         const content = { [sessionBtnValue]: data}
         handleInput({session_data:content,course_id:user.course_id});
+        reset();
     };
  
 
