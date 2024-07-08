@@ -24,7 +24,7 @@ function Profile() {
             <p> <span className='text-3xl text-white '>Email: </span><span className='text-3xl text-gold1 '>{email}</span> </p>
             <p> <span className='text-3xl text-white '>Phone: </span><span className='text-2xl text-gold1 '>{phone}</span> </p>
             <NavLink
-              to="/courses"
+              to="/student/mycourses"
               className={`
                     w-1/4
                     text-center

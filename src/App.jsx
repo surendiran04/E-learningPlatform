@@ -14,7 +14,7 @@ function App() {
   function renderRoutes() {
     return ROUTES.map((route, index) => (
       <Route
-        key={`${route.title}-${index}`}
+        key={`${route.title}-${index}`} 
         Component={route.Component}
         path={route.path}
       />

@@ -25,44 +25,39 @@ function CreateCourse() {
     } = useForm();
 
     const onSubmit = (data) => {
-        const projectString =data.project;
-        data.project=JSON.parse(`[${projectString}]`);
-        const syllabusString=data.syllabus;
-        data.syllabus=JSON.parse(`[${syllabusString}]`);
-        const assessmentString=data.assessments;
-        data.assessments=JSON.parse(`[${assessmentString}]`);
+        const projectString = data.project;
+        data.project = JSON.parse(`[${projectString}]`);
+        const syllabusString = data.syllabus;
+        data.syllabus = JSON.parse(`[${syllabusString}]`);
+        const assessmentString = data.assessments;
+        data.assessments = JSON.parse(`[${assessmentString}]`);
         handleInput(data);
-<<<<<<< HEAD
-        console.log(data);
-        // reset();
-=======
         reset();
->>>>>>> c6c0587555ab8a009c23edb9861f19dcd28222af
     };
     const handleInput = async (data) => {
         try {
-          setIsLoading(true);
-          const response = await fetch(`${VITE_BACKEND_URL}/createCourse`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          });
-          const result = await response.json();
-          if (result.success) {
-            toast.success(result.message);
-          } else {
-            toast.info(result.message);
-          }
+            setIsLoading(true);
+            const response = await fetch(`${VITE_BACKEND_URL}/createCourse`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+            const result = await response.json();
+            if (result.success) {
+                toast.success(result.message);
+            } else {
+                toast.info(result.message);
+            }
         } catch (error) {
-          toast.error(error.message);
-    
+            toast.error(error.message);
+
         }
         finally {
-          setIsLoading(false);
+            setIsLoading(false);
         }
-      };
+    };
 
     return (
         <div className="container flex items-center justify-center gap-10  bg-gray-200 ">
