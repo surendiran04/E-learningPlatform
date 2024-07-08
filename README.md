@@ -13,7 +13,7 @@
 - Fetch,Try & catch blocks for fetching data from Backend Api's synchronously<br/>
 <br/>
 <h2>The Backend Specification</h2>
-- MongoDb for database<br/>
+- PostgreSQL for database<br/>
 - Nodemailer for sending Emails<br/>
 - jsonwebToken for authorising & authentications<br/>
 - bcrypt,a hashing technique for hashing password for security<br/>
