@@ -10,7 +10,7 @@ GenZ-Learning is an E-learning platform designed specifically for class students
 - **Enroll in Courses:** Students can browse and enroll in available courses.
 - **Attend Classes:** Join sessions via provided links for each class.
 - **View Course Content:** Access materials and resources for their enrolled courses.
-- **Track** Attendance:** View their attendance record for each course.
+- **Track Attendance:** View their attendance record for each course.
   ![Dashboard Page](./images/S-login.png)
   ![Dashboard Page](./images/S-signup.png)
   ![Dashboard Page](./images/courses.png)
@@ -21,7 +21,7 @@ GenZ-Learning is an E-learning platform designed specifically for class students
 - **Create and Manage Courses:** Add new courses and update existing ones.
 - **Manage Sessions:** Schedule and provide links for each class.
 - **Track Attendance:** Monitor and record student attendance.
-- **Manage Course Content:**8 Upload and organize course materials.
+- **Manage Course Content:** Upload and organize course materials.
  ![Dashboard Page](./images/C-create.png)
  ![Dashboard Page](./images/M-login.png)
  ![Dashboard Page](./images/M-signup.png)
@@ -39,11 +39,11 @@ GenZ-Learning is an E-learning platform designed specifically for class students
 
 ## Database Design
 - **Normalization:** Ensured data integrity and reduced redundancy by normalizing tables.
-- **Integrity Constraints:** Implemented constraints to maintain data accuracy and reliability.
-Cursors, Triggers, Procedures: Utilized these for:
-  1.Counting the number of students per course
-  2.Calculating attendance
-  3.Summing up the total fees paid by students across courses
+- **Integrity Constraints:** Implemented constraints to maintain data accuracy and reliability.<br/>
+Cursors, Triggers, Procedures: Utilized these for: <br/>
+  1.Counting the number of students per course <br/>
+  2.Calculating attendance <br/>
+  3.Summing up the total fees paid by students across courses <br/>
 
 This project was developed by me and my friend. Together, we designed the system architecture, implemented the database design, and developed the frontend and backend.
 
