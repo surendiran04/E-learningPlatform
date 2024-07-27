@@ -44,6 +44,7 @@ Cursors, Triggers, Procedures: Utilized these for: <br/>
   1.Counting the number of students per course <br/>
   2.Calculating attendance <br/>
   3.Summing up the total fees paid by students across courses <br/>
+   ![Dashboard Page](./images/Schema.png)
 
 This project was developed by me and my friend. Together, we designed the system architecture, implemented the database design, and developed the frontend and backend.
 
